@@ -51,7 +51,7 @@ const LogGeneral = (props: Props) => {
 
   return (
     <>
-      <HeadingLogo />
+      <HeadingLogo backgroundBlack = {true}/>
       <NavBar userName={props.userName} />
       <Container>
         <Row>

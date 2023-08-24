@@ -5,6 +5,8 @@ export enum TypeLog {
     Continue = "Continue",
   }
 
+export const imageTime = 5000;
+
   // URL to get Posts 
 export const PostURL: string = "https://jsonplaceholder.typicode.com/posts";
 
@@ -13,6 +15,7 @@ export const CompanyName: string = "Bugzilla";
 export const PrimaryColor: string = "#537FE7";
 export const SecondaryColor: string = "#181823";
 export const ThirdColor: string = "#E9F8F9";
+// export const ThirdColor: string = "#E9F8F9";
 
 // export const PrimaryColor: string = "#181823";
 // export const SecondaryColor: string = "#537FE7";

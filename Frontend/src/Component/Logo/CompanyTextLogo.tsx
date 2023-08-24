@@ -9,7 +9,7 @@ interface props{
 const CompanyTextLogo = ({logo_size , custom_color = null} : props) => {
     return(
         <>
-    <span className= {custom_color? custom_color:'primary-color-text'} style={{ fontSize: `${logo_size}rem`, color: `${PrimaryColor}`}}>{CompanyName} </span> <LogoScalable logo_size={logo_size*1.1}/>
+    <span  style={{ fontSize: `${logo_size}rem`, color: `${custom_color? custom_color:PrimaryColor}`}}>{CompanyName} </span> <LogoScalable custom_color = {custom_color?custom_color:null} logo_size={logo_size*1.1}/>
         </>
       );
   };

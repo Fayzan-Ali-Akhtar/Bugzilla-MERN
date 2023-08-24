@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
-import { Svg } from "../../../Constants/Constants";
+import { imageTime,Svg } from "../../../Constants/Constants";
 
 interface SvgObject {
   src: string;
@@ -18,7 +18,7 @@ const LogHero: React.FC<Props> = (props) => {
     const intervalId = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * Svg.length);
       setSvg(Svg[randomIndex]);
-    }, 5000);
+    }, imageTime);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -28,17 +28,19 @@ const LogHero: React.FC<Props> = (props) => {
       {/* For LOG Pages  */}
       {props.type === "feed" ? (
         <h2 className="text-center">
-          <ConnectTextLogo logo_size={1.8} />
-          with new people!
+          Resolve Bugs with <ConnectTextLogo logo_size={1.8} />
         </h2>
       ) : (
         // For FEED Page!
         <h2 className="text-center">
-          Join now to <ConnectTextLogo logo_size={1.8} />
-          with your friends!
+          Join <ConnectTextLogo logo_size={1.8} />
+          to streamline your workflow!
         </h2>
       )}
+      <div className="d-flex justify-content-center align-items-center">
       <img src={svg.src} alt="People" />
+    </div>
+      
     </div>
   );
 };
