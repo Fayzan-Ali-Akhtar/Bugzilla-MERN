@@ -137,6 +137,7 @@ const SignUpForm: React.FC = () => {
                   className={`bg-dark text-white form-control ${
                     touched.password && errors.password ? "is-invalid" : ""
                   }`}
+                  
                 />
                 <ErrorMessage name="password" component="div" className="ms-1 text-red"/>
               </Form.Group>

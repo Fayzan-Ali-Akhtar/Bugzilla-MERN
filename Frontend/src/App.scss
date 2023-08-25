@@ -1,6 +1,7 @@
 :root {
     --primary-color: #537FE7;
     --secondary-color: #181823;
+    --third-color: #E9F8F9;
     --fourth-color: #C0EEF2;
     // Define more CSS variables for other colors
   }
@@ -69,6 +70,9 @@
 }
 .white-border{
     border: solid white 0.05em;
+}
+.third-border{
+    border: solid var(--fourth-color) 0.05em;
 }
 
 .text-red{
