@@ -1,13 +1,20 @@
 import React from 'react';
 import ConnectTextLogo from '../Logo/CompanyTextLogo'
-import {ThirdColor} from '../../Constants/Constants'
-const Footer: React.FC = () => {
+import {SecondaryColor,ThirdColor} from '../../Constants/Constants'
+
+interface props{
+  DarkMode?:boolean|null;
+}
+
+const Footer: React.FC<props> = ({ DarkMode: backgroundBlack }) => {
   return (
-    <footer className=" text-center py-4" style={{backgroundColor : `${ThirdColor}`}}>
+    // <div ></div>
+    <footer className=" text-center py-4" style={{backgroundColor : `${backgroundBlack?SecondaryColor:ThirdColor}`}}>
       <div className="container">
         <div className="row">
-          <div className="col-md-12">
-            <p>&copy; {new Date().getFullYear()} <ConnectTextLogo logo_size={1}/>. All rights reserved.</p>
+          <div className="col-md-12" style = {{color : `${backgroundBlack?"white":"black"}`}}>
+          {/* <CompanyTextLogo custom_color={backgroundBlack?"white":null} logo_size={3.5}/> */}
+            <p>&copy; {new Date().getFullYear()} <ConnectTextLogo custom_color={backgroundBlack?"white":null} logo_size={1}/>. All rights reserved.</p>
           </div>
         </div>
       </div>

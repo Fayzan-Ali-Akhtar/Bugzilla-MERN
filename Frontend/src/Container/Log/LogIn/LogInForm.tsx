@@ -61,7 +61,7 @@ const LogInForm: React.FC = () => {
 
   return (
     <>
-      <h2>
+      <h2 className="center-text white-text">
         Log In to your <ConnectTextLogo logo_size={1.7} /> account
       </h2>
 
@@ -77,44 +77,43 @@ const LogInForm: React.FC = () => {
           <Form noValidate onSubmit={handleSubmit}>
             <Row className="mb-3">
               <Form.Group as={Col} md="12" controlId="validationFormikEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label className="white-text">Email</Form.Label>
                 <InputGroup hasValidation>
-                  <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                   <Field
                     type="text"
                     placeholder="Email"
                     aria-describedby="inputGroupPrepend"
                     name="email"
-                    className={`form-control ${
+                    className={`bg-dark text-white form-control ${
                       touched.email && errors.email ? "is-invalid" : ""
                     }`}
                   />
-                  <ErrorMessage name="email" component="div" />
+                  <ErrorMessage name="email" component="div" className="ms-1 text-red"/>
                 </InputGroup>
               </Form.Group>
             </Row>
             {/* Add the password form group */}
             <Row className="mb-3">
               <Form.Group as={Col} md="12" controlId="validationFormikPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label className="white-text">Password</Form.Label>
                 <Field
                   type="password"
                   placeholder="Password"
                   name="password"
-                  className={`form-control ${
+                  className={`bg-dark text-white form-control ${
                     touched.password && errors.password ? "is-invalid" : ""
                   }`}
                 />
-                <ErrorMessage name="password" component="div" />
+                <ErrorMessage name="password" component="div" className="ms-1 text-red"/>
               </Form.Group>
             </Row>
             {/* End of the password form group */}
-            <div className="d-flex justify-content-evenly">
+            <div className="d-flex justify-content-evenly mb-2">
               <Button variant="primary" type="submit">
                 {/* <ConnectTextLogo logo_size={1.5} custom_color="white" /> */}
                 Log In
               </Button>
-              <Button variant="outline-dark" type="submit" onClick={goToSignUp}>
+              <Button variant="outline-light" type="submit" onClick={goToSignUp}>
                 Don't have an account?
               </Button>
             </div>

@@ -1,3 +1,10 @@
+:root {
+    --primary-color: #537FE7;
+    --secondary-color: #181823;
+    --fourth-color: #C0EEF2;
+    // Define more CSS variables for other colors
+  }
+
 .primary-color-text
 {
     color:#1976d2;
@@ -39,4 +46,31 @@
 
 .center-text{
     text-align: center;
+}
+
+.white-text{
+    color: white;
+}
+
+.primary-color-border{
+    // border: solid red 1.5em;
+    border: solid var(--primary-color) 0.1em;
+}
+.fourth-color-border{
+    border: solid var(--fourth-color) 0.1em;
+}
+
+.secondary-background{
+    background-color: var(--secondary-color);
+}
+
+.red-border{
+    border: solid red 0.1em;
+}
+.white-border{
+    border: solid white 0.05em;
+}
+
+.text-red{
+    color: red;
 }

@@ -3,7 +3,7 @@ import AlertInfo from "./AlertInfo";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import { Container, Col, Row, Button } from "react-bootstrap";
-import {TypeLog,AccountType} from '../../Constants/Constants'
+import { TypeLog, AccountType } from "../../Constants/Constants";
 
 interface Props {
   LogType: TypeLog;
@@ -33,11 +33,7 @@ const AccountInfo = (props: Props) => {
         <Row className="mt-2 mb-2">
           <Col lg={6} xs={6}>
             {/* On large screens, take half width (6 out of 12 columns), on small screens, take full width */}
-            <Button
-              variant="outline-primary"
-              className=""
-              onClick={showGoogleError}
-            >
+            <Button variant="light" className="border border-light" onClick={showGoogleError}>
               {props.LogType} with {AccountType.Google} <FcGoogle />
             </Button>
           </Col>
@@ -53,7 +49,7 @@ const AccountInfo = (props: Props) => {
         <Row className="mt-2 mb-2">
           {/* On large screens, take half width (6 out of 12 columns), on small screens, take full width */}
           <Col lg={6} xs={6}>
-            <Button className="btn-dark" onClick={showGitHubError}>
+            <Button variant="dark" className="border border-light" onClick={showGitHubError}>
               {props.LogType} with {AccountType.Github} <AiFillGithub />
             </Button>
           </Col>

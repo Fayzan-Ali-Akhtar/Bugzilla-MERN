@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
+import { PrimaryColor,FourthColor } from "../../Constants/Constants";
 
 interface Props {
   userName: string;
@@ -18,10 +19,11 @@ function CollapsibleExample({ userName }: Props) {
       collapseOnSelect
       expand="lg"
       className="bg-body-tertiary"
+      data-bs-theme="dark"
     >
       <Container>
         <Navbar.Brand href="/feed">
-        <Button variant="dark" type="submit">
+        <Button style={{background:`${PrimaryColor}`}} type="submit">
           {userName}
           </Button>
           </Navbar.Brand>
@@ -30,7 +32,7 @@ function CollapsibleExample({ userName }: Props) {
           <Nav className="me-auto"></Nav>
           <Nav>
             <Nav.Link eventKey={2} href="/" onClick={logOut}>
-              <Button variant="outline-dark" type="submit">
+              <Button style={{background:`${FourthColor}` ,color:"black"}} type="submit">
                 Log Out
               </Button>
             </Nav.Link>

@@ -5,10 +5,15 @@ import { TypeLog } from "../../../Constants/Constants";
 import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
 import HomeCard from "./HomeCard";
 
-const HomeForm: React.FC = () => {
+interface Props {
+  DarkMode?: boolean;
+}
+
+const HomeForm: React.FC <Props>= ({DarkMode = true}) => {
   return (
     <>
-      <h2>
+    <div className={`${DarkMode?"bg-dark":""}`}>
+      <h2 className="white-text center-text">
         Join <ConnectTextLogo logo_size={1.7} /> Today!
       </h2>
       {/* Passing an Enum Props */}
@@ -23,6 +28,7 @@ const HomeForm: React.FC = () => {
           <HomeCard LogType={TypeLog.Sign} />
         </Col>
       </Row>
+      </div>
     </>
   );
 };

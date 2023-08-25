@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 const SignUpForm: React.FC = () => {
 
   const schema = yup.object().shape({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
+    firstName: yup.string().required("First name is required"),
+    lastName: yup.string().required("Last name is required"),
     email: yup.string().email("Invalid email").required("Email is required"),
     password: yup
       .string()
@@ -85,7 +85,7 @@ const SignUpForm: React.FC = () => {
 
   return (
     <>
-      <h2>
+      <h2 className="white-text center-text">
         Create your <ConnectTextLogo logo_size={1.7} /> Account
       </h2>
       {/* Passing an Enum Props  */}
@@ -99,47 +99,46 @@ const SignUpForm: React.FC = () => {
           <Form noValidate onSubmit={handleSubmit}>
             <Row className="mb-3">
               <Form.Group as={Col} md="6" controlId="validationFormik01">
-                <Form.Label>First name</Form.Label>
-                <Field type="text" name="firstName" className="form-control" />
-                <ErrorMessage name="firstName" component="div" />
+                <Form.Label className="white-text">First name</Form.Label>
+                <Field type="text" name="firstName" className="bg-dark text-white form-control" />
+                <ErrorMessage name="firstName" component="div" className="ms-1 text-red"/>
               </Form.Group>
               <Form.Group as={Col} md="6" controlId="validationFormik02">
-                <Form.Label>Last name</Form.Label>
-                <Field type="text" name="lastName" className="form-control" />
-                <ErrorMessage name="lastName" component="div" />
+                <Form.Label className="white-text">Last name</Form.Label>
+                <Field type="text" name="lastName" className="bg-dark text-white form-control" />
+                <ErrorMessage name="lastName" component="div" className="ms-1 text-red"/>
               </Form.Group>
             </Row>
             <Row className="mb-3">
               <Form.Group as={Col} md="12" controlId="validationFormikEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label className="white-text">Email</Form.Label>
                 <InputGroup hasValidation>
-                  <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                   <Field
                     type="text"
                     placeholder="Email"
                     aria-describedby="inputGroupPrepend"
                     name="email"
-                    className={`form-control ${
+                    className={`bg-dark text-white form-control ${
                       touched.email && errors.email ? "is-invalid" : ""
                     }`}
                   />
-                  <ErrorMessage name="email" component="div" />
+                  <ErrorMessage name="email" component="div" className="ms-1 text-red" />
                 </InputGroup>
               </Form.Group>
             </Row>
             {/* Add the password form group */}
             <Row className="mb-3">
               <Form.Group as={Col} md="12" controlId="validationFormikPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label className="white-text">Password</Form.Label>
                 <Field
                   type="password"
                   placeholder="Password"
                   name="password"
-                  className={`form-control ${
+                  className={`bg-dark text-white form-control ${
                     touched.password && errors.password ? "is-invalid" : ""
                   }`}
                 />
-                <ErrorMessage name="password" component="div" />
+                <ErrorMessage name="password" component="div" className="ms-1 text-red"/>
               </Form.Group>
             </Row>
             {/* End of the password form group */}
@@ -153,15 +152,16 @@ const SignUpForm: React.FC = () => {
                 feedback={errors.terms}
                 feedbackType="invalid"
                 id="validationFormik0"
+                className="white-text"
               />
             </Form.Group>
             {/* Buttons  */}
-            <div className="d-flex justify-content-evenly">
+            <div className="d-flex justify-content-evenly mb-2">
               <Button variant="primary" type="submit">
                 {/* <ConnectTextLogo logo_size={1.5} custom_color="white" /> */}
                 Sign Up
               </Button>
-              <Button variant="outline-dark" type="submit" onClick={goToLogIn}>
+              <Button variant="outline-light" type="submit" onClick={goToLogIn}>
                 Already have an account?
               </Button>
             </div>

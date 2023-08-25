@@ -3,10 +3,10 @@ import CompanyTextLogo from './CompanyTextLogo';
 import {SecondaryColor,ThirdColor} from '../../Constants/Constants'
 
 interface props{
-  backgroundBlack?:boolean;
+  DarkMode?:boolean;
 }
 
-const HeadingLogo = ({backgroundBlack}:props) => {
+const HeadingLogo = ({DarkMode: backgroundBlack}:props) => {
     return(
         <div style={{backgroundColor : `${backgroundBlack?SecondaryColor:ThirdColor}`}}>
           <div className="container d-flex justify-content-center align-items-center fs-1"> <CompanyTextLogo custom_color={backgroundBlack?"white":null} logo_size={3.5}/></div>

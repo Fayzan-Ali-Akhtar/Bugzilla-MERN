@@ -6,17 +6,19 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import NavBar from '../../NavBar/NavBar';
+import { PrimaryColor } from '../../../Constants/Constants';
 
 interface Props {
   userName: string;
   childComponet: ReactNode;
+  DarkMode ?: boolean;
 }
 interface MyStyleState {
   right: string;
   display?: string; // Add display property to the interface
 }
 
-const LogGeneral = (props: Props) => {
+const LogGeneral = ({userName,childComponet,DarkMode=true}: Props) => {
   const [myStyle, setMyStyle] = useState<MyStyleState>({
     right: '1.5em',
     display: window.innerWidth >= 992 ? 'block' : 'none', // Initial display based on window size
@@ -51,12 +53,14 @@ const LogGeneral = (props: Props) => {
 
   return (
     <>
-      <HeadingLogo backgroundBlack = {true}/>
-      <NavBar userName={props.userName} />
+    <div className={`${DarkMode?"bg-dark":""}`}>
+
+      <HeadingLogo DarkMode = {true}/>
+      <NavBar userName={userName} />
       <Container>
-        <Row>
-          <Col lg={10} xs={12} className='mt-3 form-shadow p-3 mb-5 bg-body rounded center'>
-            {props.childComponet}
+        <Row >
+          <Col lg={10} xs={12} style={{border:`solid ${PrimaryColor} 0.3em`}} className='mt-3  p-3 mb-5 bg-body rounded center'>
+            {childComponet}
           </Col>
           <Col lg={2} xs={0} className='mt-3 position-fixed' style={myStyle}>
             {/* <LogHero/> */}
@@ -64,7 +68,8 @@ const LogGeneral = (props: Props) => {
           </Col>
         </Row>
       </Container>
-      <Footer />
+      <Footer DarkMode={true} />
+    </div>
     </>
   );
 };

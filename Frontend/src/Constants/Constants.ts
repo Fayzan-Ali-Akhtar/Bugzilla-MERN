@@ -1,3 +1,8 @@
+export const PrimaryColor: string = "#537FE7";
+export const SecondaryColor: string = "#181823";
+export const ThirdColor: string = "#E9F8F9";
+export const FourthColor: string = "#C0EEF2";
+
 // TypeLog tells on which section is present currently 
 export enum TypeLog {
     Sign = "Sign Up",
@@ -12,9 +17,7 @@ export const PostURL: string = "https://jsonplaceholder.typicode.com/posts";
 
 export const CompanyName: string = "Bugzilla";
 
-export const PrimaryColor: string = "#537FE7";
-export const SecondaryColor: string = "#181823";
-export const ThirdColor: string = "#E9F8F9";
+
 // export const ThirdColor: string = "#E9F8F9";
 
 // export const PrimaryColor: string = "#181823";

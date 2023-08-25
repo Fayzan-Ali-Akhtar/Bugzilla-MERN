@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
-import { imageTime,Svg } from "../../../Constants/Constants";
+import { imageTime,Svg,ThirdColor,FourthColor } from "../../../Constants/Constants";
 
 interface SvgObject {
   src: string;
@@ -8,9 +8,10 @@ interface SvgObject {
 
 interface Props {
   type?: string;
+  DarkMode?: boolean;
 }
 
-const LogHero: React.FC<Props> = (props) => {
+const LogHero: React.FC<Props> = ({type,DarkMode=true}) => {
   const [svg, setSvg] = useState<SvgObject>(Svg[0]);
 
   // Updating Picture of People after 5 seconds
@@ -26,13 +27,13 @@ const LogHero: React.FC<Props> = (props) => {
   return (
     <div className="LogHero">
       {/* For LOG Pages  */}
-      {props.type === "feed" ? (
-        <h2 className="text-center">
+      {type === "feed" ? (
+        <h2 className="text-center" style = {{color:`${DarkMode?ThirdColor:"black"}`}}>
           Resolve Bugs with <ConnectTextLogo logo_size={1.8} />
         </h2>
       ) : (
         // For FEED Page!
-        <h2 className="text-center">
+        <h2 className="text-center" style = {{color:`${DarkMode?ThirdColor:"black"}`}}>
           Join <ConnectTextLogo logo_size={1.8} />
           to streamline your workflow!
         </h2>
