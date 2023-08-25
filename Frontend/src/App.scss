@@ -71,8 +71,8 @@
 .white-border{
     border: solid white 0.05em;
 }
-.third-border{
-    border: solid var(--fourth-color) 0.05em;
+.third-border-right{
+    border-right: solid var(--primary-color) 0.005em;
 }
 
 .text-red{

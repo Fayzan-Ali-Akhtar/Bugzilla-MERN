@@ -20,7 +20,8 @@ const LogGeneral = ({childComponet,DarkMode=true}:Props) => {
       <HeadingLogo DarkMode = {true}/>
       <Container>
         <Row>
-          <Col lg={6} xs={12} className='mt-3  mb-5 form-shadow rounded center third-border'> {/* On large screens, take half width (6 out of 12 columns), on small screens, take full width */}
+        {/* form-shadow  */}
+          <Col lg={6} xs={12} className='mt-3  mb-5 center third-border-right'> {/* On large screens, take half width (6 out of 12 columns), on small screens, take full width */}
             {childComponet}
           </Col>
           <Col lg={6} xs={12}  className='mt-3'> {/* On large screens, take half width (6 out of 12 columns), on small screens, take full width */}
