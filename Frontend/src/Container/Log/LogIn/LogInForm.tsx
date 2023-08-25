@@ -62,7 +62,7 @@ const LogInForm: React.FC = () => {
   return (
     <>
       <h2 className="center-text white-text">
-        Log In to your <ConnectTextLogo logo_size={1.7} /> account
+        Log In to <ConnectTextLogo logo_size={1.7} /> account
       </h2>
 
       {/* Passing an Enum Props  */}

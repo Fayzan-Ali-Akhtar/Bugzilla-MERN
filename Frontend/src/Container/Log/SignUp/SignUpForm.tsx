@@ -86,7 +86,7 @@ const SignUpForm: React.FC = () => {
   return (
     <>
       <h2 className="white-text center-text">
-        Create your <ConnectTextLogo logo_size={1.7} /> Account
+        Create <ConnectTextLogo logo_size={1.7} /> Account
       </h2>
       {/* Passing an Enum Props  */}
       <AccountInfo LogType={TypeLog.Sign} />

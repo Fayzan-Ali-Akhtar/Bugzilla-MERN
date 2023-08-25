@@ -34,8 +34,8 @@ const LogHero: React.FC<Props> = ({type,DarkMode=true}) => {
       ) : (
         // For FEED Page!
         <h2 className="text-center" style = {{color:`${DarkMode?ThirdColor:"black"}`}}>
-          Join <ConnectTextLogo logo_size={1.8} />
-          to streamline your workflow!
+          {/* Join <ConnectTextLogo logo_size={1.8} /> */}
+          Streamline your workflow!
         </h2>
       )}
       <div className="d-flex justify-content-center align-items-center">
