@@ -10,6 +10,13 @@ export enum TypeLog {
     Continue = "Continue",
   }
 
+  // UserType tells on whi  ch section is present currently 
+export enum UserType {
+    Developer = "Developer",
+    Manager = "Manager",
+    QA = "QA",
+  }
+
 export const imageTime = 5000;
 
   // URL to get Posts 
