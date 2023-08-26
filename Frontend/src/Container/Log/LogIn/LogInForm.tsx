@@ -9,6 +9,7 @@ import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
 // Importing an ENUM
 import { TypeLog, UserObj,UserType } from "../../../Constants/Constants";
 import { useNavigate } from "react-router-dom";
+import {fetchManagersFromServer} from "../../../Services/Manager/manager";
 
 interface FormValues {
   email: string;
@@ -48,22 +49,34 @@ const LogInForm: React.FC = () => {
     // Displaying NewUser 
     console.log(newUser);
 
-    
+    // CALL fetchManagersFromServer HERE THEN CONSOLE.LOG THE RESULT 
+    (async () => {
+    try {
+      console.log("yo")
+      // Call fetchManagersFromServer and console.log the result
+      const result = await fetchManagersFromServer();
+      console.log("fetchManagersFromServer result:", result);
+
+      // ... (rest of the code)
+    } catch (error) {
+      console.error("Error fetching managers:", error);
+    }
+  })();
     // Check if AllUsersArray exists in localStorage
     
 
     // Check if there's a user with matching email and password in AllUsersArray
-    let response = "";
+    // let response = "";
 
-    if (response) {
-      // Set the currentUser in localStorage
-      localStorage.setItem("CurrentUser", JSON.stringify(response));
-      // Navigate to /feed route
-      navigate("/feed");
-    } else {
-      // Display an alert if the user does not exist
-      alert("Invalid email or password. Please try again.");
-    }
+    // if (response) {
+    //   // Set the currentUser in localStorage
+    //   localStorage.setItem("CurrentUser", JSON.stringify(response));
+    //   // Navigate to /feed route
+    //   navigate("/feed");
+    // } else {
+    //   // Display an alert if the user does not exist
+    //   alert("Invalid email or password. Please try again.");
+    // }
   };
 
   function goToSignUp() {

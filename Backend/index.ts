@@ -3,9 +3,15 @@ const app = express();
 const port = process.env.PORT || 5000;
 const connectDB = require('./DB/Connect');
 require('dotenv').config();
+const cors = require('cors');
 const maganerRouter = require('./routes/manager');
 
+
 const Task = require('./models/Task');
+
+// Use the cors middleware
+app.use(cors());
+
 
 app.use(express.json());
 

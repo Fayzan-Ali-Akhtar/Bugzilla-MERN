@@ -80,7 +80,8 @@ export const signup = async (req: Request, res: Response) => {
         const token = manager.createJWT();
         // Not sending back password 
     manager.password = "";
-        res.status(StatusCodes.CREATED).json({manager, token,status:"SIGNED UP" });
+    manager.token = token;
+        res.status(StatusCodes.CREATED).json({manager});
       } catch (error) {
         console.error(error);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'An error occurred while creating the manager' });
@@ -111,5 +112,6 @@ export const login = async (req: Request, res: Response) => {
     const token = manager.createJWT();
     // Not sending back password 
     manager.password = "";
-    res.status(StatusCodes.OK).json({ manager , token, status:"LOGGED IN" });
+    manager.token = token;
+    res.status(StatusCodes.OK).json({ manager });
   }

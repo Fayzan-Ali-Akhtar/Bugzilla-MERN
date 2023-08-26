@@ -1,5 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose'; // Import mongoose
 
+export const manager_URL = "http://localhost:5000/api/manager";
+
 export const PrimaryColor: string = "#537FE7";
 export const SecondaryColor: string = "#181823";
 export const ThirdColor: string = "#E9F8F9";
@@ -30,25 +32,28 @@ export enum BugType {
     completed = "completed",
   }
 
-export interface Manager {
+export interface User {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
+  userType: string;
+  token: string;
 }
 
-export interface Developer {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-export interface QA {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+// export interface Developer {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   password: string;
+// }
+// export interface QA {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   password: string;
+// }
 
 export interface Bug{
   title: string;
