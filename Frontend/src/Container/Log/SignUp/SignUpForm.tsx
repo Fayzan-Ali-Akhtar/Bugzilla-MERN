@@ -7,7 +7,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
 import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
 // Importing an ENUM
-import { TypeLog, UserObj, FormValues } from "../../../Constants/Constants";
+import { TypeLog, NewUser, FormValues,UserType } from "../../../Constants/Constants";
 import { useNavigate } from "react-router-dom";
 
 const SignUpForm: React.FC = () => {
@@ -20,6 +20,10 @@ const SignUpForm: React.FC = () => {
       .string()
       .required("Password is required")
       .min(6, "Password must be at least 6 characters"),
+      userType: yup
+    .string()
+    .oneOf(Object.values(UserType), "Invalid user type")
+    .required("User type is required"),
     terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
   });
 
@@ -28,45 +32,28 @@ const SignUpForm: React.FC = () => {
     lastName: "",
     email: "",
     password: "",
+    userType:UserType.Manager,
     terms: false,
   };
 
   const navigate = useNavigate(); // Get the navigate function
 
   const handleSubmit = (values: FormValues) => {
-    const newUser: UserObj = {
+    const newUser: NewUser = {
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
       password: values.password,
-      userId: 0,
+      userType : values.userType
     };
 
+    // Displaying NewUser 
+    console.log(newUser)
     // Check if AllUsersArray exists in localStorage
-    const allUsersArrayJSON = localStorage.getItem("AllUsersArray");
-    let allUsersArray: UserObj[] = [];
-    if (allUsersArrayJSON) {
-      allUsersArray = JSON.parse(allUsersArrayJSON);
-    }
+    
 
     // Check if newUser already exists in AllUsersArray
-    const existingUser = allUsersArray.find(
-      (user) => user.email === newUser.email
-    );
-    // alert("existingUser = ");
-    if (!existingUser) {
-      // Adding the user id of the new user
-      newUser.userId = allUsersArray.length + 11;
-      // Append newUser to AllUsersArray
-      allUsersArray.push(newUser);
-      // Store AllUsersArray as a JSON string in localStorage
-      localStorage.setItem("AllUsersArray", JSON.stringify(allUsersArray));
-      // Adding CurrentUser
-      localStorage.setItem("CurrentUser", JSON.stringify(newUser));
-    } else {
-      alert("This Email is already in use! Please use another email!");
-      return;
-    }
+    
 
     // Clear the input fields after submission
     values.firstName = "";
@@ -76,7 +63,7 @@ const SignUpForm: React.FC = () => {
     values.terms = false;
 
     // Directing User to feed page
-    navigate("/feed"); // Navigate to /feed route
+    // navigate("/login"); // Navigate to /feed route
   };
 
   function goToLogIn() {
@@ -142,6 +129,23 @@ const SignUpForm: React.FC = () => {
                 <ErrorMessage name="password" component="div" className="ms-1 text-red"/>
               </Form.Group>
             </Row>
+            <Form.Group as={Col} md="12" controlId="validationFormikUserType">
+  <Form.Label className="white-text">User Type</Form.Label>
+  <Field
+    as="select"
+    name="userType"
+    className={`bg-dark text-white form-control ${
+      touched.userType && errors.userType ? "is-invalid" : ""
+    }`}
+  >
+    <option value="">Select User Type</option>
+    <option value={UserType.Developer}>Developer</option>
+    <option value={UserType.Manager}>Manager</option>
+    <option value={UserType.QA}>QA</option>
+  </Field>
+  <ErrorMessage name="userType" component="div" className="ms-1 text-red" />
+</Form.Group>
+
             {/* End of the password form group */}
             <Form.Group className="mb-3">
               <Form.Check

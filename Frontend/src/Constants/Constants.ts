@@ -29,7 +29,13 @@ export const CompanyName: string = "Bugzilla";
 
 // export const PrimaryColor: string = "#181823";
 // export const SecondaryColor: string = "#537FE7";
-
+export interface NewUser {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    userType: UserType;
+  }
 
 export enum AccountType {
     Google = "Google",
@@ -64,6 +70,7 @@ export interface FormValues {
   lastName: string;
   email: string;
   password: string;
+  userType: UserType; // Add userType field here
   terms: boolean;
 }
 

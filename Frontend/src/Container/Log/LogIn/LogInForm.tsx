@@ -7,12 +7,13 @@ import InputGroup from "react-bootstrap/InputGroup";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
 import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
 // Importing an ENUM
-import { TypeLog, UserObj } from "../../../Constants/Constants";
+import { TypeLog, UserObj,UserType } from "../../../Constants/Constants";
 import { useNavigate } from "react-router-dom";
 
 interface FormValues {
   email: string;
   password: string;
+  userType: UserType; // Add userType field here
 }
 
 const LogInForm: React.FC = () => {
@@ -22,31 +23,41 @@ const LogInForm: React.FC = () => {
       .string()
       .required("Password is required")
       .min(6, "Password must be at least 6 characters"),
+      userType: yup
+      .string()
+      .oneOf(Object.values(UserType), "Invalid user type")
+      .required("User type is required"),
   });
 
   const initialValues: FormValues = {
     email: "",
     password: "",
+    userType:UserType.Manager,
   };
 
   const navigate = useNavigate(); // Get the navigate function
 
   const handleSubmit = (values: FormValues) => {
+
+    const newUser = {
+       userEmail :  values.email,
+     userPassword :  values.password,
+     userType :  values.userType
+    };
+
+    // Displaying NewUser 
+    console.log(newUser);
+
+    
     // Check if AllUsersArray exists in localStorage
-    const allUsersArrayJSON = localStorage.getItem("AllUsersArray");
-    let allUsersArray: UserObj[] = [];
-    if (allUsersArrayJSON) {
-      allUsersArray = JSON.parse(allUsersArrayJSON);
-    }
+    
 
     // Check if there's a user with matching email and password in AllUsersArray
-    const existingUser = allUsersArray.find(
-      (user) => user.email === values.email && user.password === values.password
-    );
+    let response = "";
 
-    if (existingUser) {
+    if (response) {
       // Set the currentUser in localStorage
-      localStorage.setItem("CurrentUser", JSON.stringify(existingUser));
+      localStorage.setItem("CurrentUser", JSON.stringify(response));
       // Navigate to /feed route
       navigate("/feed");
     } else {
@@ -107,8 +118,25 @@ const LogInForm: React.FC = () => {
                 <ErrorMessage name="password" component="div" className="ms-1 text-red"/>
               </Form.Group>
             </Row>
+            {/* UserType form group */}
+            <Form.Group as={Col} md="12" controlId="validationFormikUserType">
+              <Form.Label className="white-text">User Type</Form.Label>
+              <Field
+                as="select"
+                name="userType"
+                className={`bg-dark text-white form-control ${
+                  touched.userType && errors.userType ? "is-invalid" : ""
+                }`}
+              >
+                <option value="">Select User Type</option>
+                <option value={UserType.Developer}>Developer</option>
+                <option value={UserType.Manager}>Manager</option>
+                <option value={UserType.QA}>QA</option>
+              </Field>
+              <ErrorMessage name="userType" component="div" className="ms-1 text-red" />
+            </Form.Group>
             {/* End of the password form group */}
-            <div className="d-flex justify-content-evenly mb-2">
+            <div className="d-flex justify-content-evenly mb-2 mt-3">
               <Button variant="primary" type="submit">
                 {/* <ConnectTextLogo logo_size={1.5} custom_color="white" /> */}
                 Log In

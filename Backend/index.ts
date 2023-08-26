@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const connectDB = require('./Connect');
 require('dotenv').config();
 
@@ -28,3 +28,10 @@ const start = async () => {
 }
 
 start();
+
+// Collections: 
+// 1) Managers 
+// 2) Projects 
+// 3) Bugs 
+// 4) Developers 
+// 5) QAs 
