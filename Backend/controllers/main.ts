@@ -3,47 +3,58 @@
 // send back to fron-end
 // setup authentication so only the request with JWT can access the dasboard
 import { Request, Response } from 'express';
+const { StatusCodes } = require('http-status-codes')
 
 const Manager = require('../models/Manager');
 
 const jwt = require('jsonwebtoken')
-// const { BadRequestError } = require('../errors')
 
-// export const login = async (req: Request, res: Response) => {
-//   const { username, password } = req.body
-//   // mongoose validation
-//   // Joi
-//   // check in the controller
+export const getOneManager = async (req: Request, res: Response) => {
+    try {
+        const managerId = req.query.id; // Assuming the route parameter is named 'id'
+        console.log(`Finding Manager with id ${managerId}`);
+        // Fetch the manager by ID from the database
+        const manager = await Manager.findById(managerId);
+    
+        if (!manager) {
+          return res.status(StatusCodes.NOT_FOUND).json({ error: 'Manager not found' });
+        }
+    
+        res.status(StatusCodes.OK).json({ manager });
+      } catch (error) {
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'An error occurred while fetching the manager' });
+      }
+    
+}
 
-//   if (!username || !password) {
-//     // throw new BadRequestError('Please provide email and password')
-//   }
-
-//   //just for demo, normally provided by DB!!!!
-//   const id = new Date().getDate()
-
-//   // try to keep payload small, better experience for user
-//   // just for demo, in production use long, complex and unguessable string value!!!!!!!!!
-//   const token = jwt.sign({ id, username }, process.env.JWT_SECRET, {
-//     expiresIn: '30d',
-//   })
-
-//   res.status(200).json({ msg: 'user created', token })
-// }
-
-// export const dashboard = async (req: Request, res: Response) => {
-//     console.log("Here!");
-//   const luckyNumber = Math.floor(Math.random() * 100)
-
-//   res.status(200).json({
-//     msg: `Hello,`,
-//     secret: `Here is your authorized data, your lucky number is ${luckyNumber}`,
-//   })
-// }
+export const getAllManagers = async (req: Request, res: Response) => {
+    try {
+        // Fetch all managers from the database
+        const managers = await Manager.find();
+    
+        res.status(StatusCodes.OK).json({ managers });
+      } catch (error) {
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'An error occurred while fetching managers' });
+      }
+}
 
 export const signup = async (req: Request, res: Response) => {
     console.log("Signup!");
     console.log(req.body);
+
+    // Checking if all fields are filled 
+    const { firstName, lastName, email, password,userType } = req.body;
+    if (!firstName || !lastName || !email || !password || !userType) {
+        return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Missing required fields' });
+    }
+
+    // Checking if User Request is for Manager
+    if(userType !== 'manager'){
+        return res.status(StatusCodes.BAD_REQUEST).json({ error: 'UserType is not Manager' });
+    }
+
     // making manager object 
     const managerObj = {
         firstName: req.body.firstName,
@@ -52,18 +63,12 @@ export const signup = async (req: Request, res: Response) => {
         password: req.body.password,
         userType: req.body.userType,
     }
-    const manager = await Manager.create({ ...managerObj });
-    res.status(200).json({ user: { manager }});
+    try {
+        const manager = await Manager.create({ ...managerObj });
+        res.status(StatusCodes.CREATED).json({ user: { manager } });
+      } catch (error) {
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'An error occurred while creating the manager' });
+      }
 
-//   const luckyNumber = Math.floor(Math.random() * 100)
-//     res.send(req.body);
-//   res.status(200).json({
-//     msg: `Hello signup manager,`,
-//     secret: `Here is your authorized data, your lucky number is ${luckyNumber}`,
-//   })
 }
-
-// module.exports = {
-//   login,
-//   dashboard,
-// }
