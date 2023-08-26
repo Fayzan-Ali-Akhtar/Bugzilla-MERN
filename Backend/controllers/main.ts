@@ -65,10 +65,39 @@ export const signup = async (req: Request, res: Response) => {
     }
     try {
         const manager = await Manager.create({ ...managerObj });
-        res.status(StatusCodes.CREATED).json({ user: { manager } });
+        const token = manager.createJWT();
+        // Not sending back password 
+    manager.password = "";
+        res.status(StatusCodes.CREATED).json({manager, token,status:"SIGNED UP" });
       } catch (error) {
         console.error(error);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'An error occurred while creating the manager' });
       }
 
 }
+
+
+export const login = async (req: Request, res: Response) => {
+    const { email, password,userType } = req.body;
+    console.log(req.body);
+  
+    if (!email || !password || !userType) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Please provide email, password and userType'});
+    }
+    const manager = await Manager.findOne({ email });
+    console.log("manager found: ",manager);
+    if (!manager) {
+        console.log("yo1");
+        return res.status(StatusCodes.UNAUTHORIZED).json({error: 'Invalid Credentials'});
+    }
+    const isPasswordCorrect = await manager.comparePassword(password);
+    if (!isPasswordCorrect) {
+        console.log("yo2");
+        return res.status(StatusCodes.UNAUTHORIZED).json({error: 'Invalid Credentials'});
+    }
+    // compare password
+    const token = manager.createJWT();
+    // Not sending back password 
+    manager.password = "";
+    res.status(StatusCodes.OK).json({ manager , token, status:"LOGGED IN" });
+  }
