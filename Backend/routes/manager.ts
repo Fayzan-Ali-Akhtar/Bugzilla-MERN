@@ -6,7 +6,7 @@ const {signup,login,getOneManager,getAllManagers } = require('../controllers/mai
 // const authMiddleware = require('../middleware/auth')
 
 // router.route('/').get(signup)
-router.route('/sign').post(signup)
+router.route('/signup').post(signup)
 router.route('/login').post(login) // Route for getting all managers
 
 router.route('/').get(getOneManager) // Route for getting a single manager by ID

@@ -54,6 +54,12 @@ export const signup = async (req: Request, res: Response) => {
     if(userType !== 'manager'){
         return res.status(StatusCodes.BAD_REQUEST).json({ error: 'UserType is not Manager' });
     }
+    
+    // Check if a manager with the provided email already exists
+        const existingManager = await Manager.findOne({ email });
+        if (existingManager) {
+            return res.status(StatusCodes.CONFLICT).json({ error: 'Email already in use!' });
+        }
 
     // making manager object 
     const managerObj = {
@@ -64,7 +70,13 @@ export const signup = async (req: Request, res: Response) => {
         userType: req.body.userType,
     }
     try {
-        const manager = await Manager.create({ ...managerObj });
+      
+      
+      // Check if a manager with the provided email already exists
+        const existingManager = await Manager.findOne({ email });
+        if (existingManager) {
+            return res.status(StatusCodes.CONFLICT).json({ error: 'Email already exists' });
+        }  const manager = await Manager.create({ ...managerObj });
         const token = manager.createJWT();
         // Not sending back password 
     manager.password = "";
