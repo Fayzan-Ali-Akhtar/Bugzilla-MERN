@@ -19,6 +19,10 @@ const DeveloperSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide Developer Password'],
       },
+      userType:{type: String,
+        required: [true, 'Please provide User Type'],
+        default: 'developer',
+      },
 });
 
 module.exports = mongoose.model('Developer', DeveloperSchema);

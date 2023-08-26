@@ -19,6 +19,10 @@ const QASchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide QA Password'],
       },
+      userType:{type: String,
+        required: [true, 'Please provide User Type'],
+        default: 'qa',
+      },
 });
 
 module.exports = mongoose.model('QA', QASchema);
