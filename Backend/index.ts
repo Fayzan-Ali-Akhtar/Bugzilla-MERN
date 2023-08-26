@@ -1,10 +1,11 @@
 import express, { Request, Response } from 'express';
 const app = express();
-const port = process.env.PORT || 3000;
-const connectDB = require('./Connect');
+const port = process.env.PORT || 5000;
+const connectDB = require('./DB/Connect');
 require('dotenv').config();
 
 const Task = require('./models/Task');
+
 app.use(express.json());
 
 app.get('/api', async (req: Request, res: Response) => {

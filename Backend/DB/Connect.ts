@@ -1,7 +1,7 @@
-const mongooose = require('mongoose');
+import mongoose from 'mongoose';
 
 const connectDB = (url:string) =>{
-    return mongooose
+    return mongoose
 .connect(url); 
 }
 

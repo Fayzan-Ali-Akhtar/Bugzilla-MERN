@@ -1,0 +1,73 @@
+:root {
+  --primary-color: #537FE7;
+  --secondary-color: #181823;
+  --third-color: #E9F8F9;
+  --fourth-color: #C0EEF2;
+}
+
+.primary-color-text {
+  color: #1976d2;
+}
+
+.secondary-color-text {
+  color: #d1e5f3;
+}
+
+.secondary-color-background {
+  background-color: #d1e5f3;
+}
+
+.primary-color-background {
+  background-color: #1976d2;
+  border-radius: 1em;
+}
+
+.secondary-color-border {
+  border-color: #d1e5f3;
+  border-radius: 1em;
+}
+
+.primary-color-border {
+  border-color: #d1e5f3;
+  border-radius: 1em;
+}
+
+.form-shadow {
+  box-shadow: 0 4px 6px #d1e5f3;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.white-text {
+  color: white;
+}
+
+.primary-color-border {
+  border: solid var(--primary-color) 0.1em;
+}
+
+.fourth-color-border {
+  border: solid var(--fourth-color) 0.1em;
+}
+
+.secondary-background {
+  background-color: var(--secondary-color);
+}
+
+.red-border {
+  border: solid red 0.1em;
+}
+
+.white-border {
+  border: solid white 0.05em;
+}
+
+.third-border-right {
+  border-right: solid var(--primary-color) 0.005em;
+}
+
+.text-red {
+  color: red;
+}/*# sourceMappingURL=App.css.map */
