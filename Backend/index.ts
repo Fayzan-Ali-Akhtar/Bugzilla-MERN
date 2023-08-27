@@ -8,6 +8,7 @@ const cors = require('cors');
 const maganerRouter = require('./routes/managerRoute');
 const developerRouter = require('./routes/developerRoute');
 const qaRouter = require('./routes/qaRoute');
+const projectRouter = require('./routes/projectRoute');
 
 // Use the cors middleware to allow cross-origin requests
 app.use(cors());
@@ -22,6 +23,9 @@ app.use('/api/developer', developerRouter);
 
 // For QA Routes
 app.use('/api/qa', qaRouter);
+
+// For Project Routes
+app.use('/api/project', projectRouter);
 
 const start = async () => {
   try {
