@@ -11,11 +11,11 @@ const {createProject,deleteProject,add,remove,all } = require('../controllers/pr
 // Create  new Project
 router.route('/create').post(authenticateUser,createProject);
 // Delete Project
-router.route('/delete').post(authenticateUser,deleteProject);
+router.route('/delete').delete(authenticateUser,deleteProject);
 // Add a Developer or QA 
-router.route('/add').get(authenticateUser,add);
+router.route('/add').post(authenticateUser,add);
 // Remove a Developer or QA
-router.route('/remove').get(authenticateUser,remove);
+router.route('/remove').delete(authenticateUser,remove);
 // Get all the projects of a user
 router.route('/all').get(authenticateUser,all);
 

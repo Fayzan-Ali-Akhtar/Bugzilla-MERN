@@ -1,59 +1,67 @@
 import { Request, Response } from "express";
 import { AuthenticatedRequest } from "../Constant";
 const { StatusCodes } = require("http-status-codes");
-// Mongoose Model 
+// Mongoose Model
 // const QA = require("../models/QA");
 // const Manager = require("../models/Manager");
 // const Developer = require("../models/Developer");
 const Project = require("../models/Project");
+const Bug = require("../models/Bug");
 
-// Making new Project 
-export const createProject = async (req: AuthenticatedRequest, res: Response) => {
+// Making new Project
+export const createProject = async (
+  req: AuthenticatedRequest,
+  res: Response
+) => {
   try {
     // Checking if User Request is for Manager
-    if(req.user.userType !== "manager"){
-        return res
-            .status(StatusCodes.BAD_REQUEST)
-            .json({ error: "User is not a manager" });
+    if (req.user.userType !== "manager") {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ error: "User is not a manager" });
     }
 
-    // Checking for Title 
-    if(req.body.title === undefined || req.body.title === null || req.body.title === ""){
-        return res
-            .status(StatusCodes.BAD_REQUEST)
-            .json({ error: "Title is missing" });
+    // Checking for Title
+    if (
+      req.body.title === undefined ||
+      req.body.title === null ||
+      req.body.title === ""
+    ) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ error: "Title is missing" });
     }
 
     const titleOFProject = req.body.title;
     const managerOFProject = req.user.userId;
 
-    // Checking if a project with the provided title already exists 
-    const existingTitle = await Project.findOne({"title": titleOFProject });
+    // Checking if a project with the provided title already exists
+    const existingTitle = await Project.findOne({ title: titleOFProject });
 
-    console.log("existingTitle: ",existingTitle);
-    console.log("titleOFProject: ",titleOFProject);
-  if (existingTitle) {
-    return res
-      .status(StatusCodes.CONFLICT)
-      .json({ error: "Title is already already in use!" });
-  }
+    console.log("existingTitle: ", existingTitle);
+    console.log("titleOFProject: ", titleOFProject);
+    if (existingTitle) {
+      return res
+        .status(StatusCodes.CONFLICT)
+        .json({ error: "Title is already already in use!" });
+    }
 
-    console.log(`In createProject for (${req.user.userType}) ` ,req.user.email);
+    console.log(`In createProject for (${req.user.userType}) `, req.user.email);
     const ProjectObj = {
-        title: titleOFProject,
-        manager: managerOFProject,
-        developers: [],
-        qas: [],
-        bugs: [],
-      };
-    
+      title: titleOFProject,
+      manager: managerOFProject,
+      developers: [],
+      qas: [],
+      bugs: [],
+    };
 
     // Creating a new project on DB
     const newProject = await Project.create({ ...ProjectObj });
     // newProject.addTitle(req.body.title);
-    
-    res.status(StatusCodes.CREATED).json({ message: `Project "${titleOFProject}" created successfully` });
-    
+
+    res
+      .status(StatusCodes.CREATED)
+      .json({ message: `Project (${titleOFProject}) created successfully` });
   } catch (error) {
     console.error(error);
     res
@@ -62,22 +70,81 @@ export const createProject = async (req: AuthenticatedRequest, res: Response) =>
   }
 };
 
-export const deleteProject = async (req: AuthenticatedRequest, res: Response) => {
-    
-    res.send("deleteProject");
-}
+export const deleteProject = async (
+  req: AuthenticatedRequest,
+  res: Response
+) => {
+    console.log(`User is ${req.user.email}`)
+  // Checking if User Request is for Manager
+  if (req.user.userType !== "manager") {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ error: "User is not a manager" });
+  }
+  // Checking for projectid
+  if (
+    req.body.projectid === undefined ||
+    req.body.projectid === null ||
+    req.body.projectid === ""
+  ) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ error: "Project ID is missing" });
+  }
+  try {
+    const idOfProjectToDelete = req.body.projectid;
+
+    // Checking if a project with the provided title already exists
+    const ProjectToBeDeleted = await Project.findOne({
+      _id: idOfProjectToDelete,
+    });
+    if (!ProjectToBeDeleted) {
+      return res
+        .status(StatusCodes.CONFLICT)
+        .json({ error: "Project ID is not valid" });
+    }
+
+    // Checking if This manager is managing this project or not
+    if (ProjectToBeDeleted.manager != req.user.userId) {
+      return res
+        .status(StatusCodes.CONFLICT)
+        .json({ error: "You are not managing this project" });
+    }
+
+    // Deleting all the Bugs of this project on DB
+    const bugsOfProject = ProjectToBeDeleted.bugs;
+    for (const bugIdToDelete in bugsOfProject) {
+      // Checking if a bug with the provided title already exists in DB
+      const BugToBeDeleted = await Bug.findOne({ _id: bugIdToDelete });
+      if (!BugToBeDeleted) {
+        // Deleting the bug on DB
+        await BugToBeDeleted.deleteOne();
+      }
+    }
+    // Deleting the project on DB
+    await ProjectToBeDeleted.deleteOne();
+    // Sending the response
+    res.status(StatusCodes.OK).json({
+      message: `Project (${ProjectToBeDeleted.title}) deleted successfully`,
+    });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: "An error occurred Creating Project" });
+  }
+
+//   res.send("deleteProject");
+};
 export const add = async (req: AuthenticatedRequest, res: Response) => {
-    res.send("add project");
-}
+  res.send("add project");
+};
 export const remove = async (req: AuthenticatedRequest, res: Response) => {
-    res.send("remove project");    
-}
+  res.send("remove project");
+};
 export const all = async (req: AuthenticatedRequest, res: Response) => {
-    res.send("all project");
-}
-
-
-
+  res.send("all project");
+};
 
 // // To get all managers
 // export const getAllManagers = async (req: Request, res: Response) => {
@@ -93,7 +160,6 @@ export const all = async (req: AuthenticatedRequest, res: Response) => {
 //       .json({ error: "An error occurred while fetching managers" });
 //   }
 // };
-
 
 // // To create a new manager
 // export const signup = async (req: Request, res: Response) => {
@@ -154,7 +220,6 @@ export const all = async (req: AuthenticatedRequest, res: Response) => {
 //   }
 // };
 
-
 // // To login a manager
 // export const login = async (req: Request, res: Response) => {
 //   const { email, password, userType } = req.body;
@@ -173,7 +238,7 @@ export const all = async (req: AuthenticatedRequest, res: Response) => {
 //   }
 
 //   const manager = await Manager.findOne({ email });
-//   // Whne manager is not found 
+//   // Whne manager is not found
 //   if (!manager) {
 //     return res
 //       .status(StatusCodes.UNAUTHORIZED)
