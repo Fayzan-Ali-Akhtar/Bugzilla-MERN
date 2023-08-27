@@ -1,29 +1,27 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 const app = express();
 const port = process.env.PORT || 5000;
 const connectDB = require('./DB/Connect');
 require('dotenv').config();
 const cors = require('cors');
-const maganerRouter = require('./routes/manager');
+// Importing Routes 
+const maganerRouter = require('./routes/managerRoute');
+const developerRouter = require('./routes/developerRoute');
+const qaRouter = require('./routes/qaRoute');
 
-
-const Task = require('./models/Task');
-
-// Use the cors middleware
+// Use the cors middleware to allow cross-origin requests
 app.use(cors());
-
 
 app.use(express.json());
 
+// For Manager Routes
 app.use('/api/manager', maganerRouter);
 
-app.get('/api', async (req: Request, res: Response) => {
-  const task = await Task.create(req.body);
-  res.status(201).send(task);
-});
+// For Developer Routes
+app.use('/api/developer', developerRouter);
 
-
-
+// For QA Routes
+app.use('/api/qa', qaRouter);
 
 const start = async () => {
   try {
