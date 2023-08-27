@@ -3,14 +3,21 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { PrimaryColor,FourthColor } from "../../Constants/Constants";
+import {removeUserFromLocalStorage,removeTokenFromLocalStorage} from '../../Utils/util'
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   userName: string;
 }
 
 function CollapsibleExample({ userName }: Props) {
+  const navigate = useNavigate(); // Get the navigate function
   function logOut() {
-    localStorage.setItem("CurrentUser", JSON.stringify({}));
+    // localStorage.setItem("CurrentUser", JSON.stringify({}));
+    removeUserFromLocalStorage();
+    removeTokenFromLocalStorage();
+    navigate("/home"); 
+
   }
 
   return (

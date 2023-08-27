@@ -7,9 +7,10 @@ import InputGroup from "react-bootstrap/InputGroup";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
 import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
 // Importing an ENUM
-import { TypeLog, UserObj,UserType } from "../../../Constants/Constants";
+import { TypeLog, UserObj,UserType,User } from "../../../Constants/Constants";
 import { useNavigate } from "react-router-dom";
-import {fetchManagersFromServer} from "../../../Services/Manager/manager";
+// import {fetchManagersFromServer} from "../../../Services/Manager/manager";
+import {loginUserOnServer} from "../../../Services/Login/loginOnServer";
 
 interface FormValues {
   email: string;
@@ -40,23 +41,27 @@ const LogInForm: React.FC = () => {
 
   const handleSubmit = (values: FormValues) => {
 
-    const newUser = {
-       userEmail :  values.email,
-     userPassword :  values.password,
+    const newUser:User = {
+      id : "",
+      firstName :  "",
+      lastName :  "",
+       email :  values.email,
+     password :  values.password,
      userType :  values.userType
     };
 
     // Displaying NewUser 
-    console.log(newUser);
+    // console.log(newUser);
 
     // CALL fetchManagersFromServer HERE THEN CONSOLE.LOG THE RESULT 
     (async () => {
     try {
-      console.log("yo")
+      // console.log("yo")
       // Call fetchManagersFromServer and console.log the result
-      const result = await fetchManagersFromServer();
-      console.log("fetchManagersFromServer result:", result);
-
+      const result = await loginUserOnServer(newUser);
+      // console.log("login result:", result);
+      // Going to Feed Page
+      navigate("/feed");
       // ... (rest of the code)
     } catch (error) {
       console.error("Error fetching managers:", error);

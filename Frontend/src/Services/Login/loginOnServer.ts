@@ -7,11 +7,11 @@ import {
 } from "../../Utils/util";
 
 // Function to fetch comments from the server
-export async function signupUserOnServer(newUser: User): Promise<User> {
+export async function loginUserOnServer(newUser: User): Promise<User> {
   try {
     const user_type: string = newUser.userType;
-    let signup_url = base_URL + `/${newUser.userType}` + "/signup";
-    const postDataResponse: any = await postData<User>(signup_url, newUser);
+    let login_url = base_URL + `/${newUser.userType}` + "/login";
+    const postDataResponse: any = await postData<User>(login_url, newUser);
     // Signed Up User is
     console.log("yo2");
     console.log(postDataResponse);

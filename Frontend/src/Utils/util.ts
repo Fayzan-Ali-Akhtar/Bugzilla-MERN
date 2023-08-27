@@ -74,7 +74,6 @@ export const getUserObj = (
     userType: "",
   };
   if (user_type === "manager") {
-    console.log("Here!");
     savedUser = {
       id: postDataResponse.manager._id,
       firstName: postDataResponse.manager.firstName,

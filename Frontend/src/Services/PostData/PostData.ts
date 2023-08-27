@@ -7,13 +7,17 @@ export async function postData<T>(url: string, data: T): Promise<T> {
     return response.data;
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
-        console.log(error);
+        // console.log(error);
         if(error !== undefined && error.response !== undefined && error.response.data !== undefined )
         {
             if(error.response.data.error === "Email already in use!")
             {
                 alert("Email already in use!");
             }
+        if(error.response.data.error === "Invalid Credentials")
+        {
+            alert("Invalid Credentials");
+        }
             console.error("Error:", error.response.data.error);
             throw new Error(error.response.data.message);
         }

@@ -54,37 +54,27 @@ const SignUpForm: React.FC = () => {
     };
 
     // Displaying NewUser
-    console.log("Displaying NewUser");
-    console.log(newUser);
+    // console.log("Displaying NewUser");
+    // console.log(newUser);
 
     try {
       await signupUserOnServer(newUser);
-      // Handle success here, e.g., redirect to login page
+      // Going to Feed Page
       navigate("/feed");
     } catch (error: unknown) {
       if (error instanceof Error) {
-        // console.log("no more pls")
-        // console.log(error);
         console.error("Unknown error occurred:", error);
       } else {
         console.error("Unknown error occurred:", error);
       }
-      // Handle error here, e.g., display an error message to the user
-      // console.error("Error signing up:", error.message);
     }
-    // Check if AllUsersArray exists in localStorage
-
-    // Check if newUser already exists in AllUsersArray
 
     // Clear the input fields after submission
-    // values.firstName = "";
-    // values.lastName = "";
-    // values.email = "";
-    // values.password = "";
-    // values.terms = false;
-
-    // Directing User to feed page
-    // navigate("/login"); // Navigate to /feed route
+    values.firstName = "";
+    values.lastName = "";
+    values.email = "";
+    values.password = "";
+    values.terms = false;
   };
 
   function goToLogIn() {
