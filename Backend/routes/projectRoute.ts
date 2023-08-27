@@ -6,7 +6,12 @@ const authenticateUser = require('../middleware/authentication');
 // import {AuthenticatedRequest} from '../Constant'
 
 // Controllers 
-const {createProject,deleteProject,add,remove,all } = require('../controllers/projectController');
+// const {all } = require('../controllers/projectController');
+const {createProject } = require('../controllers/project/createProject');
+const {deleteProject } = require('../controllers/project/deleteProject');
+const {add } = require('../controllers/project/add');
+const {remove } = require('../controllers/project/remove');
+const {all } = require('../controllers/project/all');
 
 // Create  new Project
 router.route('/create').post(authenticateUser,createProject);

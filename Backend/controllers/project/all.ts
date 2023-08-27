@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { AuthenticatedRequest } from "../../Constant";
 const { StatusCodes } = require("http-status-codes");
 // Mongoose Model
@@ -7,3 +7,7 @@ const Manager = require("../../models/Manager");
 const Developer = require("../../models/Developer");
 const Project = require("../../models/Project");
 const Bug = require("../../models/Bug");
+
+export const all = async (req: AuthenticatedRequest, res: Response) => {
+  res.send("all project");
+};
