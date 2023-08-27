@@ -18,12 +18,13 @@ interface MyStyleState {
   display?: string; // Add display property to the interface
 }
 
-const LogGeneral = ({userName,childComponet,DarkMode=true}: Props) => {
+const FeedGeneral = ({userName,childComponet,DarkMode=true}: Props) => {
   const [myStyle, setMyStyle] = useState<MyStyleState>({
     right: '1.5em',
     display: window.innerWidth >= 992 ? 'block' : 'none', // Initial display based on window size
   });
 
+  // Function for images 
   const detectSize = () => {
     if (window.innerWidth < 992) {
       setMyStyle({
@@ -38,6 +39,7 @@ const LogGeneral = ({userName,childComponet,DarkMode=true}: Props) => {
     }
   };
 
+  // Function for images
   useEffect(() => {
     // Detect initial window size when the component mounts
     detectSize();
@@ -74,4 +76,4 @@ const LogGeneral = ({userName,childComponet,DarkMode=true}: Props) => {
   );
 };
 
-export default LogGeneral;
+export default FeedGeneral;
