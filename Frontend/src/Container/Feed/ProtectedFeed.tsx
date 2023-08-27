@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Feed from "./FeedComponents/Feed";
-import { getCurrentUserLocalStorage } from "../../Utils/util";
+import { getLoggedInUserFromLocalStorage } from "../../Utils/util";
 import { useNavigate } from "react-router-dom";
 
 interface PostTabsProps {}
@@ -10,7 +10,7 @@ const ProtectedFeed: React.FC<PostTabsProps> = () => {
   const [check, setCheck] = useState(true);
   const navigate = useNavigate(); // Get the navigate function
   useEffect(() => {
-    const currentUserJSON: string | null = getCurrentUserLocalStorage();
+    const currentUserJSON: string | null = getLoggedInUserFromLocalStorage();
     // There is no User Signed IN!!
     if (currentUserJSON === "{}") {
       setValidUser(false); 

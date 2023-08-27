@@ -1,5 +1,5 @@
 import {PostObj,PostURL } from "../../Constants/Constants";
-import {getData} from '../Data/GetData';
+import {getData} from '../GetData/GetData';
 
 // Function to fetch posts from the server
 export async function fetchPostsFromServer(): Promise<PostObj[]> {

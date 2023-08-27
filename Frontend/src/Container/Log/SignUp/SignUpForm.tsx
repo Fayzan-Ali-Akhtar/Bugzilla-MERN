@@ -7,11 +7,16 @@ import InputGroup from "react-bootstrap/InputGroup";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
 import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
 // Importing an ENUM
-import { TypeLog, NewUser, FormValues,UserType } from "../../../Constants/Constants";
+import {
+  TypeLog,
+  User,
+  FormValues,
+  UserType,
+} from "../../../Constants/Constants";
 import { useNavigate } from "react-router-dom";
+import { signupUserOnServer } from "../../../Services/Signup/signupOnServer";
 
 const SignUpForm: React.FC = () => {
-
   const schema = yup.object().shape({
     firstName: yup.string().required("First name is required"),
     lastName: yup.string().required("Last name is required"),
@@ -20,10 +25,10 @@ const SignUpForm: React.FC = () => {
       .string()
       .required("Password is required")
       .min(6, "Password must be at least 6 characters"),
-      userType: yup
-    .string()
-    .oneOf(Object.values(UserType), "Invalid user type")
-    .required("User type is required"),
+    userType: yup
+      .string()
+      .oneOf(Object.values(UserType), "Invalid user type")
+      .required("User type is required"),
     terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
   });
 
@@ -32,35 +37,51 @@ const SignUpForm: React.FC = () => {
     lastName: "",
     email: "",
     password: "",
-    userType:UserType.Manager,
+    userType: UserType.Manager,
     terms: false,
   };
 
   const navigate = useNavigate(); // Get the navigate function
 
-  const handleSubmit = (values: FormValues) => {
-    const newUser: NewUser = {
+  const handleSubmit = async (values: FormValues) => {
+    const newUser: User = {
+      id: "",
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
       password: values.password,
-      userType : values.userType
+      userType: values.userType,
     };
 
-    // Displaying NewUser 
-    console.log(newUser)
+    // Displaying NewUser
+    console.log("Displaying NewUser");
+    console.log(newUser);
+
+    try {
+      await signupUserOnServer(newUser);
+      // Handle success here, e.g., redirect to login page
+      navigate("/feed");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        // console.log("no more pls")
+        // console.log(error);
+        console.error("Unknown error occurred:", error);
+      } else {
+        console.error("Unknown error occurred:", error);
+      }
+      // Handle error here, e.g., display an error message to the user
+      // console.error("Error signing up:", error.message);
+    }
     // Check if AllUsersArray exists in localStorage
-    
 
     // Check if newUser already exists in AllUsersArray
-    
 
     // Clear the input fields after submission
-    values.firstName = "";
-    values.lastName = "";
-    values.email = "";
-    values.password = "";
-    values.terms = false;
+    // values.firstName = "";
+    // values.lastName = "";
+    // values.email = "";
+    // values.password = "";
+    // values.terms = false;
 
     // Directing User to feed page
     // navigate("/login"); // Navigate to /feed route
@@ -87,13 +108,29 @@ const SignUpForm: React.FC = () => {
             <Row className="mb-3">
               <Form.Group as={Col} md="6" controlId="validationFormik01">
                 <Form.Label className="white-text">First name</Form.Label>
-                <Field type="text" name="firstName" className="bg-dark text-white form-control" />
-                <ErrorMessage name="firstName" component="div" className="ms-1 text-red"/>
+                <Field
+                  type="text"
+                  name="firstName"
+                  className="bg-dark text-white form-control"
+                />
+                <ErrorMessage
+                  name="firstName"
+                  component="div"
+                  className="ms-1 text-red"
+                />
               </Form.Group>
               <Form.Group as={Col} md="6" controlId="validationFormik02">
                 <Form.Label className="white-text">Last name</Form.Label>
-                <Field type="text" name="lastName" className="bg-dark text-white form-control" />
-                <ErrorMessage name="lastName" component="div" className="ms-1 text-red"/>
+                <Field
+                  type="text"
+                  name="lastName"
+                  className="bg-dark text-white form-control"
+                />
+                <ErrorMessage
+                  name="lastName"
+                  component="div"
+                  className="ms-1 text-red"
+                />
               </Form.Group>
             </Row>
             <Row className="mb-3">
@@ -109,7 +146,11 @@ const SignUpForm: React.FC = () => {
                       touched.email && errors.email ? "is-invalid" : ""
                     }`}
                   />
-                  <ErrorMessage name="email" component="div" className="ms-1 text-red" />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="ms-1 text-red"
+                  />
                 </InputGroup>
               </Form.Group>
             </Row>
@@ -124,27 +165,34 @@ const SignUpForm: React.FC = () => {
                   className={`bg-dark text-white form-control ${
                     touched.password && errors.password ? "is-invalid" : ""
                   }`}
-                  
                 />
-                <ErrorMessage name="password" component="div" className="ms-1 text-red"/>
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="ms-1 text-red"
+                />
               </Form.Group>
             </Row>
             <Form.Group as={Col} md="12" controlId="validationFormikUserType">
-  <Form.Label className="white-text">User Type</Form.Label>
-  <Field
-    as="select"
-    name="userType"
-    className={`bg-dark text-white form-control ${
-      touched.userType && errors.userType ? "is-invalid" : ""
-    }`}
-  >
-    <option value="">Select User Type</option>
-    <option value={UserType.Developer}>Developer</option>
-    <option value={UserType.Manager}>Manager</option>
-    <option value={UserType.QA}>QA</option>
-  </Field>
-  <ErrorMessage name="userType" component="div" className="ms-1 text-red" />
-</Form.Group>
+              <Form.Label className="white-text">User Type</Form.Label>
+              <Field
+                as="select"
+                name="userType"
+                className={`bg-dark text-white form-control ${
+                  touched.userType && errors.userType ? "is-invalid" : ""
+                }`}
+              >
+                <option value="">Select User Type</option>
+                <option value={UserType.Developer}>Developer</option>
+                <option value={UserType.Manager}>Manager</option>
+                <option value={UserType.QA}>QA</option>
+              </Field>
+              <ErrorMessage
+                name="userType"
+                component="div"
+                className="ms-1 text-red"
+              />
+            </Form.Group>
 
             {/* End of the password form group */}
             <Form.Group className="mb-3">

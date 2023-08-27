@@ -1,5 +1,5 @@
 import { CommentObj,CommentURL } from "../../Constants/Constants";
-import {getData} from '../Data/GetData';
+import {getData} from '../GetData/GetData';
 
 // Function to fetch comments from the server
 export async function fetchCommentsFromServer(postId: number): Promise<CommentObj[]> {

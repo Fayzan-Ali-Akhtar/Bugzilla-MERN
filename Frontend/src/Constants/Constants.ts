@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose'; // Import mongoose
 
-export const manager_URL = "http://localhost:5000/api/manager";
+export const base_URL = "http://localhost:5000/api";
+export const manager_URL = `${base_URL}/manager`;
 
 export const PrimaryColor: string = "#537FE7";
 export const SecondaryColor: string = "#181823";
@@ -16,9 +17,9 @@ export enum TypeLog {
 
 // UserType tells on whi  ch section is present currently
 export enum UserType {
-  Developer = "Developer",
-  Manager = "Manager",
-  QA = "QA",
+  Developer = "developer",
+  Manager = "manager",
+  QA = "qa",
 }
 
 export enum BugType {
@@ -39,7 +40,6 @@ export interface User {
   email: string;
   password: string;
   userType: string;
-  token: string;
 }
 
 // export interface Developer {

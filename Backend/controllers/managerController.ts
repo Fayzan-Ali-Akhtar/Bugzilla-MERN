@@ -47,6 +47,8 @@ export const getAllManagers = async (req: Request, res: Response) => {
 
 // To create a new manager
 export const signup = async (req: Request, res: Response) => {
+  console.log("In signup");
+  console.log(req.body);
   // Checking if all fields are filled
   const { firstName, lastName, email, password, userType } = req.body;
   if (!firstName || !lastName || !email || !password || !userType) {
