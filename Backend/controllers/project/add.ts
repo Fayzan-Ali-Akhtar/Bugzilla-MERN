@@ -126,7 +126,7 @@ export const add = async (req: AuthenticatedRequest, res: Response) => {
           .json({ error: "Bug is already added to this project" });
       }
 
-      // Adding the qa on DB
+      // Adding the bug on DB
       ProjectToBeUpdated.addBug(dataToBeAdded);
       await ProjectToBeUpdated.save(); // Save the changes to the database
     } else {
@@ -143,6 +143,6 @@ export const add = async (req: AuthenticatedRequest, res: Response) => {
     console.error(error);
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ error: "An error occurred while added a person in Project" });
+      .json({ error: "An error occurred while adding a value in Project" });
   }
 };
