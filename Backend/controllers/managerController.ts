@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 const { StatusCodes } = require("http-status-codes");
 // Mongoose Model 
+const QA = require("../models/QA");
 const Manager = require("../models/Manager");
+const Developer = require("../models/Developer");
 
 // To get 1 specific manager
 export const getOneManager = async (req: Request, res: Response) => {
@@ -61,8 +63,10 @@ export const signup = async (req: Request, res: Response) => {
   }
 
   // Check if a manager with the provided email already exists
+  const existingQA = await QA.findOne({ email });
   const existingManager = await Manager.findOne({ email });
-  if (existingManager) {
+  const existingDeveloper = await Developer.findOne({ email });
+  if (existingQA || existingManager || existingDeveloper) {
     return res
       .status(StatusCodes.CONFLICT)
       .json({ error: "Email already in use!" });
@@ -89,8 +93,7 @@ export const signup = async (req: Request, res: Response) => {
     const token = manager.createJWT();
     // Not sending back password
     manager.password = "";
-    manager.token = token;
-    res.status(StatusCodes.CREATED).json({ manager });
+    res.status(StatusCodes.CREATED).json({ manager,token });
   } catch (error) {
     console.error(error);
     res
@@ -108,6 +111,13 @@ export const login = async (req: Request, res: Response) => {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ error: "Please provide email, password and userType" });
+  }
+
+  // Checking if User Request is for Manager
+  if (userType !== "manager") {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ error: "UserType is not manager" });
   }
 
   const manager = await Manager.findOne({ email });
@@ -130,6 +140,5 @@ export const login = async (req: Request, res: Response) => {
   const token = manager.createJWT();
   // Not sending back password
   manager.password = "";
-  manager.token = token;
-  res.status(StatusCodes.OK).json({ manager });
+  res.status(StatusCodes.OK).json({ manager,token });
 };

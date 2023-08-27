@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 const { StatusCodes } = require("http-status-codes");
 // Mongoose Model 
+const QA = require("../models/QA");
+const Manager = require("../models/Manager");
 const Developer = require("../models/Developer");
 
 // To get 1 specific developer
@@ -61,8 +63,10 @@ export const signup = async (req: Request, res: Response) => {
   }
 
   // Check if a developer with the provided email already exists
+  const existingQA = await QA.findOne({ email });
+  const existingManager = await Manager.findOne({ email });
   const existingDeveloper = await Developer.findOne({ email });
-  if (existingDeveloper) {
+  if (existingQA || existingManager || existingDeveloper) {
     return res
       .status(StatusCodes.CONFLICT)
       .json({ error: "Email already in use!" });
@@ -89,8 +93,7 @@ export const signup = async (req: Request, res: Response) => {
     const token = developer.createJWT();
     // Not sending back password
     developer.password = "";
-    developer.token = token;
-    res.status(StatusCodes.CREATED).json({ developer });
+    res.status(StatusCodes.CREATED).json({ developer,token });
   } catch (error) {
     console.error(error);
     res
@@ -108,7 +111,15 @@ export const login = async (req: Request, res: Response) => {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ error: "Please provide email, password and userType" });
+  } 
+
+  // Checking if User Request is for Developer
+  if (userType !== "developer") {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ error: "UserType is not Developer" });
   }
+
 
   const developer = await Developer.findOne({ email });
   // Whne developer is not found 
@@ -130,6 +141,5 @@ export const login = async (req: Request, res: Response) => {
   const token = developer.createJWT();
   // Not sending back password
   developer.password = "";
-  developer.token = token;
-  res.status(StatusCodes.OK).json({ developer });
+  res.status(StatusCodes.OK).json({ developer,token });
 };

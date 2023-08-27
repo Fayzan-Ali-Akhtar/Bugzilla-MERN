@@ -40,7 +40,7 @@ DeveloperSchema.pre('save', async function (next) {
 // This function gives JWT token for the developer
 DeveloperSchema.methods.createJWT = function () {
   return jwt.sign(
-    { userId: this._id, email: this.email },
+    { userId: this._id, email: this.email,userType : this.userType },
     process.env.JWT_SECRET as string,
     {
       expiresIn: process.env.JWT_LIFETIME,

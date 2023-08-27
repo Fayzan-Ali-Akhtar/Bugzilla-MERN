@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 const { StatusCodes } = require("http-status-codes");
 // Mongoose Model 
 const QA = require("../models/QA");
+const Manager = require("../models/Manager");
+const Developer = require("../models/Developer");
 
 // To get 1 specific qa
 export const getOneQA = async (req: Request, res: Response) => {
@@ -62,7 +64,9 @@ export const signup = async (req: Request, res: Response) => {
 
   // Check if a QA with the provided email already exists
   const existingQA = await QA.findOne({ email });
-  if (existingQA) {
+  const existingManager = await Manager.findOne({ email });
+  const existingDeveloper = await Developer.findOne({ email });
+  if (existingQA || existingManager || existingDeveloper) {
     return res
       .status(StatusCodes.CONFLICT)
       .json({ error: "Email already in use!" });
@@ -89,8 +93,7 @@ export const signup = async (req: Request, res: Response) => {
     const token = qa.createJWT();
     // Not sending back password
     qa.password = "";
-    qa.token = token;
-    res.status(StatusCodes.CREATED).json({ qa });
+    res.status(StatusCodes.CREATED).json({ qa,token });
   } catch (error) {
     console.error(error);
     res
@@ -108,6 +111,13 @@ export const login = async (req: Request, res: Response) => {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ error: "Please provide email, password and userType" });
+  }
+
+  // Checking if User Request is for QA
+  if (userType !== "qa") {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ error: "UserType is not qa" });
   }
 
   const qa = await QA.findOne({ email });
@@ -130,6 +140,5 @@ export const login = async (req: Request, res: Response) => {
   const token = qa.createJWT();
   // Not sending back password
   qa.password = "";
-  qa.token = token;
-  res.status(StatusCodes.OK).json({ qa });
+  res.status(StatusCodes.OK).json({ qa,token });
 };
