@@ -38,7 +38,7 @@ export const deleteBug = async (req: AuthenticatedRequest, res: Response) => {
     // Getting the project of this bug from DB
     let ProjectObj = await Project.findOne({_id : bugToDelete.projectID});
 
-    console.log('ProjectObj.qas:', ProjectObj.qas); // Add this line to see the content of ProjectObj.qas
+    // console.log('ProjectObj.qas:', ProjectObj.qas); // Add this line to see the content of ProjectObj.qas
 
     if(!ProjectObj){
         return res
