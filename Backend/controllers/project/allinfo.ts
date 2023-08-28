@@ -88,8 +88,9 @@ export const allinfo = async (req: AuthenticatedRequest, res: Response) => {
         .json({ error: "User type is not valid" });
     }
 
+    const projects = filteredProjects;
     // Sending the response
-    res.status(StatusCodes.OK).json({ filteredProjects});
+    res.status(StatusCodes.OK).json({ projects});
   } catch (error) {
     console.error(error);
     res

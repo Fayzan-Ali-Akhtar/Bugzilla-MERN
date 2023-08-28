@@ -12,14 +12,8 @@ export async function loginUserOnServer(newUser: User): Promise<User> {
     const user_type: string = newUser.userType;
     let login_url = base_URL + `/${newUser.userType}` + "/login";
     const postDataResponse: any = await postData<User>(login_url, newUser);
-    // Signed Up User is
-    console.log("yo2");
-    console.log(postDataResponse);
-
-    // console.log(postDataResponse.manager.firstName);
-    // console.log(typeof (postDataResponse.manager.firstName));
-    console.log(postDataResponse);
-    console.log(user_type);
+    
+    
 
     let savedUser: User | undefined = getUserObj(postDataResponse, user_type);
     if (savedUser !== undefined) {
@@ -27,9 +21,8 @@ export async function loginUserOnServer(newUser: User): Promise<User> {
       const token: string = postDataResponse.token;
       saveTokenToLocalStorage(token);
       saveUserToLocalStorage(savedUser);
-    //   console.log("In signupUserOnServer");
-    //   console.log(savedUser);
       return savedUser;
+      
     } else {
       throw new Error("User is undefined");
     }

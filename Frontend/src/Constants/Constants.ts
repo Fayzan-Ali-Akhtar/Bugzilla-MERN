@@ -2,6 +2,8 @@ import mongoose, { Schema, Document } from 'mongoose'; // Import mongoose
 
 export const base_URL = "http://localhost:5000/api";
 export const manager_URL = `${base_URL}/manager`;
+export const allPostURL = `${base_URL}/project/allinfo`;
+// "http://localhost:5000/api/project/allinfo";
 
 export const PrimaryColor: string = "#537FE7";
 export const SecondaryColor: string = "#181823";

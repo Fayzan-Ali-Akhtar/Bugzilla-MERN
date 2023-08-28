@@ -11,7 +11,7 @@ import {getLoggedInUserFromLocalStorage} from '../../../Utils/util';
 import { useNavigate } from "react-router-dom";
 // import {getDataFromServer} from '../../../Services/Project/Testing';
 import {fetchManagersFromServer} from '../../../Services/Manager/manager';
-import {fetchAllProjectsFromServer} from '../../../Services/Project/GetAllPosts';
+import {fetchAllProjectsFromServer} from '../../../Services/Project/GetAllProjects';
 
 interface MyStyleState {
   right: string;
@@ -60,7 +60,22 @@ const FeedGeneral = () => {
     };
   }, []); // Empty dependency array to run this effect only once, on mount
 
+  const fetchProjects = async () => {
+    try {
+      const ProjectsData = await fetchAllProjectsFromServer();
 
+      if (ProjectsData.length === 0) {
+        console.log("No Projects");
+      } else {
+        for (const project of ProjectsData) {
+          console.log(project);
+        }
+        
+      }
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  };
 
   useEffect(() => {
     const User: User | null = getLoggedInUserFromLocalStorage();
@@ -74,19 +89,11 @@ const FeedGeneral = () => {
       name: User?.firstName,
       userType: User?.userType,
     });
-    const url = base_URL + "/project/allinfo";
-    const data = {};
-
-    // fetchManagersFromServer()
-    fetchAllProjectsFromServer()
-      .then((managersData) => {
-        console.log(managersData); // Store the fetched managers in state
-      })
-      .catch((error) => {
-        console.error('Error fetching managers:', error);
-      });
-    // console.log("url",url);
-    // getDataFromServer(url,data);
+    
+  
+    fetchProjects();
+  
+  
   }, []);
 
   return (
