@@ -12,6 +12,7 @@ export async function fetchAllProjectsFromServer(): Promise<Project[]> {
     const arrProjects:Project[] = projects.map((project: any) => {
         const existingProject = {
             id: project._id,
+            title: project.title,
             bugs: project.bugs,
             developers: project.developers,
             qas: project.qas,

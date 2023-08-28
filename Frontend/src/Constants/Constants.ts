@@ -74,8 +74,9 @@ export interface Bug{
     
   }
   export interface Project {
+    id: string;
     title: string;
-    managers: string[];
+    manager: string;
     developers: string[];
     qas: string[];
     bugs: string[];
