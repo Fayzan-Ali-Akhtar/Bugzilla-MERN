@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-
+const authenticateUser = require('../middleware/authentication');
 // Controllers 
 const {signup,login,getOneManager,getAllManagers } = require('../controllers/managerController');
 
@@ -11,6 +11,6 @@ router.route('/login').post(login);
 // Get a Specific Manager 
 router.route('/').get(getOneManager);
 // Get All Managers
-router.route('/all').get(getAllManagers);
+router.route('/all').get(authenticateUser,getAllManagers);
 
 module.exports = router;

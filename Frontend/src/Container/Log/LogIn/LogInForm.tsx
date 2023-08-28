@@ -7,10 +7,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
 import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
 // Importing an ENUM
-import { TypeLog, UserObj,UserType,User } from "../../../Constants/Constants";
+import { TypeLog, UserObj, UserType, User } from "../../../Constants/Constants";
 import { useNavigate } from "react-router-dom";
-// import {fetchManagersFromServer} from "../../../Services/Manager/manager";
-import {loginUserOnServer} from "../../../Services/Login/loginOnServer";
+import { loginUserOnServer } from "../../../Services/Login/loginOnServer";
 
 interface FormValues {
   email: string;
@@ -25,7 +24,7 @@ const LogInForm: React.FC = () => {
       .string()
       .required("Password is required")
       .min(6, "Password must be at least 6 characters"),
-      userType: yup
+    userType: yup
       .string()
       .oneOf(Object.values(UserType), "Invalid user type")
       .required("User type is required"),
@@ -34,54 +33,31 @@ const LogInForm: React.FC = () => {
   const initialValues: FormValues = {
     email: "",
     password: "",
-    userType:UserType.Manager,
+    userType: UserType.Manager,
   };
 
   const navigate = useNavigate(); // Get the navigate function
 
   const handleSubmit = (values: FormValues) => {
-
-    const newUser:User = {
-      id : "",
-      firstName :  "",
-      lastName :  "",
-       email :  values.email,
-     password :  values.password,
-     userType :  values.userType
+    const newUser: User = {
+      id: "",
+      firstName: "",
+      lastName: "",
+      email: values.email,
+      password: values.password,
+      userType: values.userType,
     };
 
-    // Displaying NewUser 
-    // console.log(newUser);
-
-    // CALL fetchManagersFromServer HERE THEN CONSOLE.LOG THE RESULT 
+    // CALL fetchManagersFromServer HERE THEN CONSOLE.LOG THE RESULT
     (async () => {
-    try {
-      // console.log("yo")
-      // Call fetchManagersFromServer and console.log the result
-      const result = await loginUserOnServer(newUser);
-      // console.log("login result:", result);
-      // Going to Feed Page
-      navigate("/feed");
-      // ... (rest of the code)
-    } catch (error) {
-      console.error("Error fetching managers:", error);
-    }
-  })();
-    // Check if AllUsersArray exists in localStorage
-    
-
-    // Check if there's a user with matching email and password in AllUsersArray
-    // let response = "";
-
-    // if (response) {
-    //   // Set the currentUser in localStorage
-    //   localStorage.setItem("CurrentUser", JSON.stringify(response));
-    //   // Navigate to /feed route
-    //   navigate("/feed");
-    // } else {
-    //   // Display an alert if the user does not exist
-    //   alert("Invalid email or password. Please try again.");
-    // }
+      try {
+        const result = await loginUserOnServer(newUser);
+        // Going to Feed Page
+        navigate("/feed");
+      } catch (error) {
+        console.error("Error while logging in:", error);
+      }
+    })();
   };
 
   function goToSignUp() {
@@ -117,7 +93,11 @@ const LogInForm: React.FC = () => {
                       touched.email && errors.email ? "is-invalid" : ""
                     }`}
                   />
-                  <ErrorMessage name="email" component="div" className="ms-1 text-red"/>
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="ms-1 text-red"
+                  />
                 </InputGroup>
               </Form.Group>
             </Row>
@@ -133,7 +113,11 @@ const LogInForm: React.FC = () => {
                     touched.password && errors.password ? "is-invalid" : ""
                   }`}
                 />
-                <ErrorMessage name="password" component="div" className="ms-1 text-red"/>
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="ms-1 text-red"
+                />
               </Form.Group>
             </Row>
             {/* UserType form group */}
@@ -151,7 +135,11 @@ const LogInForm: React.FC = () => {
                 <option value={UserType.Manager}>Manager</option>
                 <option value={UserType.QA}>QA</option>
               </Field>
-              <ErrorMessage name="userType" component="div" className="ms-1 text-red" />
+              <ErrorMessage
+                name="userType"
+                component="div"
+                className="ms-1 text-red"
+              />
             </Form.Group>
             {/* End of the password form group */}
             <div className="d-flex justify-content-evenly mb-2 mt-3">
@@ -159,7 +147,11 @@ const LogInForm: React.FC = () => {
                 {/* <ConnectTextLogo logo_size={1.5} custom_color="white" /> */}
                 Log In
               </Button>
-              <Button variant="outline-light" type="submit" onClick={goToSignUp}>
+              <Button
+                variant="outline-light"
+                type="submit"
+                onClick={goToSignUp}
+              >
                 Don't have an account?
               </Button>
             </div>

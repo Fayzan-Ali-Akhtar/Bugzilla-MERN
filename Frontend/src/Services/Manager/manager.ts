@@ -1,15 +1,17 @@
-import { manager_URL,User } from "../../Constants/Constants";
-import {getData} from '../GetData/GetData';
+import { manager_URL, User } from "../../Constants/Constants";
+import { newGetData } from '../GetData/NewGetData';
+import { addTokenToRequestHeader } from '../Request/outGoing'; // Import the token function
 
-// Function to fetch comments from the server
+// Function to fetch managers from the server
 export async function fetchManagersFromServer(): Promise<User[]> {
-    try {
-    //   const url_of_comment = CommentURL[0] + postId + CommentURL[1];
+  try {
     const new_url = manager_URL + '/all';
-      const postData = await getData<User[]>(new_url);
-      return postData;
-    } catch (error) {
-        console.log(error);
-      throw error;
-    }
+    const config = { headers: {} }; // Initialize headers
+    addTokenToRequestHeader(config); // Add token to headers
+    const postData = await newGetData<User[]>(new_url, config);
+    return postData;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
+}

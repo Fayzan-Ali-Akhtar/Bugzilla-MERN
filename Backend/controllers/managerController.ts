@@ -32,6 +32,9 @@ export const getOneManager = async (req: Request, res: Response) => {
 // To get all managers
 export const getAllManagers = async (req: Request, res: Response) => {
   try {
+    console.log("In getAllManagers");
+    // console.log(req.headers);
+    // console.log(req);
     // Fetch all managers from the database
     const managers = await Manager.find();
 

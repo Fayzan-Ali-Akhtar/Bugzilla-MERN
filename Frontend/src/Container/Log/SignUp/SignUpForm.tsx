@@ -53,10 +53,6 @@ const SignUpForm: React.FC = () => {
       userType: values.userType,
     };
 
-    // Displaying NewUser
-    // console.log("Displaying NewUser");
-    // console.log(newUser);
-
     try {
       await signupUserOnServer(newUser);
       // Going to Feed Page
@@ -68,13 +64,6 @@ const SignUpForm: React.FC = () => {
         console.error("Unknown error occurred:", error);
       }
     }
-
-    // Clear the input fields after submission
-    values.firstName = "";
-    values.lastName = "";
-    values.email = "";
-    values.password = "";
-    values.terms = false;
   };
 
   function goToLogIn() {

@@ -10,6 +10,8 @@ const Bug = require("../../models/Bug");
 
 export const allinfo = async (req: AuthenticatedRequest, res: Response) => {
   //   res.send("allinfo project");
+  console.log("Yo");
+  // console.log(req);
 
   console.log(`User is ${req.user.email} ${req.user.userType}}`);
 
@@ -87,10 +89,7 @@ export const allinfo = async (req: AuthenticatedRequest, res: Response) => {
     }
 
     // Sending the response
-    res.status(StatusCodes.OK).json({
-      message: `All projects fetched successfully`,
-      projects: filteredProjects,
-    });
+    res.status(StatusCodes.OK).json({ filteredProjects});
   } catch (error) {
     console.error(error);
     res

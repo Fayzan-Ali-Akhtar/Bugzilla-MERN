@@ -42,6 +42,11 @@ export interface User {
   userType: string;
 }
 
+export interface DisplayName {
+  name :string|undefined,
+  userType: string|undefined,
+}
+
 // export interface Developer {
 //   firstName: string;
 //   lastName: string;
@@ -68,10 +73,10 @@ export interface Bug{
   }
   export interface Project {
     title: string;
-    managers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Manager' }];
-    developers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Developer' }];
-    qas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QA' }];
-    bugs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Bug' }];
+    managers: string[];
+    developers: string[];
+    qas: string[];
+    bugs: string[];
   }
   
 export const imageTime = 5000;

@@ -6,9 +6,11 @@ import {AuthenticatedRequest} from '../Constant'
 
 
 const authentication = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+  console.log("Yo boi")
   // checking header format
   const authHeader = req.headers.authorization
   if (!authHeader || !authHeader.startsWith('Bearer')) {
+    console.log("in authentication")
     return res
       .status(StatusCodes.UNAUTHORIZED)
       .json({ error: 'Unauthorized', message: 'Invalid JWT token' });

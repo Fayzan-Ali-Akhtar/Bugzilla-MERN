@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Feed from "./FeedComponents/Feed";
+import FeedGeneral from "./FeedComponents/FeedGeneral";
+// import Feed from "./FeedComponents/Feed";
 import { getLoggedInUserFromLocalStorage,getTokenFromLocalStorage } from "../../Utils/util";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +8,6 @@ interface PostTabsProps {}
 
 const ProtectedFeed: React.FC<PostTabsProps> = () => {
   const [validUser, setValidUser] = useState(false);
-  const [check, setCheck] = useState(true);
   const navigate = useNavigate(); // Get the navigate function
   useEffect(() => {
     const currentUserJSON: string | null = getLoggedInUserFromLocalStorage();
@@ -23,7 +23,7 @@ const ProtectedFeed: React.FC<PostTabsProps> = () => {
       navigate("/home"); 
     }
   }, []);
-  return <>{validUser ? <Feed /> : null}</>;
+  return <>{validUser ? <FeedGeneral /> : null}</>;
 };
 
 export default ProtectedFeed;

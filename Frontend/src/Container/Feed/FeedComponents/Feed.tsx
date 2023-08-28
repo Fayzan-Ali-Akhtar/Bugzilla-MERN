@@ -66,7 +66,7 @@ const HomeForm: React.FC = () => {
 
   return (
     <>
-      <FeedGeneral userName = {user.firstName} childComponet={<FeedPosts posts={posts} updatePost = {setPosts} user = {user} newPostIdAvailable ={newPostIdAvailable} setnewPostIdAvailable = {setnewPostIdAvailable}/>} />
+      <FeedGeneral />
     </>
   );
 };

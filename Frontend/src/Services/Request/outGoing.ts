@@ -1,7 +1,10 @@
+import { AxiosRequestConfig } from 'axios';
 import {getTokenFromLocalStorage} from '../../Utils/util';
 
-export function addTokenToRequestHeader(request:any) {
-    // getting token from local storage 
+export function addTokenToRequestHeader(request: AxiosRequestConfig) {
     const token = getTokenFromLocalStorage();
-    return request.headers.common["Authorization"] = `Bearer ${token}`;
-}
+    if (!request.headers) {
+      request.headers = {}; 
+    }
+    request.headers['Authorization'] = `Bearer ${token}`;
+  }

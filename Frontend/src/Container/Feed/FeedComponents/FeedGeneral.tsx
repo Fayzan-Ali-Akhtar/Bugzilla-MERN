@@ -6,23 +6,30 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import NavBar from '../../NavBar/NavBar';
-import { PrimaryColor } from '../../../Constants/Constants';
+import { PrimaryColor,User,DisplayName,base_URL } from '../../../Constants/Constants';
+import {getLoggedInUserFromLocalStorage} from '../../../Utils/util';
+import { useNavigate } from "react-router-dom";
+// import {getDataFromServer} from '../../../Services/Project/Testing';
+import {fetchManagersFromServer} from '../../../Services/Manager/manager';
+import {fetchAllProjectsFromServer} from '../../../Services/Project/GetAllPosts';
 
-interface Props {
-  userName: string;
-  childComponet: ReactNode;
-  DarkMode ?: boolean;
-}
 interface MyStyleState {
   right: string;
   display?: string; // Add display property to the interface
 }
 
-const FeedGeneral = ({userName,childComponet,DarkMode=true}: Props) => {
+const FeedGeneral = () => {
   const [myStyle, setMyStyle] = useState<MyStyleState>({
     right: '1.5em',
     display: window.innerWidth >= 992 ? 'block' : 'none', // Initial display based on window size
   });
+  const navigate = useNavigate(); // Get the navigate function
+  // Logined In User 
+  const [user, setUser] = useState<User | null>(null); // User State
+  const [displayName, setDisplayName] = useState<DisplayName>({
+    name: "Bugzilla",
+    userType: "",
+  }); // Display Name State
 
   // Function for images 
   const detectSize = () => {
@@ -53,16 +60,44 @@ const FeedGeneral = ({userName,childComponet,DarkMode=true}: Props) => {
     };
   }, []); // Empty dependency array to run this effect only once, on mount
 
+
+
+  useEffect(() => {
+    const User: User | null = getLoggedInUserFromLocalStorage();
+    // Check to see if the user is logged in
+    if(!User)
+    {
+      navigate("/home"); 
+    }
+    setUser(User);
+    setDisplayName({
+      name: User?.firstName,
+      userType: User?.userType,
+    });
+    const url = base_URL + "/project/allinfo";
+    const data = {};
+
+    // fetchManagersFromServer()
+    fetchAllProjectsFromServer()
+      .then((managersData) => {
+        console.log(managersData); // Store the fetched managers in state
+      })
+      .catch((error) => {
+        console.error('Error fetching managers:', error);
+      });
+    // console.log("url",url);
+    // getDataFromServer(url,data);
+  }, []);
+
   return (
     <>
-    <div className={`${DarkMode?"bg-dark":""}`}>
-
+    <div className="bg-dark">
       <HeadingLogo DarkMode = {true}/>
-      <NavBar userName={userName} />
+      <NavBar userName={displayName} />
       <Container>
         <Row >
           <Col lg={10} xs={12} style={{border:`solid ${PrimaryColor} 0.3em`}} className='mt-3  p-3 mb-5 bg-body rounded center'>
-            {childComponet}
+            {/* {childComponet} */}
           </Col>
           <Col lg={2} xs={0} className='mt-3 position-fixed' style={myStyle}>
             {/* <LogHero/> */}
