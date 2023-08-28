@@ -13,7 +13,17 @@ export interface ProjectType {
   developers: string[];
   qas: string[];
   manager: string;
-  // Add other properties as needed
+}
+export interface BugType {
+  _id: string;
+  title: string;
+  deadline: string;
+  status: string;
+  type: string;
+  projectID: string;
+  developers: string[];
+  description: string;
+  screenshot: string;
 }
 
 
