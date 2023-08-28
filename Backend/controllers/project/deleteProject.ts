@@ -48,14 +48,15 @@ export const deleteProject = async (
 
     // Deleting all the Bugs of this project on DB
     const bugsOfProject = ProjectToBeDeleted.bugs;
-    for (const bugIdToDelete in bugsOfProject) {
+    for (const bugIdToDelete of bugsOfProject) {
       // Checking if a bug with the provided title already exists in DB
       const BugToBeDeleted = await Bug.findOne({ _id: bugIdToDelete });
-      if (!BugToBeDeleted) {
+      if (BugToBeDeleted) {
         // Deleting the bug on DB
         await BugToBeDeleted.deleteOne();
       }
     }
+    
     // Deleting the project on DB
     await ProjectToBeDeleted.deleteOne();
     // Sending the response
