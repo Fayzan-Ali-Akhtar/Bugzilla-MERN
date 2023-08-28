@@ -66,6 +66,13 @@ export const addDeveloper = async (
 
     // Adding this developer to the bug
     bugToUpdated.addDeveloper(developerID);
+
+    // Changing the status of the bug to "in progress" 
+    if(bugToUpdated.status !== "completed" && bugToUpdated.status !== "resolved")
+    {
+        bugToUpdated.status = "started";
+    }
+    
     await bugToUpdated.save(); // Save the changes to the database
 
     res
