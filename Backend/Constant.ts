@@ -8,6 +8,14 @@ export interface AuthenticatedRequest extends Request {
   };
 }
 
+export interface ProjectType {
+  _id: string;
+  developers: string[];
+  qas: string[];
+  manager: string;
+  // Add other properties as needed
+}
+
 
 
 

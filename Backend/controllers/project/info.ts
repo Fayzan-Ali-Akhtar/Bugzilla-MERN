@@ -9,7 +9,7 @@ const Project = require("../../models/Project");
 const Bug = require("../../models/Bug");
 
 export const info = async (req: AuthenticatedRequest, res: Response) => {
-  res.send("all project");
+  res.send("info project");
 };
 
 // send back info for a particular project

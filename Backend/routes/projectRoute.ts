@@ -9,6 +9,7 @@ const {add } = require('../controllers/project/add');
 const {remove } = require('../controllers/project/remove');
 const {all } = require('../controllers/project/all');
 const {info } = require('../controllers/project/info');
+const {allinfo } = require('../controllers/project/allinfo');
 
 // Create  new Project
 router.route('/create').post(authenticateUser,createProject);
@@ -22,5 +23,7 @@ router.route('/remove').delete(authenticateUser,remove);
 router.route('/all').get(authenticateUser,all);
 // Get all the projects of a user
 router.route('/info').get(authenticateUser,info);
+// Get all the projects of a user
+router.route('/allinfo').get(authenticateUser,allinfo);
 
 module.exports = router;
