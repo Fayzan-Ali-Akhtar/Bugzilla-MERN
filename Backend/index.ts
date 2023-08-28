@@ -9,6 +9,7 @@ const maganerRouter = require('./routes/managerRoute');
 const developerRouter = require('./routes/developerRoute');
 const qaRouter = require('./routes/qaRoute');
 const projectRouter = require('./routes/projectRoute');
+const bugRouter = require('./routes/bugRoute');
 
 // Use the cors middleware to allow cross-origin requests
 app.use(cors());
@@ -26,6 +27,9 @@ app.use('/api/qa', qaRouter);
 
 // For Project Routes
 app.use('/api/project', projectRouter);
+
+// For Bug Routes
+app.use('/api/bug', bugRouter);
 
 const start = async () => {
   try {
