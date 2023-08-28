@@ -19,7 +19,7 @@ router.route('/add/developer').post(authenticateUser,addDeveloper);
 // Remove a Developer
 router.route('/remove').delete(authenticateUser,removeDeveloper);
 // Developer can update the status of a bug
-router.route('/update/status').get(authenticateUser,updateStatus);
+router.route('/update/status').patch(authenticateUser,updateStatus);
 // All the users in the project can view bugs
 router.route('/allinfo').get(authenticateUser,allinfo);
 
