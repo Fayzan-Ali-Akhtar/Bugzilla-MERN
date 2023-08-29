@@ -9,7 +9,9 @@ interface Props {
 
 const Projects: React.FC<Props> = ({ project }) => {
  const [showTeam, setShowTeam] = React.useState(false);
- const [showReport, setShowReport] = React.useState(false);
+ const [showBug, setShowBug] = React.useState(false);
+ const [showBugText, setShowBugText] = React.useState("Show Bugs");
+ const [showTeamText, setShowTeamText] = React.useState("Show Team");
  const [managerName, setManagerName] = React.useState("Loading...");
 
  useEffect(() => {
@@ -23,20 +25,48 @@ const Projects: React.FC<Props> = ({ project }) => {
     });
   }
   , [project.manager]);
+
+  function toggleShowBug () {
+    if(!showBug){
+      setShowBugText("Show Bugs");
+    }
+    else{
+      setShowBugText("Hide Bugs");
+      setShowTeamText("Show Team");
+      setShowTeam(false);
+    }
+    setShowBug(!showBug);
+  }
+
+  function toggleShowTeam () {
+    if(!showTeam){
+      setShowTeamText("Show Team");
+    }
+    else{
+      setShowTeamText("Hide Team");
+      setShowBugText("Show Bugs");
+      setShowTeam(false);
+    }
+    setShowTeam(!showTeam);
+  }
   return (
     <>
     <Card bg="dark" text="white" className="mt-2 mb-2">
-      <Card.Header>{project.title}</Card.Header>
+      <Card.Header >{project.title}</Card.Header>
       <Card.Body>
         <blockquote className="blockquote mb-0">
-          <p>
+          {/* <p>
             {' '}
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
             posuere erat a ante.{' '}
-          </p>
+          </p> */}
           <footer className="blockquote-footer">
             Managed by <cite title="Source Title">{managerName}</cite>
           </footer>
+          <div className="d-flex justify-content-between mt-3">
+          <button className="btn btn-primary" onClick={toggleShowBug}>{showBugText}</button>
+          <button className="btn btn-secondary" onClick={toggleShowTeam}>{showTeamText}</button>
+          </div>
         </blockquote>
       </Card.Body>
     </Card>
