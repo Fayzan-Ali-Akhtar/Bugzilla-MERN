@@ -74,7 +74,7 @@ const FeedGeneral = () => {
       const ProjectsData = await fetchAllProjectsFromServer();
 
       if (ProjectsData.length === 0) {
-        console.log("No Projects");
+        // console.log("No Projects");
         setMessage("No Projects")
         sethasProject(false);
       } else {

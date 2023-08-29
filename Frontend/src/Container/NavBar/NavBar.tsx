@@ -30,7 +30,8 @@ function CollapsibleExample({ userName }: Props) {
     >
       <Container>
         <Navbar.Brand href="/feed">
-        <Button style={{background:`${PrimaryColor}`}} type="submit">
+        <Button className="btn btn-primary" type="submit">
+        {/* <Button style={{background:`${PrimaryColor}`}} type="submit"> */}
           {userName.name}
           </Button>
         
@@ -40,12 +41,13 @@ function CollapsibleExample({ userName }: Props) {
           <Nav className="me-auto"></Nav>
           <Nav>
             <Nav.Link>
-            <Button style={{color:"white"}} variant="dark" >
+            <Button  variant="dark" >
           {userName.userType}
           </Button>
             </Nav.Link>
             <Nav.Link eventKey={2} href="/" onClick={logOut}>
-              <Button style={{background:`${FourthColor}` ,color:"black"}} type="submit">
+              <Button className="btn btn-secondary" type="submit">
+              {/* <Button style={{background:`${FourthColor}` ,color:"black"}} type="submit"> */}
                 Log Out
               </Button>
             </Nav.Link>

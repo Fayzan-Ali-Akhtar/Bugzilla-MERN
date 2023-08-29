@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 
 interface Props {
-  // Define props here if needed
+  
 }
 
 const Bugs: React.FC<Props> = (props) => {

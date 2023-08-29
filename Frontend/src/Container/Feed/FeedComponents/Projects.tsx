@@ -75,7 +75,7 @@ const Projects: React.FC<Props> = ({ project }) => {
           <button className="btn btn-success" onClick={toggleShowTeam}>{showTeam?"Hide Team":"Show Team"}</button>
           </div>
           {showBug && <Bugs />}
-{showTeam && <Team />}
+{showTeam && <Team projectID={project.id}/>}
         </blockquote>
       </Card.Body>
     </Card>
