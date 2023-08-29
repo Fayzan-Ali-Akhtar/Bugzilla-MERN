@@ -18,7 +18,7 @@ router.route('/delete').delete(authenticateUser,deleteProject);
 // Add a Developer or QA 
 router.route('/add').post(authenticateUser,add);
 // Remove a Developer or QA
-router.route('/remove').delete(authenticateUser,remove);
+router.route('/remove').post(authenticateUser,remove);
 // Get all the projects of a user
 router.route('/all').get(authenticateUser,all);
 // Get all the projects of a user

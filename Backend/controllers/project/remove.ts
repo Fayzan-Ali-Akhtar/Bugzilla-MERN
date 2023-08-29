@@ -9,7 +9,7 @@ const Project = require("../../models/Project");
 const Bug = require("../../models/Bug");
 
 export const remove = async (req: AuthenticatedRequest, res: Response) => {
-  console.log(`User is ${req.user.email} ${req.user.userType}}`);
+  console.log(`Here User is ${req.user.email} ${req.user.userType}}`);
   // Checking if User Request is for Manager
   if (req.user.userType !== "manager") {
     return res

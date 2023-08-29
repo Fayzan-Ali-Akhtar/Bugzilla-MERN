@@ -6,6 +6,7 @@ export const allProjectURL = `${base_URL}/project/allinfo`;
 export const getAllDevelopersURL = `${base_URL}/developer/all`;
 export const getAllQAsURL = `${base_URL}/qa/all`;
 export const addOnePersonToProjectURL = `${base_URL}/project/add`;
+export const removeOnePersonFromProjectURL = `${base_URL}/project/remove`;
 // export const getOneManagerURL = `${base_URL}/manager`;
 export const getOneManagerURL = `http://localhost:5000/api/manager/`;
 export const getOneProjectURL = `http://localhost:5000/api/project/info`;

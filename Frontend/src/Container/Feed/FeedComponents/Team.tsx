@@ -3,6 +3,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { User, Project } from "../../../Constants/Constants";
 import { fetchOneProjectFromServer } from "../../../Services/Project/GetOneProject";
 import { addOnePersonToProjectOnServer } from "../../../Services/Project/AddOnePersonToProject";
+import { removeOnePersonFromProjectOnServer } from "../../../Services/Project/RemoveOnePersonFromProject";
 import { fetchAllDevelopersFromServer } from "../../../Services/Developer/GetAllDevelopers";
 import { fetchAllQAsFromServer } from "../../../Services/QA/GetAllQAs";
 import { getLoggedInUserFromLocalStorage } from "../../../Utils/util";
@@ -76,12 +77,19 @@ const Team: React.FC<Props> = ({ projectID }) => {
     }
   }
 
-  function removeDeveloperFromTeam(developerId: string) {
+  async function removeDeveloperFromTeam(developerId: string) {
     console.log(`Remove Developer with ID: ${developerId} from Team`);
+    setIsLoading(true);
+    await removeOnePersonFromProjectOnServer(projectID,developerId,"developer" )
+    getAndSetDevQaData();
   }
 
-  function removeQAFromTeam(qaId: string) {
+  async function removeQAFromTeam(qaId: string) {
     console.log(`Remove QA with ID: ${qaId} from Team`);
+    setIsLoading(true);
+    await removeOnePersonFromProjectOnServer(projectID,qaId,"qa" )
+    getAndSetDevQaData();
+    
   }
 
   async function addQAToTeam(qaId: string) {
