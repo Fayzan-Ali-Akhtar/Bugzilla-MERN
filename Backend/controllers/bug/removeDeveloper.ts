@@ -64,10 +64,12 @@ export const removeDeveloper = async (req: AuthenticatedRequest, res: Response) 
     // Adding this developer to the bug
     bugToUpdated.removeDeveloper(developerID);
 
+    // console.log("bugToUpdated.developers.length", bugToUpdated.developers.length)
+    
     // Changing the status of the bug to "in progress" 
     if(bugToUpdated.status !== "completed" && bugToUpdated.status !== "resolved")
     {
-      if(bugToUpdated.developers.length === 0)
+      if(bugToUpdated.developers.length === 1)
       {
         bugToUpdated.status = "new";
       }

@@ -62,7 +62,8 @@ const Projects: React.FC<Props> = ({ project, isManager,fetchProjects,userType,u
   }
   return (
     <>
-      <Card bg="dark" text="white" className="mt-2 mb-2">
+      <Card bg="dark" text="white" className="mt-2 mb-2 border border-primary border-3">
+    {/* <div className="w-100 border-top border-bottom border-primary mt-3 pt-1"> */}
         <Card.Header>
           <div className="d-flex justify-content-between">
             {project.title}
@@ -98,6 +99,7 @@ const Projects: React.FC<Props> = ({ project, isManager,fetchProjects,userType,u
             {showTeam && <Team projectID={project.id} isManager={isManager}/>}
           </blockquote>
         </Card.Body>
+      {/* </div> */}
       </Card>
     </>
   );

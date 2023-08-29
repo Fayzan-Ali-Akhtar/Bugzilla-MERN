@@ -13,20 +13,22 @@ const Bugs: React.FC<Props> = ({ projectID,userType,userID }) => {
   const [bugs, setBugs] = useState<Bug[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
+  const fetchBugs = async () => {
+    try {
+      setIsLoading(true);
+      // getting all bugs of a project
+      console.log("projectID", projectID);
+      const bugs = await fetchAllBugsFromServer(projectID);
+      setBugs(bugs);
+      console.log("bugs", bugs);
+      setIsLoading(false);
+    } catch (error) {
+      console.log("An error occurred:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchBugs = async () => {
-      try {
-        setIsLoading(true);
-        // getting all bugs of a project
-        console.log("projectID", projectID);
-        const bugs = await fetchAllBugsFromServer(projectID);
-        setBugs(bugs);
-        console.log("bugs", bugs);
-        setIsLoading(false);
-      } catch (error) {
-        console.log("An error occurred:", error);
-      }
-    };
+    
     fetchBugs();
   }, [projectID]);
 
@@ -38,7 +40,7 @@ const Bugs: React.FC<Props> = ({ projectID,userType,userID }) => {
         ) : (
           <>
             {bugs.map((bug) => (
-              <BugTab key={bug.id} bug={bug} userType = {userType} userID = {userID}/>
+              <BugTab key={bug.id} bug={bug} userType = {userType} userID = {userID} fetchBugs={fetchBugs}/>
             ))}
           </>
         )}

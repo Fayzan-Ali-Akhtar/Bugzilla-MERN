@@ -13,13 +13,13 @@ const {info } = require('../controllers/bug/info');
 // Create  new Bug
 router.route('/create').post(authenticateUser,createBug);
 // Delete Bug
-router.route('/delete').delete(authenticateUser,deleteBug);
+router.route('/delete').post(authenticateUser,deleteBug);
 // Add a Developer
 router.route('/add/developer').post(authenticateUser,addDeveloper);
 // Remove a Developer
-router.route('/remove').delete(authenticateUser,removeDeveloper);
+router.route('/remove').post(authenticateUser,removeDeveloper);
 // Developer can update the status of a bug
-router.route('/update/status').patch(authenticateUser,updateStatus);
+router.route('/update/status').post(authenticateUser,updateStatus);
 // All the users in the project can view bugs
 router.route('/info').get(authenticateUser,info);
 
