@@ -8,7 +8,7 @@ const Developer = require("../models/Developer");
 // To get 1 specific manager
 export const getOneManager = async (req: Request, res: Response) => {
   try {
-    const managerId = req.query.id; // Assuming the route parameter is named 'id'
+    const managerId = req.query.id; 
     console.log(`Finding Manager with id ${managerId}`);
     // Fetch the manager by ID from the database
     const manager = await Manager.findById(managerId);

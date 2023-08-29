@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 // import {getDataFromServer} from '../../../Services/Project/Testing';
 import { fetchManagersFromServer } from "../../../Services/Manager/manager";
 import { fetchAllProjectsFromServer } from "../../../Services/Project/GetAllProjects";
-import FeedProjects from "./FeedProjects";
+import Projects from "./Projects";
 
 interface MyStyleState {
   right: string;
@@ -120,7 +120,7 @@ const FeedGeneral = () => {
               {hasProject ? (
                 <>
                   {projects.map((project) => (
-                    <FeedProjects key={project.id} project={project} />
+                    <Projects key={project.id} project={project} />
                   ))}
                 </>
               ) : (

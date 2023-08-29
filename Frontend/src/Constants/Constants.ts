@@ -3,6 +3,8 @@ import mongoose, { Schema, Document } from 'mongoose'; // Import mongoose
 export const base_URL = "http://localhost:5000/api";
 export const manager_URL = `${base_URL}/manager`;
 export const allPostURL = `${base_URL}/project/allinfo`;
+// export const getOneManagerURL = `${base_URL}/manager`;
+export const getOneManagerURL = `http://localhost:5000/api/manager/`;
 // "http://localhost:5000/api/project/allinfo";
 
 export const PrimaryColor: string = "#537FE7";
