@@ -13,21 +13,7 @@ export async function fetchOneProjectFromServer(projectID: string): Promise<Proj
       };
     addTokenToRequestHeader(config); // Add token to headers
     const postData:any = await newGetData<any>(getOneProjectURL, config);
-    // console.log("Here");
-    // console.log(postData);
     const project = postData.project;
-    // // Making the array of projects in the correct foemat to be used in the frontend
-    // const arrProjects:Project = projects.map((project: any) => {
-    //     const existingProject = {
-    //         id: project._id,
-    //         title: project.title,
-    //         bugs: project.bugs,
-    //         developers: project.developers,
-    //         qas: project.qas,
-    //         manager: project.manager,
-    //         };
-    //     return existingProject;
-    // });
     return project;
 
   } catch (error) {

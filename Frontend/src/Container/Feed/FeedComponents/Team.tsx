@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { User, Project } from "../../../Constants/Constants";
 import { fetchOneProjectFromServer } from "../../../Services/Project/GetOneProject";
+import { addOnePersonToProjectOnServer } from "../../../Services/Project/AddOnePersonToProject";
 import { fetchAllDevelopersFromServer } from "../../../Services/Developer/GetAllDevelopers";
 import { fetchAllQAsFromServer } from "../../../Services/QA/GetAllQAs";
-
+import { getLoggedInUserFromLocalStorage } from "../../../Utils/util";
 interface Props {
   projectID: string;
 }
@@ -23,11 +24,15 @@ const Team: React.FC<Props> = ({ projectID }) => {
   // QAs
   const [availableQAs, setAvailableQAs] = useState<User[]>([]);
   const [teamQAs, setTeamQAs] = useState<User[]>([]);
+  // Current User 
+  const [user, setUser] = useState<User | null>(null);
+  // Can Edit 
+  const [canEdit, setCanEdit] = useState(false);
 
   async function getAndSetDevQaData() {
     try {
-      // Loading Started
-      setIsLoading(true);
+      // // Loading Started
+      // setIsLoading(true);
       // Getting Project Data fro Server
       const projectData = await fetchOneProjectFromServer(projectID);
       setProject(projectData);
@@ -61,10 +66,8 @@ const Team: React.FC<Props> = ({ projectID }) => {
       });
       // Setting States
       setTeamDevelopers(developersInTeam);
-      console.log("developersInTeam : ", developersInTeam);
-      setTeamDevelopers(developersInTeam);
       setAvailableDevelopers(developersAvailable);
-      setTeamQAs(QAsAvailable);
+      setTeamQAs(QAsInTeam);
       setAvailableQAs(QAsAvailable);
       // Loading finished
       setIsLoading(false);
@@ -73,12 +76,36 @@ const Team: React.FC<Props> = ({ projectID }) => {
     }
   }
 
-  function removeDeveloperFromTeam() {
-    console.log("Remove Developer from Team");
+  function removeDeveloperFromTeam(developerId: string) {
+    console.log(`Remove Developer with ID: ${developerId} from Team`);
+  }
+
+  function removeQAFromTeam(qaId: string) {
+    console.log(`Remove QA with ID: ${qaId} from Team`);
+  }
+
+  async function addQAToTeam(qaId: string) {
+    console.log(`Add QA with ID: ${qaId} to Team`);
+    setIsLoading(true);
+    await addOnePersonToProjectOnServer(projectID,qaId,"qa" )
+    getAndSetDevQaData();
+  }
+
+  async function addDeveloperToTeam(developerId: string) {
+    // Loading Started
+    console.log(`Add Developer with ID: ${developerId} to Team`);
+    setIsLoading(true);
+    await addOnePersonToProjectOnServer(projectID,developerId,"developer" )
+    getAndSetDevQaData();
   }
 
   useEffect(() => {
     getAndSetDevQaData();
+    const User: User | null = getLoggedInUserFromLocalStorage();
+    setUser(User);
+    if(User?.userType === "manager"){
+      setCanEdit(true);
+    }
   }, []);
 
   return (
@@ -100,12 +127,15 @@ const Team: React.FC<Props> = ({ projectID }) => {
                   <div>
                     {developer.firstName} {developer.lastName}
                   </div>
-                  <button
-                    className="btn btn-danger"
-                    onClick={removeDeveloperFromTeam}
-                  >
-                    Remove
-                  </button>
+                  {canEdit && (
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => removeDeveloperFromTeam(developer.id)}
+                    >
+                      Remove
+                    </button>
+                  )}
+                  
                 </div>
               ))}
             </div>
@@ -123,12 +153,17 @@ const Team: React.FC<Props> = ({ projectID }) => {
                   <div>
                     {qa.firstName} {qa.lastName}
                   </div>
-                  <button
-                    className="btn btn-danger"
-                    onClick={removeDeveloperFromTeam}
-                  >
-                    Remove
-                  </button>
+                  {
+                    canEdit && (
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => removeQAFromTeam(qa.id)}
+                      >
+                        Remove
+                      </button>
+                    )
+                  }
+                  
                 </div>
               ))}
             </div>
@@ -146,12 +181,15 @@ const Team: React.FC<Props> = ({ projectID }) => {
                   <div>
                     {developer.firstName} {developer.lastName}
                   </div>
-                  <button
-                    className="btn btn-success"
-                    onClick={removeDeveloperFromTeam}
-                  >
-                    Add
-                  </button>
+                  {canEdit && (
+                    <button
+                      className="btn btn-success"
+                      onClick={() => addDeveloperToTeam(developer.id)}
+                    >
+                      Add
+                    </button>
+                  )}
+                  
                 </div>
               ))}
             </div>
@@ -169,12 +207,14 @@ const Team: React.FC<Props> = ({ projectID }) => {
                   <div>
                     {qa.firstName} {qa.lastName}
                   </div>
-                  <button
-                    className="btn btn-success"
-                    onClick={removeDeveloperFromTeam}
-                  >
-                    Add
-                  </button>
+                  {canEdit && (
+                    <button
+                      className="btn btn-success"
+                      onClick={() => addQAToTeam(qa.id)}
+                    >
+                      Add
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

@@ -68,6 +68,10 @@ export const add = async (req: AuthenticatedRequest, res: Response) => {
 
     let dataToBeAdded: string = req.body.dataToBeAdded;
     let typeToBeAdded: string = req.body.typeToBeAdded;
+    console.log("dataToBeAdded : ", dataToBeAdded);
+    console.log("typeToBeAdded : ", typeToBeAdded);
+
+    
 
     if (typeToBeAdded === "developer") {
       // Checking if a developer with the provided title already exists in DB
