@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from 'react-bootstrap/Spinner';
 
 interface Props {
   // Define props here if needed
@@ -8,10 +9,17 @@ interface Props {
 // then filter which are in team and not in team
 
 const Team: React.FC<Props> = (props) => {
+  const [isLoading, setIsLoading] = React.useState(true);
+
   return (
-    <div>
-      {/* Your component content */}
+    <>
+    <div className="d-flex justify-content-center align-items-center">
+      {isLoading && (
+        <Spinner animation="grow" variant="success" />
+      )}
     </div>
+    <div className="d-flex justify-content-center align-items-center">In Team Tab</div>
+  </>
   );
 };
 

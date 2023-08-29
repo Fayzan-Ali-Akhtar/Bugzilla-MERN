@@ -3,6 +3,10 @@ import { PrimaryColor,User,Project } from '../../../Constants/Constants';
 import Card from 'react-bootstrap/Card';
 import {fetchManageName} from "../../../Services/Manager/GetManagerName"
 // import { fetchManagersFromServer } from "../../../Services/Manager/manager";
+import Team from './Team';
+import Bugs from './Bugs';
+import Spinner from 'react-bootstrap/Spinner';
+
 interface Props {
   project: Project;
 }
@@ -10,49 +14,52 @@ interface Props {
 const Projects: React.FC<Props> = ({ project }) => {
  const [showTeam, setShowTeam] = React.useState(false);
  const [showBug, setShowBug] = React.useState(false);
- const [showBugText, setShowBugText] = React.useState("Show Bugs");
- const [showTeamText, setShowTeamText] = React.useState("Show Team");
  const [managerName, setManagerName] = React.useState("Loading...");
 
  useEffect(() => {
-    // Fetch the manager name from the server
-    fetchManageName(project.manager)
-    .then((mangerName) => {
-      setManagerName(mangerName);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-  , [project.manager]);
+  const fetchManager = async () => {
+    try {
+      // Fetch the manager name from the server
+      const managerName = await fetchManageName(project.manager);
+      setManagerName(managerName);
+    } catch (error) {
+      console.log("An error occurred:", error);
+    }
+  };
+  fetchManager();
+}, [project.manager]);
+
 
   function toggleShowBug () {
     if(!showBug){
-      setShowBugText("Show Bugs");
+      if(showTeam) // Making Sure that only one of them is open at a time
+      {
+        setShowTeam(false);
+      }
     }
-    else{
-      setShowBugText("Hide Bugs");
-      setShowTeamText("Show Team");
-      setShowTeam(false);
-    }
+    
     setShowBug(!showBug);
   }
 
   function toggleShowTeam () {
     if(!showTeam){
-      setShowTeamText("Show Team");
-    }
-    else{
-      setShowTeamText("Hide Team");
-      setShowBugText("Show Bugs");
-      setShowTeam(false);
+      if(showBug) // Making Sure that only one of them is open at a time
+      {
+        setShowBug(false);
+      }
     }
     setShowTeam(!showTeam);
   }
   return (
     <>
     <Card bg="dark" text="white" className="mt-2 mb-2">
-      <Card.Header >{project.title}</Card.Header>
+      <Card.Header >
+        <div className='d-flex justify-content-between'>
+
+        {project.title}
+      {managerName === "Loading..." && <Spinner animation="grow" variant="light" size="sm" />}
+        </div>
+      </Card.Header>
       <Card.Body>
         <blockquote className="blockquote mb-0">
           {/* <p>
@@ -64,9 +71,11 @@ const Projects: React.FC<Props> = ({ project }) => {
             Managed by <cite title="Source Title">{managerName}</cite>
           </footer>
           <div className="d-flex justify-content-between mt-3">
-          <button className="btn btn-primary" onClick={toggleShowBug}>{showBugText}</button>
-          <button className="btn btn-secondary" onClick={toggleShowTeam}>{showTeamText}</button>
+          <button className="btn btn-primary" onClick={toggleShowBug}>{showBug?"Hide Bug":"Show Bug"}</button>
+          <button className="btn btn-success" onClick={toggleShowTeam}>{showTeam?"Hide Team":"Show Team"}</button>
           </div>
+          {showBug && <Bugs />}
+{showTeam && <Team />}
         </blockquote>
       </Card.Body>
     </Card>
