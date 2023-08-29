@@ -14,7 +14,7 @@ const {allinfo } = require('../controllers/project/allinfo');
 // Create  new Project
 router.route('/create').post(authenticateUser,createProject);
 // Delete Project
-router.route('/delete').delete(authenticateUser,deleteProject);
+router.route('/delete').post(authenticateUser,deleteProject);
 // Add a Developer or QA 
 router.route('/add').post(authenticateUser,add);
 // Remove a Developer or QA

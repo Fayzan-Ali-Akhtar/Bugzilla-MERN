@@ -9,12 +9,13 @@ import { fetchAllQAsFromServer } from "../../../Services/QA/GetAllQAs";
 import { getLoggedInUserFromLocalStorage } from "../../../Utils/util";
 interface Props {
   projectID: string;
+  isManager:boolean;
 }
 
 // Get all the developers obj and QAs obj
 // then filter which are in team and not in team
 
-const Team: React.FC<Props> = ({ projectID }) => {
+const Team: React.FC<Props> = ({ projectID,isManager }) => {
   // Project Data
   const [project, setProject] = useState<Project>();
   // Loading State
@@ -176,8 +177,7 @@ const Team: React.FC<Props> = ({ projectID }) => {
               ))}
             </div>
           </div>
-
-          {/* Available Developers */}
+          {isManager&&(
           <div className="w-100 border-top border-bottom border-success pt-1">
             <h2 className="text-center mb-4">Available Developers</h2>
             <div className="d-flex flex-column align-items-center">
@@ -201,9 +201,8 @@ const Team: React.FC<Props> = ({ projectID }) => {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Available QAs */}
+          </div>)}
+                    {isManager&&(
           <div className="w-100 border-top border-bottom border-success pt-1">
             <h2 className="text-center mb-4">Available QAs</h2>
             <div className="d-flex flex-column align-items-center">
@@ -226,7 +225,7 @@ const Team: React.FC<Props> = ({ projectID }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div>)}
         </div>
       )}
     </div>

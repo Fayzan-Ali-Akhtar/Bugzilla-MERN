@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import NavBar from "../../NavBar/NavBar";
+import CreateProject from "./CreateProject";
 import {
   PrimaryColor,
   User,
@@ -39,6 +40,7 @@ const FeedGeneral = () => {
   const [hasProject, sethasProject] = useState(false);
   const [message, setMessage] = useState("Loading...");
   const [projects, setProjects] = useState<Project[]>([]);
+  const [isManager, setIsManager] = useState(false);
 
   // Function for images
   const detectSize = () => {
@@ -75,7 +77,7 @@ const FeedGeneral = () => {
 
       if (ProjectsData.length === 0) {
         // console.log("No Projects");
-        setMessage("No Projects")
+        setMessage("No Projects");
         sethasProject(false);
       } else {
         sethasProject(true);
@@ -100,6 +102,9 @@ const FeedGeneral = () => {
       name: User?.firstName,
       userType: User?.userType,
     });
+    if (User?.userType === "manager") {
+      setIsManager(true);
+    }
 
     fetchProjects();
   }, []);
@@ -109,8 +114,10 @@ const FeedGeneral = () => {
       <div className="bg-dark">
         <HeadingLogo DarkMode={true} />
         <NavBar userName={displayName} />
-        <Container >
+        <Container>
           <Row>
+            {isManager ? <CreateProject fetchProjects={fetchProjects} /> : null}
+
             <Col
               lg={10}
               xs={12}
@@ -120,7 +127,11 @@ const FeedGeneral = () => {
               {hasProject ? (
                 <>
                   {projects.map((project) => (
-                    <Projects key={project.id} project={project} />
+                    <Projects
+                      key={project.id}
+                      project={project}
+                      isManager={isManager}
+                    />
                   ))}
                 </>
               ) : (

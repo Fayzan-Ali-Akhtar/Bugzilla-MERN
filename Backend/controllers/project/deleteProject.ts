@@ -16,6 +16,9 @@ export const deleteProject = async (
       .status(StatusCodes.BAD_REQUEST)
       .json({ error: "User is not a manager" });
   }
+
+  console.log("req.body.projectid : ", req.body.projectid);
+
   // Checking for projectid
   if (
     req.body.projectid === undefined ||
