@@ -99,9 +99,15 @@ const FeedGeneral = () => {
       navigate("/home");
     }
     setUser(User);
+    let capitalizedString:string = "";
+    if(User?.userType)
+    {
+      capitalizedString = User?.userType.charAt(0).toUpperCase() + User?.userType.slice(1);
+    }
+
     setDisplayName({
       name: User?.firstName,
-      userType: User?.userType,
+      userType: capitalizedString,
     });
     if (User?.userType === "manager") {
       setIsManager(true);
@@ -133,6 +139,8 @@ const FeedGeneral = () => {
                       project={project}
                       isManager={isManager}
                       fetchProjects = {fetchProjects}
+                      userType = {user?.userType}
+                      userID = {user?.id}
                     />
                   ))}
                 </>

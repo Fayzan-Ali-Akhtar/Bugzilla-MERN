@@ -9,6 +9,7 @@ export const addOnePersonToProjectURL = `${base_URL}/project/add`;
 export const removeOnePersonFromProjectURL = `${base_URL}/project/remove`;
 export const delteProjectURL = `${base_URL}/project/delete`;
 export const createProjectURL = `${base_URL}/project/create`;
+export const getSingleBugURL = `${base_URL}/bug/info`;
 // export const getOneManagerURL = `${base_URL}/manager`;
 export const getOneManagerURL = `http://localhost:5000/api/manager/`;
 export const getOneProjectURL = `http://localhost:5000/api/project/info`;
@@ -72,11 +73,13 @@ export interface DisplayName {
 // }
 
 export interface Bug{
+  id: string;
   title: string;
   deadline: string;
   status: string; 
     type: string;
-    developers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Developers' }];
+    projectID: string;
+    developers: string[];
     // Optinal fields
     description?: string;
     screenshot?: string;

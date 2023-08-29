@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { PrimaryColor, User, Project } from "../../../Constants/Constants";
+import { Project } from "../../../Constants/Constants";
 import Card from "react-bootstrap/Card";
 import { fetchManageName } from "../../../Services/Manager/GetManagerName";
 // import { fetchManagersFromServer } from "../../../Services/Manager/manager";
@@ -11,10 +11,12 @@ import { deleteProjectFromServer } from "../../../Services/Project/DeleteProject
 interface Props {
   project: Project;
   isManager: boolean;
+  userType:string|undefined;
   fetchProjects: () => void;
+  userID:string|undefined;
 }
 
-const Projects: React.FC<Props> = ({ project, isManager,fetchProjects }) => {
+const Projects: React.FC<Props> = ({ project, isManager,fetchProjects,userType,userID }) => {
   const [showTeam, setShowTeam] = React.useState(false);
   const [showBug, setShowBug] = React.useState(false);
   const [managerName, setManagerName] = React.useState("Loading...");
@@ -92,7 +94,7 @@ const Projects: React.FC<Props> = ({ project, isManager,fetchProjects }) => {
                 {showTeam ? "Hide Team" : "Show Team"}
               </button>
             </div>
-            {showBug && <Bugs />}
+            {showBug && <Bugs projectID={project.id} userType = {userType} userID = {userID}/>}
             {showTeam && <Team projectID={project.id} isManager={isManager}/>}
           </blockquote>
         </Card.Body>

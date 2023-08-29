@@ -28,9 +28,9 @@ export const info = async (req: AuthenticatedRequest, res: Response) => {
 
     // Checking for projectID
     if (
-      req.body.projectID === undefined ||
-      req.body.projectID === null ||
-      req.body.projectID === ""
+      req.query.projectID === undefined ||
+      req.query.projectID === null ||
+      req.query.projectID === ""
     ) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -38,7 +38,7 @@ export const info = async (req: AuthenticatedRequest, res: Response) => {
     }
 
     // Checking if Project exist in DB or not
-    const projectID = req.body.projectID;
+    const projectID = req.query.projectID;
 
     const ProjectObj = await Project.findOne({ _id: projectID });
     if (!ProjectObj) {
@@ -120,11 +120,10 @@ export const info = async (req: AuthenticatedRequest, res: Response) => {
       }); 
     }
     
-
+    const bugs = filteredBugs;
     // Sending the response
     res.status(StatusCodes.OK).json({
-      message: `All bugs fetched successfully`,
-      bugs: filteredBugs,
+      bugs
     });
     
   } catch (error) {
