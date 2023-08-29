@@ -3,6 +3,8 @@ import mongoose, { Schema, Document } from 'mongoose'; // Import mongoose
 export const base_URL = "http://localhost:5000/api";
 export const manager_URL = `${base_URL}/manager`;
 export const allProjectURL = `${base_URL}/project/allinfo`;
+export const getAllDevelopersURL = `${base_URL}/developer/all`;
+export const getAllQAsURL = `${base_URL}/qa/all`;
 // export const getOneManagerURL = `${base_URL}/manager`;
 export const getOneManagerURL = `http://localhost:5000/api/manager/`;
 export const getOneProjectURL = `http://localhost:5000/api/project/info`;
