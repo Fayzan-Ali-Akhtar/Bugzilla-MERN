@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchManagersFromServer } from "../../../Services/Manager/manager";
 import { fetchAllProjectsFromServer } from "../../../Services/Project/GetAllProjects";
 import Projects from "./Projects";
+import Spinner from 'react-bootstrap/Spinner';
 
 interface MyStyleState {
   right: string;
@@ -131,11 +132,18 @@ const FeedGeneral = () => {
                       key={project.id}
                       project={project}
                       isManager={isManager}
+                      fetchProjects = {fetchProjects}
                     />
                   ))}
                 </>
               ) : (
-                <h1 className="text-center ">{message}</h1>
+                <>
+                {/* Center these  */}
+                <h1 className="text-primary ">{message}</h1>
+                <Spinner animation="grow" variant="primary" />
+                <Spinner animation="grow" variant="primary" size="sm"/>
+                <Spinner animation="grow" variant="primary"size="sm" />
+                </>
               )}
             </Col>
             <Col lg={2} xs={0} className="mt-3 position-fixed" style={myStyle}>

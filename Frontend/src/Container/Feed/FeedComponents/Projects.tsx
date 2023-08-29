@@ -11,9 +11,10 @@ import { deleteProjectFromServer } from "../../../Services/Project/DeleteProject
 interface Props {
   project: Project;
   isManager: boolean;
+  fetchProjects: () => void;
 }
 
-const Projects: React.FC<Props> = ({ project, isManager }) => {
+const Projects: React.FC<Props> = ({ project, isManager,fetchProjects }) => {
   const [showTeam, setShowTeam] = React.useState(false);
   const [showBug, setShowBug] = React.useState(false);
   const [managerName, setManagerName] = React.useState("Loading...");
@@ -52,9 +53,10 @@ const Projects: React.FC<Props> = ({ project, isManager }) => {
     setShowTeam(!showTeam);
   }
 
-  function deleteProjectFun() {
+  async function deleteProjectFun() {
     console.log("Deleting Project:", project.id);
-    deleteProjectFromServer(project.id);
+    await deleteProjectFromServer(project.id);
+    await fetchProjects();
   }
   return (
     <>

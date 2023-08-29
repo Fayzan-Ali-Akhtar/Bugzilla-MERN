@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import { createProjectOnServer } from "../../../Services/Project/CreateProjectOnServer";
 
 interface Props {
-    fetchProjects: () => void; // Define the prop for the fetchProjects function
+    fetchProjects: () => void; 
   }
 
 const CreateProject: React.FC<Props> = ({ fetchProjects }) => {
