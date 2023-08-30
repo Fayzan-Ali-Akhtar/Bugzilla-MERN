@@ -43,7 +43,7 @@ const CreateProject: React.FC<Props> = ({ fetchProjects }) => {
               <div className="mb-3">
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control bg-dark text-white"
                   id="projectTitle"
                   value={projectTitle}
                   onChange={handleTitleChange}

@@ -80,10 +80,9 @@ const FeedGeneral = () => {
         sethasProject(false);
       } else {
         sethasProject(true);
-        setProjects(ProjectsData);
-        for (const project of ProjectsData) {
-          console.log(project);
-        }
+        const latestProjectFirst : Project[] = ProjectsData.reverse();
+        setProjects(latestProjectFirst);
+        
       }
     } catch (error) {
       console.error("Error fetching projects:", error);

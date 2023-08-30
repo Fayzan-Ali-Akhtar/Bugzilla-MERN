@@ -22,10 +22,14 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
   const [isLoading, setIsLoading] = React.useState(true);
   // Developers
   const [teamDevelopers, setTeamDevelopers] = useState<User[]>([]);
+  // const [noTeamDev, setNoTeamDev] = React.useState(true);
   const [availableDevelopers, setAvailableDevelopers] = useState<User[]>([]);
+  // const [noAvailableDev, setNoAvailableDev] = React.useState(true);
   // QAs
-  const [availableQAs, setAvailableQAs] = useState<User[]>([]);
   const [teamQAs, setTeamQAs] = useState<User[]>([]);
+  // const [noTeamQA, setNoTeamQA] = React.useState(true);
+  const [availableQAs, setAvailableQAs] = useState<User[]>([]);
+  // const [noAvailableQA, setNoAvailableQA] = React.useState(true);
   // Current User
   const [user, setUser] = useState<User | null>(null);
   // Can Edit
@@ -48,29 +52,46 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
           return developer;
         }
       });
+      // if(developersInTeam === undefined){
+      //   setNoTeamDev(true);
+      // }
       // Separeting Available Developers
       const developersAvailable = allDevelopersData.filter((developer) => {
         if (!projectData.developers.includes(developer.id)) {
           return developer;
         }
       });
+      // if(developersAvailable.length === 0){
+      //   setNoAvailableDev(true);
+      // }
       // Separating Team QAs
       const QAsInTeam = allQAsData.filter((qa) => {
         if (projectData.qas.includes(qa.id)) {
           return qa;
         }
       });
+      // if(QAsInTeam.length === 0){
+      //   setNoTeamQA(true);
+      // }
       // Separating Available QAs
       const QAsAvailable = allQAsData.filter((qa) => {
         if (!projectData.qas.includes(qa.id)) {
           return qa;
         }
       });
+      // if(QAsAvailable.length === 0){
+      //   setNoAvailableQA(true);
+      // }
       // Setting States
       setTeamDevelopers(developersInTeam);
       setAvailableDevelopers(developersAvailable);
       setTeamQAs(QAsInTeam);
       setAvailableQAs(QAsAvailable);
+      // Set noTeamDev, noAvailableDev, noTeamQA, noAvailableQA states
+    // setNoTeamDev(teamDevelopers.length === 0);
+    // setNoAvailableDev(availableDevelopers.length === 0);
+    // setNoTeamQA(teamQAs.length === 0);
+    // setNoAvailableQA(availableQAs.length === 0);
       // Loading finished
       setIsLoading(false);
     } catch (error) {
@@ -123,7 +144,8 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
           <Spinner animation="grow" variant="success" />
         ) : (
           <div className="w-100">
-            {/* Team Developers */}
+            
+              <>
             <div className="w-100 border-top border-bottom border-success pt-1">
               <h2 className="text-center mb-4">Team Developers</h2>
               <div className="d-flex flex-column align-items-center">
@@ -147,6 +169,8 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
                 ))}
               </div>
             </div>
+            </>
+            
 
             {/* Team QAs */}
             <div className="w-100 border-top border-bottom border-success pt-1">
@@ -172,6 +196,8 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
                 ))}
               </div>
             </div>
+            
+              <>
             {isManager && (
               <div className="w-100 border-top border-bottom border-success pt-1">
                 <h2 className="text-center mb-4">Available Developers</h2>
@@ -197,6 +223,10 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
                 </div>
               </div>
             )}
+            </>
+            
+            
+              <>
             {isManager && (
               <div className="w-100 border-top border-bottom border-success pt-1">
                 <h2 className="text-center mb-4">Available QAs</h2>
@@ -222,6 +252,8 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
                 </div>
               </div>
             )}
+            </>
+            
           </div>
         )}
       </div>

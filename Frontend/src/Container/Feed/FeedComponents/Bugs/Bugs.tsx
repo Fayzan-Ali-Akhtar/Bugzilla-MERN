@@ -12,6 +12,7 @@ interface Props {
 
 const Bugs: React.FC<Props> = ({ projectID, userType, userID }) => {
   const [bugs, setBugs] = useState<Bug[]>([]);
+  const [noBugs, setNoBugs] = useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
 
   const fetchBugs = async () => {
@@ -19,8 +20,12 @@ const Bugs: React.FC<Props> = ({ projectID, userType, userID }) => {
       setIsLoading(true);
       // getting all bugs of a project
       const bugs = await fetchAllBugsFromServer(projectID);
+      if (bugs.length === 0) {
+        setNoBugs(true);
+      } else {
       setBugs(bugs);
-      setIsLoading(false);
+    }
+    setIsLoading(false);
     } catch (error) {
       console.log("An error occurred:", error);
     }
@@ -41,6 +46,8 @@ const Bugs: React.FC<Props> = ({ projectID, userType, userID }) => {
               {userType === "qa" && (
                 <CreateBug projectID={projectID} fetchBugs={fetchBugs} />
               )}
+              {noBugs? <h2>No Bugs present</h2>:(
+              <>
               <h2>Bugs Report</h2>
               {bugs.map((bug) => (
                 <BugTab
@@ -51,6 +58,7 @@ const Bugs: React.FC<Props> = ({ projectID, userType, userID }) => {
                   fetchBugs={fetchBugs}
                 />
               ))}
+              </>)}
             </div>
           </>
         )}

@@ -73,7 +73,7 @@ const Projects: React.FC<Props> = ({
         className="mt-4 mb-3 border border-primary border-3 "
       >
         <Card.Header>
-          <div className="d-flex justify-content-between">
+          <div className="fs-4 d-flex justify-content-between">
             {project.title}
 
             {managerName === "Loading..." ? (
