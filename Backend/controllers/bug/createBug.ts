@@ -137,11 +137,12 @@ export const createBug = async (req: AuthenticatedRequest, res: Response) => {
       projectID: projectID,
       developer: [],
       description: bugDescription,
-      screenshots: bugScreenshot,
+      screenshot: bugScreenshot,
     };
 
     // Creating a new bug on DB
     const newBug = await Bug.create({ ...bugObj });
+    
 
     // Adding this bug to the project
     existingProject.addBug(newBug._id);
