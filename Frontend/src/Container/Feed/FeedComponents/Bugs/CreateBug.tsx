@@ -99,7 +99,7 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
 
   return (
     <div className="w-100 border-top border-bottom border-primary mt-3 pt-1 mb-1">
-      {creatingBug? <h2>Creating Bug
+      {creatingBug? <h2 className="text-primary">Creating Bug
         <Spinner animation="grow" variant="primary" />
                   <Spinner animation="grow" variant="primary" size="sm" />
                   <Spinner animation="grow" variant="primary" size="sm" />

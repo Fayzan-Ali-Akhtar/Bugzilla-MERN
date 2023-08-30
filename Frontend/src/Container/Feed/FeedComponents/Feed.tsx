@@ -127,7 +127,7 @@ const FeedGeneral = () => {
               lg={10}
               xs={12}
               // style={{ border: `solid ${PrimaryColor} 0.3em` }}
-              className=" min-vh-100  bg-dark rounded center"
+              className=" min-vh-100  bg-dark rounded center border border-secondary mt-2 mb-2"
             >
               {hasProject ? (
                 <>

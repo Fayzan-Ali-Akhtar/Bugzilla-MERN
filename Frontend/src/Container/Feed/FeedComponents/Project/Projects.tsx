@@ -70,7 +70,7 @@ const Projects: React.FC<Props> = ({
       <Card
         bg="dark"
         text="white"
-        className="mt-4 mb-3 border border-primary border-3"
+        className="mt-4 mb-3 border border-primary border-3 "
       >
         <Card.Header>
           <div className="d-flex justify-content-between">
@@ -87,7 +87,7 @@ const Projects: React.FC<Props> = ({
             )}
           </div>
         </Card.Header>
-        <Card.Body>
+        <Card.Body >
           <blockquote className="blockquote mb-0">
             <footer className="blockquote-footer">
               Managed by <cite title="Source Title">{managerName}</cite>
