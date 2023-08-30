@@ -1,9 +1,10 @@
 import { createBug } from "../../../Services/Bugs/CreateBug";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, Col, Row } from "react-bootstrap";
 import * as yup from "yup";
 import Axios from "axios";
+import Spinner from "react-bootstrap/Spinner";
 
 interface Props {
   projectID: string;
@@ -20,6 +21,10 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
   const [screenshot, setScreenshot] = useState("");
   const [deadline, setDeadline] = useState(new Date()); // Use React state for the deadline
   const [imageSelected, setImageSelected] = useState<File | undefined>();
+  const [isUploading, setIsUploading] = useState(false); // Add state for tracking upload status
+  const [creatingBug, setCreatingBug] = useState(false); // Add state for tracking upload status
+
+  // const [imageURL, setImageURL] = useState(); // Add state for tracking upload status
 
   const schema = yup.object().shape({
     title: yup.string().required("Title is required"),
@@ -32,6 +37,7 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
 
   const upLoadImage = async () => {
     if (imageSelected) {
+      setIsUploading(true); // Set isUploading to true before starting upload
       const formData = new FormData();
       formData.append("file", imageSelected);
       formData.append("upload_preset", "o45sypwv");
@@ -45,14 +51,22 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
         return response.data.secure_url;
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsUploading(false); // Set isUploading to false after upload (success or failure)
       }
     }
   };
 
+  useEffect(() => {
+    upLoadImage();
+  }, [imageSelected])
+  
+
   const handleSubmit = async (values: FormValues) => {
     try {
-      // Uploading Image
-      const imageURL: string = await upLoadImage();
+      setCreatingBug(true);
+      // // Uploading Image
+      // const imageURL: string = await upLoadImage();
       // Make date string in the "yyyy-MM-dd" format
       const year = deadline.getFullYear();
       const month = (deadline.getMonth() + 1).toString().padStart(2, "0");
@@ -68,7 +82,7 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
         values.type,
         projectID,
         values.description,
-        imageURL
+        screenshot
       );
 
       // Reset the form
@@ -76,6 +90,7 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
       setDeadline(new Date()); // Reset the deadline using React state
       values.description = "";
       values.type = "feature";
+      setCreatingBug(false);
       await fetchBugs();
     } catch (err) {
       console.log(err);
@@ -84,7 +99,16 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
 
   return (
     <div className="w-100 border-top border-bottom border-primary mt-3 pt-1 mb-1">
-      <h2>Create a Bug!</h2>
+      {creatingBug? <h2>Creating Bug
+        <Spinner animation="grow" variant="primary" />
+                  <Spinner animation="grow" variant="primary" size="sm" />
+                  <Spinner animation="grow" variant="primary" size="sm" />
+
+      </h2> : (
+        <>
+      <h2>Create a Bug!
+      
+      </h2>
       <Formik
         validationSchema={schema}
         onSubmit={handleSubmit}
@@ -173,12 +197,19 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
                 className={`form-control`}
               />
             </Col>
-            <Button variant="primary" type="submit" className="mt-3 mb-3">
-              Create Bug
+            <Button
+              variant="primary"
+              type="submit"
+              className="mt-3 mb-3"
+              disabled={isUploading} // Disable the button during upload
+            >
+              {isUploading ? "Uploading Image..." : "Create Bug"}
             </Button>
           </Form>
         )}
       </Formik>
+      </>
+      )}
     </div>
   );
 };
