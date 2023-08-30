@@ -5,6 +5,7 @@ import { Bug } from "../../../Constants/Constants";
 import {addDeveloperToBug} from '../../../Services/Bugs/AddDeveloperToBug';
 import {removeDeveloperFromBug} from '../../../Services/Bugs/RemoveDeveloperFromBug';
 import {updateStatusOfBug} from '../../../Services/Bugs/UpdateStatusOfBug';
+import {deleteBug} from '../../../Services/Bugs/DeleteBug';
 
 interface Props {
   bug: Bug;
@@ -50,7 +51,8 @@ const BugTab: React.FC<Props> = ({ bug, userType, userID,fetchBugs }) => {
 
   async function deleteBugFun() 
   {
-    console.log("Working on Deleting Bug!");
+    await deleteBug(bug.id);
+    await fetchBugs();
   }
   async function joinBug() 
   {

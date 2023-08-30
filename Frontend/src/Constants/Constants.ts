@@ -14,6 +14,7 @@ export const addDeveloperToBugURL = `${base_URL}/bug/add/developer`;
 export const removeDeveloperFromBugURL = `${base_URL}/bug/remove`;
 export const updateStatusOfBugURL = `${base_URL}/bug/update/status`;
 export const createBugURL = `${base_URL}/bug/create`;
+export const deleteBugURL = `${base_URL}/bug/delete`;
 // export const getOneManagerURL = `${base_URL}/manager`;
 export const getOneManagerURL = `http://localhost:5000/api/manager/`;
 export const getOneProjectURL = `http://localhost:5000/api/project/info`;

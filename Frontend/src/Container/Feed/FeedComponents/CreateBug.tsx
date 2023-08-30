@@ -135,7 +135,7 @@ interface Props {
               />
             </Col>
             <Button variant="primary" type="submit" className="mt-3 mb-3">
-              Submit
+              Create Bug
             </Button>
           </Form>
         )}
