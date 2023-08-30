@@ -3,6 +3,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { fetchAllBugsFromServer } from "../../../Services/Bugs/GetAllBugsOfProject";
 import { Bug } from "../../../Constants/Constants";
 import BugTab from "./BugTab";
+import CreateBug from "./CreateBug";
 interface Props {
   projectID: string;
   userType: string | undefined;
@@ -34,14 +35,18 @@ const Bugs: React.FC<Props> = ({ projectID,userType,userID }) => {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center">
+      <div className="d-flex justify-content-center align-items-center w-100">
         {isLoading ? (
           <Spinner animation="grow" variant="primary" />
         ) : (
           <>
+          <div className="d-flex flex-column justify-content-center align-items-center w-100">
+          {userType === "qa" && <CreateBug projectID = {projectID} fetchBugs={fetchBugs}/>}
+          <h2>Bugs Report</h2>
             {bugs.map((bug) => (
               <BugTab key={bug.id} bug={bug} userType = {userType} userID = {userID} fetchBugs={fetchBugs}/>
             ))}
+            </div>
           </>
         )}
       </div>

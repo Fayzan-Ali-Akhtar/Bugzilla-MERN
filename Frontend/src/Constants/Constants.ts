@@ -13,6 +13,7 @@ export const getSingleBugURL = `${base_URL}/bug/info`;
 export const addDeveloperToBugURL = `${base_URL}/bug/add/developer`;
 export const removeDeveloperFromBugURL = `${base_URL}/bug/remove`;
 export const updateStatusOfBugURL = `${base_URL}/bug/update/status`;
+export const createBugURL = `${base_URL}/bug/create`;
 // export const getOneManagerURL = `${base_URL}/manager`;
 export const getOneManagerURL = `http://localhost:5000/api/manager/`;
 export const getOneProjectURL = `http://localhost:5000/api/project/info`;
@@ -88,6 +89,14 @@ export interface Bug{
     screenshot?: string;
     
   }
+
+// export interface FormBug{
+//   title: string,
+//     deadline: string,
+//     type: string,
+//     description: string,
+//     screenshot: undefined,
+//   }
   export interface Project {
     id: string;
     title: string;

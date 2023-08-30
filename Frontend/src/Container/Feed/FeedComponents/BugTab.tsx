@@ -92,7 +92,7 @@ const BugTab: React.FC<Props> = ({ bug, userType, userID,fetchBugs }) => {
           <Card.Body>
             {showImage && <Card.Img variant="top" src={bug.screenshot} />}
             <Card.Title>Bug: {bug.title}</Card.Title>
-            {hasDescription && <Card.Text>{bug.description}</Card.Text>}
+            {hasDescription && <Card.Text>Description: {bug.description}</Card.Text>}
 
             <ListGroup className="list-group-flush">
               <ListGroup.Item className="bg-dark text-white">
