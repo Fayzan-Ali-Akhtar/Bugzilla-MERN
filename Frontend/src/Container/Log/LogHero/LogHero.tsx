@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
-import { imageTime,Svg,ThirdColor,FourthColor } from "../../../Constants/Constants";
+import {
+  imageTime,
+  Svg,
+  ThirdColor
+} from "../../../Constants/Constants";
 
 interface SvgObject {
   src: string;
@@ -11,7 +15,7 @@ interface Props {
   DarkMode?: boolean;
 }
 
-const LogHero: React.FC<Props> = ({type,DarkMode=true}) => {
+const LogHero: React.FC<Props> = ({ type, DarkMode = true }) => {
   const [svg, setSvg] = useState<SvgObject>(Svg[0]);
 
   // Updating Picture of People after 5 seconds
@@ -28,20 +32,25 @@ const LogHero: React.FC<Props> = ({type,DarkMode=true}) => {
     <div className="LogHero">
       {/* For LOG Pages  */}
       {type === "feed" ? (
-        <h2 className="text-center" style = {{color:`${DarkMode?ThirdColor:"black"}`}}>
+        <h2
+          className="text-center"
+          style={{ color: `${DarkMode ? ThirdColor : "black"}` }}
+        >
           Resolve Bugs with <ConnectTextLogo logo_size={1.8} />
         </h2>
       ) : (
         // For FEED Page!
-        <h2 className="text-center" style = {{color:`${DarkMode?ThirdColor:"black"}`}}>
+        <h2
+          className="text-center"
+          style={{ color: `${DarkMode ? ThirdColor : "black"}` }}
+        >
           {/* Join <ConnectTextLogo logo_size={1.8} /> */}
           Streamline your workflow!
         </h2>
       )}
       <div className="d-flex justify-content-center align-items-center">
-      <img src={svg.src} alt="People" />
-    </div>
-      
+        <img src={svg.src} alt="People" />
+      </div>
     </div>
   );
 };

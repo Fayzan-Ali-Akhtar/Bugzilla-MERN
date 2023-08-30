@@ -9,25 +9,25 @@ interface Props {
   DarkMode?: boolean;
 }
 
-const HomeForm: React.FC <Props>= ({DarkMode = true}) => {
+const HomeForm: React.FC<Props> = ({ DarkMode = true }) => {
   return (
     <>
-    <div className={`${DarkMode?"bg-dark":""}`}>
-      <h2 className="white-text center-text">
-        Join <ConnectTextLogo logo_size={1.7} /> Today!
-      </h2>
-      {/* Passing an Enum Props */}
-      <AccountInfo LogType={TypeLog.Continue} />
-      <Row className="mb-3">
-        <Col md="12">
-          <HomeCard LogType={TypeLog.Log} />
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col md="12">
-          <HomeCard LogType={TypeLog.Sign} />
-        </Col>
-      </Row>
+      <div className={`${DarkMode ? "bg-dark" : ""}`}>
+        <h2 className="white-text center-text">
+          Join <ConnectTextLogo logo_size={1.7} /> Today!
+        </h2>
+        {/* Passing an Enum Props */}
+        <AccountInfo LogType={TypeLog.Continue} />
+        <Row className="mb-3">
+          <Col md="12">
+            <HomeCard LogType={TypeLog.Log} />
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col md="12">
+            <HomeCard LogType={TypeLog.Sign} />
+          </Col>
+        </Row>
       </div>
     </>
   );

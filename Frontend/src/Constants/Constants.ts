@@ -1,5 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose'; // Import mongoose
-
+// URL Links to the backend server
 export const base_URL = "http://localhost:5000/api";
 export const manager_URL = `${base_URL}/manager`;
 export const allProjectURL = `${base_URL}/project/allinfo`;
@@ -18,8 +17,8 @@ export const deleteBugURL = `${base_URL}/bug/delete`;
 // export const getOneManagerURL = `${base_URL}/manager`;
 export const getOneManagerURL = `http://localhost:5000/api/manager/`;
 export const getOneProjectURL = `http://localhost:5000/api/project/info`;
-// "http://localhost:5000/api/project/allinfo";
 
+// Colors Used in the project !
 export const PrimaryColor: string = "#537FE7";
 export const SecondaryColor: string = "#181823";
 export const ThirdColor: string = "#E9F8F9";
@@ -40,15 +39,15 @@ export enum UserType {
 }
 
 export enum BugType {
-    feature = "feature",
-    bug = "bug",
-  }
+  feature = "feature",
+  bug = "bug",
+}
 
-  export enum BugStatus {
-    new = "new",
-    started = "started",
-    completed = "completed",
-  }
+export enum BugStatus {
+  new = "new",
+  started = "started",
+  completed = "completed",
+}
 
 export interface User {
   id: string;
@@ -60,58 +59,37 @@ export interface User {
 }
 
 export interface DisplayName {
-  name :string|undefined,
-  userType: string|undefined,
+  name: string | undefined;
+  userType: string | undefined;
 }
 
-// export interface Developer {
-//   firstName: string;
-//   lastName: string;
-//   email: string;
-//   password: string;
-// }
-// export interface QA {
-//   firstName: string;
-//   lastName: string;
-//   email: string;
-//   password: string;
-// }
-
-export interface Bug{
+export interface Bug {
   id: string;
   title: string;
   deadline: string;
-  status: string; 
-    type: string;
-    projectID: string;
-    developers: string[];
-    // Optinal fields
-    description?: string;
-    screenshot?: string;
-    
-  }
+  status: string;
+  type: string;
+  projectID: string;
+  developers: string[];
+  // Optinal fields
+  description?: string;
+  screenshot?: string;
+}
 
-// export interface FormBug{
-//   title: string,
-//     deadline: string,
-//     type: string,
-//     description: string,
-//     screenshot: undefined,
-//   }
-  export interface Project {
-    id: string;
-    title: string;
-    manager: string;
-    developers: string[];
-    qas: string[];
-    bugs: string[];
-  }
-  
+export interface Project {
+  id: string;
+  title: string;
+  manager: string;
+  developers: string[];
+  qas: string[];
+  bugs: string[];
+}
+
 export const imageTime = 5000;
 
 export const CompanyName: string = "Bugzilla";
 
-// Used in Sign up and Log in Pages 
+// Used in Sign up and Log in Pages
 export interface NewUser {
   firstName: string;
   lastName: string;
@@ -120,13 +98,13 @@ export interface NewUser {
   userType: UserType;
 }
 
-// Used in Sign up and Log in Pages 
+// Used in Sign up and Log in Pages
 export enum AccountType {
   Google = "Google",
   Github = "Github",
 }
 
-// Used in Sign up and Log in Pages 
+// Used in Sign up and Log in Pages
 export interface FormValues {
   firstName: string;
   lastName: string;
@@ -198,35 +176,3 @@ export const Svg = [
     src: "Svg/20.svg",
   },
 ];
-
-// OLD Stuff
-
-// URL to get Posts
-export const PostURL: string = "https://jsonplaceholder.typicode.com/posts";
-export const CommentURL: string[] = [
-    "https://jsonplaceholder.typicode.com/posts/",
-    "/comments",
-  ];
-  
-export interface PostObj {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
-
-export interface CommentObj {
-  postId: number;
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-}
-
-export interface UserObj {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  userId: number;
-}

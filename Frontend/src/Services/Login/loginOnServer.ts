@@ -13,8 +13,6 @@ export async function loginUserOnServer(newUser: User): Promise<User> {
     let login_url = base_URL + `/${newUser.userType}` + "/login";
     const postDataResponse: any = await postData<User>(login_url, newUser);
     
-    
-
     let savedUser: User | undefined = getUserObj(postDataResponse, user_type);
     if (savedUser !== undefined) {
       // Saving its Token

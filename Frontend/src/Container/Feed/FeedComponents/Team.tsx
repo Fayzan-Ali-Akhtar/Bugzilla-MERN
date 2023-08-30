@@ -9,13 +9,13 @@ import { fetchAllQAsFromServer } from "../../../Services/QA/GetAllQAs";
 import { getLoggedInUserFromLocalStorage } from "../../../Utils/util";
 interface Props {
   projectID: string;
-  isManager:boolean;
+  isManager: boolean;
 }
 
 // Get all the developers obj and QAs obj
 // then filter which are in team and not in team
 
-const Team: React.FC<Props> = ({ projectID,isManager }) => {
+const Team: React.FC<Props> = ({ projectID, isManager }) => {
   // Project Data
   const [project, setProject] = useState<Project>();
   // Loading State
@@ -26,15 +26,15 @@ const Team: React.FC<Props> = ({ projectID,isManager }) => {
   // QAs
   const [availableQAs, setAvailableQAs] = useState<User[]>([]);
   const [teamQAs, setTeamQAs] = useState<User[]>([]);
-  // Current User 
+  // Current User
   const [user, setUser] = useState<User | null>(null);
-  // Can Edit 
+  // Can Edit
   const [canEdit, setCanEdit] = useState(false);
 
   async function getAndSetDevQaData() {
     try {
       // // Loading Started
-      // setIsLoading(true);
+      setIsLoading(true);
       // Getting Project Data fro Server
       const projectData = await fetchOneProjectFromServer(projectID);
       setProject(projectData);
@@ -79,32 +79,31 @@ const Team: React.FC<Props> = ({ projectID,isManager }) => {
   }
 
   async function removeDeveloperFromTeam(developerId: string) {
-    console.log(`Remove Developer with ID: ${developerId} from Team`);
     setIsLoading(true);
-    await removeOnePersonFromProjectOnServer(projectID,developerId,"developer" )
+    await removeOnePersonFromProjectOnServer(
+      projectID,
+      developerId,
+      "developer"
+    );
     getAndSetDevQaData();
   }
 
   async function removeQAFromTeam(qaId: string) {
-    console.log(`Remove QA with ID: ${qaId} from Team`);
     setIsLoading(true);
-    await removeOnePersonFromProjectOnServer(projectID,qaId,"qa" )
+    await removeOnePersonFromProjectOnServer(projectID, qaId, "qa");
     getAndSetDevQaData();
-    
   }
 
   async function addQAToTeam(qaId: string) {
-    console.log(`Add QA with ID: ${qaId} to Team`);
     setIsLoading(true);
-    await addOnePersonToProjectOnServer(projectID,qaId,"qa" )
+    await addOnePersonToProjectOnServer(projectID, qaId, "qa");
     getAndSetDevQaData();
   }
 
   async function addDeveloperToTeam(developerId: string) {
     // Loading Started
-    console.log(`Add Developer with ID: ${developerId} to Team`);
     setIsLoading(true);
-    await addOnePersonToProjectOnServer(projectID,developerId,"developer" )
+    await addOnePersonToProjectOnServer(projectID, developerId, "developer");
     getAndSetDevQaData();
   }
 
@@ -112,124 +111,121 @@ const Team: React.FC<Props> = ({ projectID,isManager }) => {
     getAndSetDevQaData();
     const User: User | null = getLoggedInUserFromLocalStorage();
     setUser(User);
-    if(User?.userType === "manager"){
+    if (User?.userType === "manager") {
       setCanEdit(true);
     }
   }, []);
 
   return (
     <>
-    <div className="d-flex justify-content-center align-items-center  mt-2">
-      {isLoading ? (
-        <Spinner animation="grow" variant="success" />
-      ) : (
-        <div className="w-100">
-          {/* Team Developers */}
-          <div className="w-100 border-top border-bottom border-success pt-1">
-            <h2 className="text-center mb-4">Team Developers</h2>
-            <div className="d-flex flex-column align-items-center">
-              {teamDevelopers.map((developer) => (
-                <div
-                  key={developer.id}
-                  className="d-flex justify-content-between align-items-center w-100 mb-3"
-                >
-                  <div>
-                    {developer.firstName} {developer.lastName}
+      <div className="d-flex justify-content-center align-items-center  mt-2">
+        {isLoading ? (
+          <Spinner animation="grow" variant="success" />
+        ) : (
+          <div className="w-100">
+            {/* Team Developers */}
+            <div className="w-100 border-top border-bottom border-success pt-1">
+              <h2 className="text-center mb-4">Team Developers</h2>
+              <div className="d-flex flex-column align-items-center">
+                {teamDevelopers.map((developer) => (
+                  <div
+                    key={developer.id}
+                    className="d-flex justify-content-between align-items-center w-100 mb-3"
+                  >
+                    <div>
+                      {developer.firstName} {developer.lastName}
+                    </div>
+                    {canEdit && (
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => removeDeveloperFromTeam(developer.id)}
+                      >
+                        Remove
+                      </button>
+                    )}
                   </div>
-                  {canEdit && (
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => removeDeveloperFromTeam(developer.id)}
-                    >
-                      Remove
-                    </button>
-                  )}
-                  
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Team QAs */}
-          <div className="w-100 border-top border-bottom border-success pt-1">
-            <h2 className="text-center mb-4">Team QAs</h2>
-            <div className="d-flex flex-column align-items-center">
-              {teamQAs.map((qa) => (
-                <div
-                  key={qa.id}
-                  className="d-flex justify-content-between align-items-center w-100 mb-3"
-                >
-                  <div>
-                    {qa.firstName} {qa.lastName}
-                  </div>
-                  {
-                    canEdit && (
+            {/* Team QAs */}
+            <div className="w-100 border-top border-bottom border-success pt-1">
+              <h2 className="text-center mb-4">Team QAs</h2>
+              <div className="d-flex flex-column align-items-center">
+                {teamQAs.map((qa) => (
+                  <div
+                    key={qa.id}
+                    className="d-flex justify-content-between align-items-center w-100 mb-3"
+                  >
+                    <div>
+                      {qa.firstName} {qa.lastName}
+                    </div>
+                    {canEdit && (
                       <button
                         className="btn btn-danger"
                         onClick={() => removeQAFromTeam(qa.id)}
                       >
                         Remove
                       </button>
-                    )
-                  }
-                  
-                </div>
-              ))}
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
+            {isManager && (
+              <div className="w-100 border-top border-bottom border-success pt-1">
+                <h2 className="text-center mb-4">Available Developers</h2>
+                <div className="d-flex flex-column align-items-center">
+                  {availableDevelopers.map((developer) => (
+                    <div
+                      key={developer.id}
+                      className="d-flex justify-content-between align-items-center w-100 mb-3"
+                    >
+                      <div>
+                        {developer.firstName} {developer.lastName}
+                      </div>
+                      {canEdit && (
+                        <button
+                          className="btn btn-success"
+                          onClick={() => addDeveloperToTeam(developer.id)}
+                        >
+                          Add
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {isManager && (
+              <div className="w-100 border-top border-bottom border-success pt-1">
+                <h2 className="text-center mb-4">Available QAs</h2>
+                <div className="d-flex flex-column align-items-center">
+                  {availableQAs.map((qa) => (
+                    <div
+                      key={qa.id}
+                      className="d-flex justify-content-between align-items-center w-100 mb-3"
+                    >
+                      <div>
+                        {qa.firstName} {qa.lastName}
+                      </div>
+                      {canEdit && (
+                        <button
+                          className="btn btn-success"
+                          onClick={() => addQAToTeam(qa.id)}
+                        >
+                          Add
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-          {isManager&&(
-          <div className="w-100 border-top border-bottom border-success pt-1">
-            <h2 className="text-center mb-4">Available Developers</h2>
-            <div className="d-flex flex-column align-items-center">
-              {availableDevelopers.map((developer) => (
-                <div
-                  key={developer.id}
-                  className="d-flex justify-content-between align-items-center w-100 mb-3"
-                >
-                  <div>
-                    {developer.firstName} {developer.lastName}
-                  </div>
-                  {canEdit && (
-                    <button
-                      className="btn btn-success"
-                      onClick={() => addDeveloperToTeam(developer.id)}
-                    >
-                      Add
-                    </button>
-                  )}
-                  
-                </div>
-              ))}
-            </div>
-          </div>)}
-                    {isManager&&(
-          <div className="w-100 border-top border-bottom border-success pt-1">
-            <h2 className="text-center mb-4">Available QAs</h2>
-            <div className="d-flex flex-column align-items-center">
-              {availableQAs.map((qa) => (
-                <div
-                  key={qa.id}
-                  className="d-flex justify-content-between align-items-center w-100 mb-3"
-                >
-                  <div>
-                    {qa.firstName} {qa.lastName}
-                  </div>
-                  {canEdit && (
-                    <button
-                      className="btn btn-success"
-                      onClick={() => addQAToTeam(qa.id)}
-                    >
-                      Add
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>)}
-        </div>
-      )}
-    </div>
-  </>
+        )}
+      </div>
+    </>
   );
 };
 

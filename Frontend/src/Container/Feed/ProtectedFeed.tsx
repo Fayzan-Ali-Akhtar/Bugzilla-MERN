@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import FeedGeneral from "./FeedComponents/FeedGeneral";
-// import Feed from "./FeedComponents/Feed";
-import { getLoggedInUserFromLocalStorage,getTokenFromLocalStorage } from "../../Utils/util";
+import {
+  getLoggedInUserFromLocalStorage,
+  getTokenFromLocalStorage,
+} from "../../Utils/util";
 import { useNavigate } from "react-router-dom";
 
 interface PostTabsProps {}
@@ -14,13 +16,13 @@ const ProtectedFeed: React.FC<PostTabsProps> = () => {
     const currentUserTokenJSON: string | null = getTokenFromLocalStorage();
     // There is no User Signed IN!!
     if (currentUserJSON === "{}" || currentUserTokenJSON === "{}") {
-      setValidUser(false); 
-      navigate("/home"); 
+      setValidUser(false);
+      navigate("/home");
     } else if (currentUserJSON && currentUserTokenJSON) {
       setValidUser(true);
     } else {
-      setValidUser(false); 
-      navigate("/home"); 
+      setValidUser(false);
+      navigate("/home");
     }
   }, []);
   return <>{validUser ? <FeedGeneral /> : null}</>;

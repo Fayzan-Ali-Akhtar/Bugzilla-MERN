@@ -10,7 +10,7 @@ interface Props {
   userID: string | undefined;
 }
 
-const Bugs: React.FC<Props> = ({ projectID,userType,userID }) => {
+const Bugs: React.FC<Props> = ({ projectID, userType, userID }) => {
   const [bugs, setBugs] = useState<Bug[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -18,10 +18,8 @@ const Bugs: React.FC<Props> = ({ projectID,userType,userID }) => {
     try {
       setIsLoading(true);
       // getting all bugs of a project
-      console.log("projectID", projectID);
       const bugs = await fetchAllBugsFromServer(projectID);
       setBugs(bugs);
-      console.log("bugs", bugs);
       setIsLoading(false);
     } catch (error) {
       console.log("An error occurred:", error);
@@ -29,7 +27,6 @@ const Bugs: React.FC<Props> = ({ projectID,userType,userID }) => {
   };
 
   useEffect(() => {
-    
     fetchBugs();
   }, [projectID]);
 
@@ -40,18 +37,23 @@ const Bugs: React.FC<Props> = ({ projectID,userType,userID }) => {
           <Spinner animation="grow" variant="primary" />
         ) : (
           <>
-          <div className="d-flex flex-column justify-content-center align-items-center w-100">
-          {userType === "qa" && <CreateBug projectID = {projectID} fetchBugs={fetchBugs}/>}
-          <h2>Bugs Report</h2>
-            {bugs.map((bug) => (
-              <BugTab key={bug.id} bug={bug} userType = {userType} userID = {userID} fetchBugs={fetchBugs}/>
-            ))}
+            <div className="d-flex flex-column justify-content-center align-items-center w-100">
+              {userType === "qa" && (
+                <CreateBug projectID={projectID} fetchBugs={fetchBugs} />
+              )}
+              <h2>Bugs Report</h2>
+              {bugs.map((bug) => (
+                <BugTab
+                  key={bug.id}
+                  bug={bug}
+                  userType={userType}
+                  userID={userID}
+                  fetchBugs={fetchBugs}
+                />
+              ))}
             </div>
           </>
         )}
-      </div>
-      <div className="d-flex justify-content-center align-items-center">
-        {/* In Bug Tab */}
       </div>
     </>
   );

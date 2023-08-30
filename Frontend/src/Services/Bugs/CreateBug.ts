@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { addTokenToRequestHeader } from '../Request/outGoing'; // Import the token function
+import { addTokenToRequestHeader } from '../../Utils/outGoing'; // Import the token function
 import {createBugURL} from "../../Constants/Constants";
 
 export async function createBug(

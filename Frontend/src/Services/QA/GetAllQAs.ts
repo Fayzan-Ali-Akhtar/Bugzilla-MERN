@@ -1,6 +1,6 @@
 import { getAllQAsURL, User } from "../../Constants/Constants";
 import { newGetData } from '../GetData/NewGetData';
-import { addTokenToRequestHeader } from '../Request/outGoing'; // Import the token function
+import { addTokenToRequestHeader } from '../../Utils/outGoing'; // Import the token function
 
 export async function fetchAllQAsFromServer(): Promise<User[]> {
   try {
@@ -27,12 +27,3 @@ export async function fetchAllQAsFromServer(): Promise<User[]> {
     throw error;
   }
 }
-
-// export interface User {
-//     id: string;
-//     firstName: string;
-//     lastName: string;
-//     email: string;
-//     password: string;
-//     userType: string;
-//   }

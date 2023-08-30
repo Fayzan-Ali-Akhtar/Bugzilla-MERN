@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Bug } from "../../../Constants/Constants";
-import {addDeveloperToBug} from '../../../Services/Bugs/AddDeveloperToBug';
-import {removeDeveloperFromBug} from '../../../Services/Bugs/RemoveDeveloperFromBug';
-import {updateStatusOfBug} from '../../../Services/Bugs/UpdateStatusOfBug';
-import {deleteBug} from '../../../Services/Bugs/DeleteBug';
+import { addDeveloperToBug } from "../../../Services/Bugs/AddDeveloperToBug";
+import { removeDeveloperFromBug } from "../../../Services/Bugs/RemoveDeveloperFromBug";
+import { updateStatusOfBug } from "../../../Services/Bugs/UpdateStatusOfBug";
+import { deleteBug } from "../../../Services/Bugs/DeleteBug";
 
 interface Props {
   bug: Bug;
@@ -14,7 +14,7 @@ interface Props {
   fetchBugs: () => void;
 }
 
-const BugTab: React.FC<Props> = ({ bug, userType, userID,fetchBugs }) => {
+const BugTab: React.FC<Props> = ({ bug, userType, userID, fetchBugs }) => {
   const [showImage, setShowImage] = React.useState(false);
   const [hasDescription, setHasDescription] = React.useState(false);
   const [isQA, setIsQA] = React.useState(false);
@@ -44,42 +44,33 @@ const BugTab: React.FC<Props> = ({ bug, userType, userID,fetchBugs }) => {
     if (bug.description !== "") {
       setHasDescription(true);
     }
-    if (bug.status === "completed"|| bug.status === "resolved") {
-        setIsBugCompleted(true);
+    if (bug.status === "completed" || bug.status === "resolved") {
+      setIsBugCompleted(true);
     }
   }, [bug]);
 
-  async function deleteBugFun() 
-  {
+  async function deleteBugFun() {
     await deleteBug(bug.id);
     await fetchBugs();
   }
-  async function joinBug() 
-  {
+  async function joinBug() {
     await addDeveloperToBug(bug.id);
     await fetchBugs();
   }
-  async function leaveBug() 
-  {
-      await removeDeveloperFromBug(bug.id);
-      await fetchBugs();
+  async function leaveBug() {
+    await removeDeveloperFromBug(bug.id);
+    await fetchBugs();
   }
-  async function bugDone() 
-  {
-    if(bug.type === "feature")
-    {
-
-        await updateStatusOfBug(bug.id,"completed");
-    }
-    else
-    {
-        await updateStatusOfBug(bug.id,"resolved");
+  async function bugDone() {
+    if (bug.type === "feature") {
+      await updateStatusOfBug(bug.id, "completed");
+    } else {
+      await updateStatusOfBug(bug.id, "resolved");
     }
     await fetchBugs();
   }
-  async function reOpenBug() 
-  {
-    await updateStatusOfBug(bug.id,"started");
+  async function reOpenBug() {
+    await updateStatusOfBug(bug.id, "started");
     await fetchBugs();
   }
   return (
@@ -94,7 +85,9 @@ const BugTab: React.FC<Props> = ({ bug, userType, userID,fetchBugs }) => {
           <Card.Body>
             {showImage && <Card.Img variant="top" src={bug.screenshot} />}
             <Card.Title>Bug: {bug.title}</Card.Title>
-            {hasDescription && <Card.Text>Description: {bug.description}</Card.Text>}
+            {hasDescription && (
+              <Card.Text>Description: {bug.description}</Card.Text>
+            )}
 
             <ListGroup className="list-group-flush">
               <ListGroup.Item className="bg-dark text-white">
@@ -119,41 +112,24 @@ const BugTab: React.FC<Props> = ({ bug, userType, userID,fetchBugs }) => {
             )}
             {hasDeveloperJoined && (
               <div className="d-flex justify-content-between">
-                
-                {
-                    isBugCompleted? <button className="btn btn-secondary" onClick={reOpenBug}>
+                {isBugCompleted ? (
+                  <button className="btn btn-secondary" onClick={reOpenBug}>
                     Reopen Bug
-                  </button>:
-                    <button className="btn btn-success" onClick={bugDone}>
-                  {bug.type === "feature"
-                    ? "Mark as Completed"
-                    : "Mark as Resolved"}
-                </button>
-                }
+                  </button>
+                ) : (
+                  <button className="btn btn-success" onClick={bugDone}>
+                    {bug.type === "feature"
+                      ? "Mark as Completed"
+                      : "Mark as Resolved"}
+                  </button>
+                )}
                 <button className="btn btn-danger" onClick={leaveBug}>
                   Leave Bug
                 </button>
               </div>
             )}
           </Card.Body>
-
-          {/* <div className="d-flex justify-content-between">
-    <button
-      className="btn btn-danger"
-      onClick={deleteBugFun}
-    >
-      Delete
-    </button>
-  </div> */}
         </Card>
-
-        {/* <div className="d-flex justify-content-between"> */}
-        {/* 
-            
-            {bug.projectID}
-            {bug.developers}
-            
-            {bug.screenshot} */}
       </div>
     </>
   );

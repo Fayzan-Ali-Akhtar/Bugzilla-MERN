@@ -11,12 +11,18 @@ import { deleteProjectFromServer } from "../../../Services/Project/DeleteProject
 interface Props {
   project: Project;
   isManager: boolean;
-  userType:string|undefined;
+  userType: string | undefined;
   fetchProjects: () => void;
-  userID:string|undefined;
+  userID: string | undefined;
 }
 
-const Projects: React.FC<Props> = ({ project, isManager,fetchProjects,userType,userID }) => {
+const Projects: React.FC<Props> = ({
+  project,
+  isManager,
+  fetchProjects,
+  userType,
+  userID,
+}) => {
   const [showTeam, setShowTeam] = React.useState(false);
   const [showBug, setShowBug] = React.useState(false);
   const [managerName, setManagerName] = React.useState("Loading...");
@@ -56,14 +62,16 @@ const Projects: React.FC<Props> = ({ project, isManager,fetchProjects,userType,u
   }
 
   async function deleteProjectFun() {
-    console.log("Deleting Project:", project.id);
     await deleteProjectFromServer(project.id);
     await fetchProjects();
   }
   return (
     <>
-      <Card bg="dark" text="white" className="mt-2 mb-2 border border-primary border-3">
-    {/* <div className="w-100 border-top border-bottom border-primary mt-3 pt-1"> */}
+      <Card
+        bg="dark"
+        text="white"
+        className="mt-2 mb-2 border border-primary border-3"
+      >
         <Card.Header>
           <div className="d-flex justify-content-between">
             {project.title}
@@ -72,10 +80,7 @@ const Projects: React.FC<Props> = ({ project, isManager,fetchProjects,userType,u
               <Spinner animation="grow" variant="light" size="sm" />
             ) : (
               isManager && (
-                <button
-                  className="btn btn-danger"
-                  onClick={deleteProjectFun}
-                >
+                <button className="btn btn-danger" onClick={deleteProjectFun}>
                   Delete
                 </button>
               )
@@ -95,11 +100,16 @@ const Projects: React.FC<Props> = ({ project, isManager,fetchProjects,userType,u
                 {showTeam ? "Hide Team" : "Show Team"}
               </button>
             </div>
-            {showBug && <Bugs projectID={project.id} userType = {userType} userID = {userID}/>}
-            {showTeam && <Team projectID={project.id} isManager={isManager}/>}
+            {showBug && (
+              <Bugs
+                projectID={project.id}
+                userType={userType}
+                userID={userID}
+              />
+            )}
+            {showTeam && <Team projectID={project.id} isManager={isManager} />}
           </blockquote>
         </Card.Body>
-      {/* </div> */}
       </Card>
     </>
   );

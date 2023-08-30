@@ -15,11 +15,9 @@ import {
 } from "../../../Constants/Constants";
 import { getLoggedInUserFromLocalStorage } from "../../../Utils/util";
 import { useNavigate } from "react-router-dom";
-// import {getDataFromServer} from '../../../Services/Project/Testing';
-import { fetchManagersFromServer } from "../../../Services/Manager/manager";
 import { fetchAllProjectsFromServer } from "../../../Services/Project/GetAllProjects";
 import Projects from "./Projects";
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from "react-bootstrap/Spinner";
 
 interface MyStyleState {
   right: string;
@@ -99,10 +97,10 @@ const FeedGeneral = () => {
       navigate("/home");
     }
     setUser(User);
-    let capitalizedString:string = "";
-    if(User?.userType)
-    {
-      capitalizedString = User?.userType.charAt(0).toUpperCase() + User?.userType.slice(1);
+    let capitalizedString: string = "";
+    if (User?.userType) {
+      capitalizedString =
+        User?.userType.charAt(0).toUpperCase() + User?.userType.slice(1);
     }
 
     setDisplayName({
@@ -138,19 +136,18 @@ const FeedGeneral = () => {
                       key={project.id}
                       project={project}
                       isManager={isManager}
-                      fetchProjects = {fetchProjects}
-                      userType = {user?.userType}
-                      userID = {user?.id}
+                      fetchProjects={fetchProjects}
+                      userType={user?.userType}
+                      userID={user?.id}
                     />
                   ))}
                 </>
               ) : (
                 <>
-                {/* Center these  */}
-                <h1 className="text-primary ">{message}</h1>
-                <Spinner animation="grow" variant="primary" />
-                <Spinner animation="grow" variant="primary" size="sm"/>
-                <Spinner animation="grow" variant="primary"size="sm" />
+                  <h1 className="text-primary ">{message}</h1>
+                  <Spinner animation="grow" variant="primary" />
+                  <Spinner animation="grow" variant="primary" size="sm" />
+                  <Spinner animation="grow" variant="primary" size="sm" />
                 </>
               )}
             </Col>

@@ -190,7 +190,6 @@ const SignUpForm: React.FC = () => {
             {/* Buttons  */}
             <div className="d-flex justify-content-evenly mb-2">
               <Button variant="primary" type="submit">
-                {/* <ConnectTextLogo logo_size={1.5} custom_color="white" /> */}
                 Sign Up
               </Button>
               <Button variant="outline-light" type="submit" onClick={goToLogIn}>

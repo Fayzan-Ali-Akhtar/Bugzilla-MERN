@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { addTokenToRequestHeader } from '../Request/outGoing'; // Import the token function
+import { addTokenToRequestHeader } from '../../Utils/outGoing';
 import { removeOnePersonFromProjectURL } from "../../Constants/Constants";
 
 export async function removeOnePersonFromProjectOnServer(
   projectID: string,
-  dataToBeAdded: string, // Replace 'any' with the appropriate type
+  dataToBeAdded: string, 
   typeToBeAdded: string
 ): Promise<void> {
   try {

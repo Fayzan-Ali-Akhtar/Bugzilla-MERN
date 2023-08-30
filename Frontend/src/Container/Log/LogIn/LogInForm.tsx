@@ -6,8 +6,7 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
 import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
-// Importing an ENUM
-import { TypeLog, UserObj, UserType, User } from "../../../Constants/Constants";
+import { TypeLog, UserType, User } from "../../../Constants/Constants";
 import { useNavigate } from "react-router-dom";
 import { loginUserOnServer } from "../../../Services/Login/loginOnServer";
 

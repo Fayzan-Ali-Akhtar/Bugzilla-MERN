@@ -10,17 +10,13 @@ interface Props {
 function HomeCard({ LogType }: Props) {
   return (
     <Card
-      className={`center-text ${LogType === TypeLog.Sign ?"":`border border-light`}`}
+      className={`center-text ${
+        LogType === TypeLog.Sign ? "" : `border border-light`
+      }`}
       bg={LogType === TypeLog.Sign ? "primary" : "dark"}
       text={LogType === TypeLog.Sign ? "white" : "dark"}
     >
-      <Card.Body
-        // className={
-        //   LogType === TypeLog.Log
-        //     ? "secondary-color-border bg-dark"
-        //     : "primary-color-border"
-        // }
-      >
+      <Card.Body>
         <h2 className="white-text">{LogType}</h2>
         <Card.Text
           style={{ color: `${LogType === TypeLog.Log ? "white" : "white"}` }}

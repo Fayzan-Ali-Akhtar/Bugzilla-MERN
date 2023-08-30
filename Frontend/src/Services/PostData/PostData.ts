@@ -7,7 +7,6 @@ export async function postData<T>(url: string, data: T): Promise<T> {
     return response.data;
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
-        // console.log(error);
         if(error !== undefined && error.response !== undefined && error.response.data !== undefined )
         {
             if(error.response.data.error === "Email already in use!")
@@ -29,7 +28,5 @@ export async function postData<T>(url: string, data: T): Promise<T> {
       console.error("An unknown error occurred while sending and processing data.");
       throw new Error("Unknown error occurred while sending and processing data.")
     }
-    console.log("kk")
-    return {} as T; // Return an empty object as fallback
   }
 }

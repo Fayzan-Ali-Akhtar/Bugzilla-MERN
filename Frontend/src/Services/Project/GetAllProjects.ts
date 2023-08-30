@@ -1,6 +1,6 @@
 import { allProjectURL, Project } from "../../Constants/Constants";
 import { newGetData } from '../GetData/NewGetData';
-import { addTokenToRequestHeader } from '../Request/outGoing'; // Import the token function
+import { addTokenToRequestHeader } from '../../Utils/outGoing'; // Import the token function
 
 export async function fetchAllProjectsFromServer(): Promise<Project[]> {
   try {

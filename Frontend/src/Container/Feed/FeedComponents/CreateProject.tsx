@@ -4,8 +4,8 @@ import Card from "react-bootstrap/Card";
 import { createProjectOnServer } from "../../../Services/Project/CreateProjectOnServer";
 
 interface Props {
-    fetchProjects: () => void; 
-  }
+  fetchProjects: () => void;
+}
 
 const CreateProject: React.FC<Props> = ({ fetchProjects }) => {
   const [projectTitle, setProjectTitle] = useState("");
@@ -32,29 +32,28 @@ const CreateProject: React.FC<Props> = ({ fetchProjects }) => {
         style={{ width: "82%" }}
       >
         <Card bg="dark" text="white" className="mt-4 w-100">
-        <Card.Body>
-  <Card.Title style={{ fontSize: "2.4rem" }}>
-    Create New Project
-  </Card.Title>
-  <Card.Subtitle className="mb-2  text-white">
-    Project Title
-  </Card.Subtitle>
-  <form onSubmit={handleSubmit}>
-    <div className="mb-3">
-      <input
-        type="text"
-        className="form-control"
-        id="projectTitle"
-        value={projectTitle}
-        onChange={handleTitleChange}
-      />
-    </div>
-    <button type="submit" className="btn btn-success">
-      Create
-    </button>
-  </form>
-</Card.Body>
-
+          <Card.Body>
+            <Card.Title style={{ fontSize: "2.4rem" }}>
+              Create New Project
+            </Card.Title>
+            <Card.Subtitle className="mb-2  text-white">
+              Project Title
+            </Card.Subtitle>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="projectTitle"
+                  value={projectTitle}
+                  onChange={handleTitleChange}
+                />
+              </div>
+              <button type="submit" className="btn btn-success">
+                Create
+              </button>
+            </form>
+          </Card.Body>
         </Card>
       </div>
     </>
