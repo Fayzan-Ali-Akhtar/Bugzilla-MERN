@@ -1,0 +1,40 @@
+.gear-icon {
+    animation: rotatng_gear 3.5s alternate infinite;
+    font-size: 4.5rem;
+}
+
+@keyframes rotatng_gear {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(390deg);   
+    }
+}
+.key-icon {
+    animation: rotatng_key 2s alternate infinite;
+    font-size: 6.5rem;
+}
+
+@keyframes rotatng_key {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(45deg);   
+    }
+}
+
+.db-icon{
+    animation: move_db 2s alternate infinite;
+    font-size: 6.5rem;   
+}
+
+@keyframes move_db {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(0.2em, 0.2em);      
+    }
+}

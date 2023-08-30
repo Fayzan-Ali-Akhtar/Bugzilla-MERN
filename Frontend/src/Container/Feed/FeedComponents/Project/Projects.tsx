@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { Project } from "../../../Constants/Constants";
+import { Project } from "../../../../Constants/Constants";
 import Card from "react-bootstrap/Card";
-import { fetchManageName } from "../../../Services/Manager/GetManagerName";
+import { fetchManageName } from "../../../../Services/Manager/GetManagerName";
 // import { fetchManagersFromServer } from "../../../Services/Manager/manager";
-import Team from "./Team";
-import Bugs from "./Bugs";
+import Team from "../Team/Team";
+import Bugs from "../Bugs/Bugs";
 import Spinner from "react-bootstrap/Spinner";
-import { deleteProjectFromServer } from "../../../Services/Project/DeleteProject";
+import { deleteProjectFromServer } from "../../../../Services/Project/DeleteProject";
 
 interface Props {
   project: Project;
@@ -70,7 +70,7 @@ const Projects: React.FC<Props> = ({
       <Card
         bg="dark"
         text="white"
-        className="mt-2 mb-2 border border-primary border-3"
+        className="mt-4 mb-3 border border-primary border-3"
       >
         <Card.Header>
           <div className="d-flex justify-content-between">

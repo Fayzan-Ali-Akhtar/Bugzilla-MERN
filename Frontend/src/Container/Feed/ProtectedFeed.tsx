@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FeedGeneral from "./FeedComponents/FeedGeneral";
+import FeedGeneral from "./FeedComponents/Feed";
 import {
   getLoggedInUserFromLocalStorage,
   getTokenFromLocalStorage,

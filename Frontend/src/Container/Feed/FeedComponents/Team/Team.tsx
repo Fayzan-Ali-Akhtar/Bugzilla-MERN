@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import { User, Project } from "../../../Constants/Constants";
-import { fetchOneProjectFromServer } from "../../../Services/Project/GetOneProject";
-import { addOnePersonToProjectOnServer } from "../../../Services/Project/AddOnePersonToProject";
-import { removeOnePersonFromProjectOnServer } from "../../../Services/Project/RemoveOnePersonFromProject";
-import { fetchAllDevelopersFromServer } from "../../../Services/Developer/GetAllDevelopers";
-import { fetchAllQAsFromServer } from "../../../Services/QA/GetAllQAs";
-import { getLoggedInUserFromLocalStorage } from "../../../Utils/util";
+import { User, Project } from "../../../../Constants/Constants";
+import { fetchOneProjectFromServer } from "../../../../Services/Project/GetOneProject";
+import { addOnePersonToProjectOnServer } from "../../../../Services/Project/AddOnePersonToProject";
+import { removeOnePersonFromProjectOnServer } from "../../../../Services/Project/RemoveOnePersonFromProject";
+import { fetchAllDevelopersFromServer } from "../../../../Services/Developer/GetAllDevelopers";
+import { fetchAllQAsFromServer } from "../../../../Services/QA/GetAllQAs";
+import { getLoggedInUserFromLocalStorage } from "../../../../Utils/util";
 interface Props {
   projectID: string;
   isManager: boolean;

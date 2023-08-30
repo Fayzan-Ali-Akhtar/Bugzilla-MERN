@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import { fetchAllBugsFromServer } from "../../../Services/Bugs/GetAllBugsOfProject";
-import { Bug } from "../../../Constants/Constants";
+import { fetchAllBugsFromServer } from "../../../../Services/Bugs/GetAllBugsOfProject";
+import { Bug } from "../../../../Constants/Constants";
 import BugTab from "./BugTab";
 import CreateBug from "./CreateBug";
 interface Props {

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import { Bug } from "../../../Constants/Constants";
-import { addDeveloperToBug } from "../../../Services/Bugs/AddDeveloperToBug";
-import { removeDeveloperFromBug } from "../../../Services/Bugs/RemoveDeveloperFromBug";
-import { updateStatusOfBug } from "../../../Services/Bugs/UpdateStatusOfBug";
-import { deleteBug } from "../../../Services/Bugs/DeleteBug";
+import { Bug } from "../../../../Constants/Constants";
+import { addDeveloperToBug } from "../../../../Services/Bugs/AddDeveloperToBug";
+import { removeDeveloperFromBug } from "../../../../Services/Bugs/RemoveDeveloperFromBug";
+import { updateStatusOfBug } from "../../../../Services/Bugs/UpdateStatusOfBug";
+import { deleteBug } from "../../../../Services/Bugs/DeleteBug";
 
 interface Props {
   bug: Bug;

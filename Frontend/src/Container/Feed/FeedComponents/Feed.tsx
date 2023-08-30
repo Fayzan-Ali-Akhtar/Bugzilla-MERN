@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import NavBar from "../../NavBar/NavBar";
-import CreateProject from "./CreateProject";
+import CreateProject from "./Project/CreateProject";
 import {
   PrimaryColor,
   User,
@@ -16,7 +16,7 @@ import {
 import { getLoggedInUserFromLocalStorage } from "../../../Utils/util";
 import { useNavigate } from "react-router-dom";
 import { fetchAllProjectsFromServer } from "../../../Services/Project/GetAllProjects";
-import Projects from "./Projects";
+import Projects from "./Project/Projects";
 import Spinner from "react-bootstrap/Spinner";
 
 interface MyStyleState {
@@ -119,15 +119,15 @@ const FeedGeneral = () => {
       <div className="bg-dark">
         <HeadingLogo DarkMode={true} />
         <NavBar userName={displayName} />
-        <Container>
+        <Container >
           <Row>
             {isManager ? <CreateProject fetchProjects={fetchProjects} /> : null}
 
             <Col
               lg={10}
               xs={12}
-              style={{ border: `solid ${PrimaryColor} 0.3em` }}
-              className="mt-3  p-3 mb-5 bg-body rounded center"
+              // style={{ border: `solid ${PrimaryColor} 0.3em` }}
+              className=" min-vh-100  bg-dark rounded center"
             >
               {hasProject ? (
                 <>

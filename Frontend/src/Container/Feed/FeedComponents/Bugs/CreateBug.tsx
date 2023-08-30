@@ -1,4 +1,4 @@
-import { createBug } from "../../../Services/Bugs/CreateBug";
+import { createBug } from "../../../../Services/Bugs/CreateBug";
 import React, { useState,useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, Col, Row } from "react-bootstrap";
