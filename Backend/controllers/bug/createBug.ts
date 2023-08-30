@@ -120,10 +120,13 @@ export const createBug = async (req: AuthenticatedRequest, res: Response) => {
       req.body.screenshots === null ||
       req.body.screenshots === ""
     ) {
+      console.log("Wrong screenshot: " + bugScreenshot);
       bugScreenshot = "";
     }
     else {
-      bugScreenshot = req.body.screenshot;
+      bugScreenshot = req.body.screenshots;
+      console.log("Right screenshot: " + bugScreenshot);
+      console.log("req.body.screenshot: " + req.body.screenshot);
     }
 
     const bugObj = {

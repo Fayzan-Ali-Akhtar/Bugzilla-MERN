@@ -3,6 +3,8 @@ import React,{useState} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, Col, Row } from "react-bootstrap";
 import * as yup from "yup";
+import Axios from "axios";
+// import {Image} from "cloudinary-react";
 
 interface Props {
     projectID: string;
@@ -18,6 +20,8 @@ interface Props {
   const CreateBug: React.FC<Props> = ({ projectID,fetchBugs }) => {
     const [screenshot, setScreenshot] = useState("");
     const [deadline, setDeadline] = useState(new Date()); // Use React state for the deadline
+    const [imageSelected, setImageSelected] = useState<File | undefined>();
+
     const schema = yup.object().shape({
       title: yup.string().required("Title is required"),
       description: yup.string(),
@@ -26,8 +30,35 @@ interface Props {
         .oneOf(["feature", "bug"], "Invalid type")
         .required("Type is required"),
     });
+
+    const upLoadImage = async () => {
+      if (imageSelected) {
+        const formData = new FormData();
+        formData.append("file", imageSelected);
+        formData.append("upload_preset", "o45sypwv");
+    
+        try {
+          const response = await Axios.post(
+            "https://api.cloudinary.com/v1_1/dfcusg0w8/image/upload",
+            formData
+          );
+          console.log(response.data.secure_url);
+          setScreenshot(response.data.secure_url);
+          return response.data.secure_url;
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    };
+    
+
   
     const handleSubmit = async (values: FormValues) => {
+      try
+      {
+        // Uploading Image 
+        const imageURL:string = await upLoadImage();
+      console.log("imageURL", imageURL);
       // Make date string in the "yyyy-MM-dd" format
       const year = deadline.getFullYear();
       const month = (deadline.getMonth() + 1).toString().padStart(2, '0');
@@ -45,7 +76,7 @@ interface Props {
         values.type,
         projectID,
         values.description,
-        screenshot
+        imageURL
       );
       
       // Reset the form
@@ -54,6 +85,11 @@ interface Props {
       values.description = "";
       values.type = "feature";
       await fetchBugs();
+      }
+      catch(err)
+      {
+        console.log(err);
+      }
     };
   
     return (
@@ -133,6 +169,23 @@ interface Props {
                 component="div"
                 className="invalid-feedback"
               />
+            </Col>
+            <Col md="12">
+
+            <label htmlFor="screenshot">Screenshot</label>
+            <input
+  type="file"
+  onChange={(e) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setImageSelected(files[0]);
+    }
+  }}
+  className={`form-control`}
+/>
+
+            {/* <Button onClick={upLoadImage}>Upload</Button> */}
+            {/* <Image cloudName="dz3vsvi0u" publicId={screenshot} /> */}
             </Col>
             <Button variant="primary" type="submit" className="mt-3 mb-3">
               Create Bug

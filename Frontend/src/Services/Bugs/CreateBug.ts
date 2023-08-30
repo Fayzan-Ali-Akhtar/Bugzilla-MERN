@@ -15,14 +15,14 @@ export async function createBug(
       headers: {},
     };
     addTokenToRequestHeader(config); // Add token to headers
-    
+    console.log("createBug function screenshot: " + screenshot);
     const requestBody = {
         title: title,
         deadline: deadline,
         type: type,
         projectID: projectID,
         description: description,
-        screenshot: screenshot,
+        screenshots: screenshot,
     };
     
     await axios.post(createBugURL, requestBody, config);
