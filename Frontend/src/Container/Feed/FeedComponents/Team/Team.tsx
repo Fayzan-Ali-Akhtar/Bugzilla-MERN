@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import { User,Project } from "../../../../Constants/Constants";
+import { User, Project } from "../../../../Constants/Constants";
 import { fetchOneProjectFromServer } from "../../../../Services/Project/GetOneProject";
-import { addOnePersonToProjectOnServer } from "../../../../Services/Project/AddOnePersonToProject";
-import { removeOnePersonFromProjectOnServer } from "../../../../Services/Project/RemoveOnePersonFromProject";
 import { fetchAllDevelopersFromServer } from "../../../../Services/Developer/GetAllDevelopers";
 import { fetchAllQAsFromServer } from "../../../../Services/QA/GetAllQAs";
 import { getLoggedInUserFromLocalStorage } from "../../../../Utils/util";
-// ----------------- 
-import TeamDevelopers from "./TeamDevelopers"; // Import child components
-import TeamQAs from "./TeamQAs";
-import AvailableDevelopers from "./AvailableDevelopers";
-import AvailableQAs from "./AvailableQAs";
+// -----------------
+import TeamDevelopers from "./Developers/TeamDevelopers"; // Import child components
+import TeamQAs from "./QAs/TeamQAs";
+import AvailableDevelopers from "./Developers/AvailableDevelopers";
+import AvailableQAs from "./QAs/AvailableQAs";
 interface Props {
   projectID: string;
   isManager: boolean;
@@ -20,24 +18,24 @@ interface Props {
 const Team: React.FC<Props> = ({ projectID, isManager }) => {
   // Component state variables and functions here...
   const [isLoading, setIsLoading] = useState(true);
-  const [teamDevelopers, setTeamDevelopers] = useState<User[]>([]);
-  // Project Data
-  const [project, setProject] = useState<Project>();
+  
   // Current User
   const [user, setUser] = useState<User | null>(null);
   // Can Edit
   const [canEdit, setCanEdit] = useState(false);
   // QAs
   const [teamQAs, setTeamQAs] = useState<User[]>([]);
-  const [availableDevelopers, setAvailableDevelopers] = useState<User[]>([]);
   const [availableQAs, setAvailableQAs] = useState<User[]>([]);
+  // Developers 
+  const [teamDevelopers, setTeamDevelopers] = useState<User[]>([]);
+  const [availableDevelopers, setAvailableDevelopers] = useState<User[]>([]);
+  // Function To Load Data from Server and Set States
   async function getAndSetDevQaData() {
     try {
       // // Loading Started
       setIsLoading(true);
-      // Getting Project Data fro Server
+      // Getting Project Data from Server
       const projectData = await fetchOneProjectFromServer(projectID);
-      setProject(projectData);
       // Getting All Developers from Server
       const allDevelopersData = await fetchAllDevelopersFromServer();
       // Getting All QAs from Server
@@ -66,41 +64,18 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
           return qa;
         }
       });
-      
+
       // Setting States
       setTeamDevelopers(developersInTeam);
       setAvailableDevelopers(developersAvailable);
       setTeamQAs(QAsInTeam);
       setAvailableQAs(QAsAvailable);
-      
+
       setIsLoading(false);
     } catch (error) {
       console.log(`Error in getAndSetDevQaData: ${error}`);
     }
   }
-  async function removeDeveloperFromTeam(developerId: string) {
-    setIsLoading(true);
-    await removeOnePersonFromProjectOnServer(
-      projectID,
-      developerId,
-      "developer"
-    );
-    getAndSetDevQaData();
-  }
-
-  async function removeQAFromTeam(qaId: string) {
-    setIsLoading(true);
-    await removeOnePersonFromProjectOnServer(projectID, qaId, "qa");
-    getAndSetDevQaData();
-  }
-
-  async function addQAToTeam(qaId: string) {
-    setIsLoading(true);
-    await addOnePersonToProjectOnServer(projectID, qaId, "qa");
-    getAndSetDevQaData();
-  }
-
-  
 
   useEffect(() => {
     getAndSetDevQaData();
@@ -119,40 +94,37 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
         ) : (
           <div className="w-100">
             <TeamDevelopers
-            projectID={projectID}
-            getAndSetDevQaData={getAndSetDevQaData}
-            setIsLoading={setIsLoading}
+              projectID={projectID}
+              getAndSetDevQaData={getAndSetDevQaData}
+              setIsLoading={setIsLoading}
               teamDevelopers={teamDevelopers}
               canEdit={canEdit}
-              removeDeveloperFromTeam={removeDeveloperFromTeam}
             />
             <TeamQAs
-            projectID={projectID}
-            getAndSetDevQaData={getAndSetDevQaData}
-            setIsLoading={setIsLoading}
+              projectID={projectID}
+              getAndSetDevQaData={getAndSetDevQaData}
+              setIsLoading={setIsLoading}
               teamQAs={teamQAs}
               canEdit={canEdit}
-              removeQAFromTeam={removeQAFromTeam}
             />
-            {isManager&&
-            <AvailableDevelopers
-            projectID={projectID}
-            getAndSetDevQaData={getAndSetDevQaData}
-            setIsLoading={setIsLoading}
-            availableDevelopers={availableDevelopers}
-            canEdit={canEdit}
-            />
-          }
-            {isManager &&
-            <AvailableQAs
-            projectID={projectID}
-            getAndSetDevQaData={getAndSetDevQaData}
-            setIsLoading={setIsLoading}
-            availableQAs={availableQAs}
-            canEdit={canEdit}
-            addQAToTeam={addQAToTeam}
-            />
-          }
+            {isManager && (
+              <AvailableDevelopers
+                projectID={projectID}
+                getAndSetDevQaData={getAndSetDevQaData}
+                setIsLoading={setIsLoading}
+                availableDevelopers={availableDevelopers}
+                canEdit={canEdit}
+              />
+            )}
+            {isManager && (
+              <AvailableQAs
+                projectID={projectID}
+                getAndSetDevQaData={getAndSetDevQaData}
+                setIsLoading={setIsLoading}
+                availableQAs={availableQAs}
+                canEdit={canEdit}
+              />
+            )}
           </div>
         )}
       </div>

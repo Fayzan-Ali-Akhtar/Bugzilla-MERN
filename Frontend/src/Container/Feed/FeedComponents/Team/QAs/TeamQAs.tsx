@@ -1,5 +1,6 @@
 import React from "react";
-import { User } from "../../../../Constants/Constants";
+import { User } from "../../../../../Constants/Constants";
+import { removeOnePersonFromProjectOnServer } from "../../../../../Services/Project/RemoveOnePersonFromProject";
 
 interface Props {
     projectID: string;
@@ -7,10 +8,20 @@ interface Props {
     setIsLoading: (isLoading: boolean) => void;
   teamQAs: User[];
   canEdit: boolean;
-  removeQAFromTeam: (qaId: string) => void;
 }
 
-const TeamQAs: React.FC<Props> = ({ teamQAs, canEdit, removeQAFromTeam }) => {
+const TeamQAs: React.FC<Props> = ({ teamQAs, canEdit, 
+    projectID,
+    getAndSetDevQaData,
+    setIsLoading,
+
+
+}) => {
+    async function removeQAFromTeam(qaId: string) {
+        setIsLoading(true);
+        await removeOnePersonFromProjectOnServer(projectID, qaId, "qa");
+        getAndSetDevQaData();
+      }
   return (
     <div className="w-100 border-top border-bottom border-success pt-1">
       <h2 className="text-center mb-4">Team QAs</h2>

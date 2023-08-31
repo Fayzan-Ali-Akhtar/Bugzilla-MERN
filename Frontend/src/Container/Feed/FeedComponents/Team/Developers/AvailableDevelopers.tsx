@@ -1,6 +1,6 @@
 import React from "react";
-import { User } from "../../../../Constants/Constants";
-import { addOnePersonToProjectOnServer } from "../../../../Services/Project/AddOnePersonToProject";
+import { User } from "../../../../../Constants/Constants";
+import { addOnePersonToProjectOnServer } from "../../../../../Services/Project/AddOnePersonToProject";
 interface Props {
   projectID: string;
   getAndSetDevQaData: () => void;
