@@ -2,23 +2,20 @@ import React from "react";
 import { User } from "../../../../Constants/Constants";
 import { addOnePersonToProjectOnServer } from "../../../../Services/Project/AddOnePersonToProject";
 interface Props {
+    projectID: string;
     getAndSetDevQaData: () => void;
     setIsLoading: (isLoading: boolean) => void;
   availableQAs: User[];
-  isManager: boolean;
   canEdit: boolean;
   addQAToTeam: (qaId: string) => void;
 }
 
 const AvailableQAs: React.FC<Props> = ({
   availableQAs,
-  isManager,
   canEdit,
   addQAToTeam,
 }) => {
-  if (!isManager) {
-    return null;
-  }
+  
 
   return (
     <>

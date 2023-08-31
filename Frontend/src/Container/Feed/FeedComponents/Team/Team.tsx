@@ -100,12 +100,7 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
     getAndSetDevQaData();
   }
 
-  async function addDeveloperToTeam(developerId: string) {
-    // Loading Started
-    setIsLoading(true);
-    await addOnePersonToProjectOnServer(projectID, developerId, "developer");
-    getAndSetDevQaData();
-  }
+  
 
   useEffect(() => {
     getAndSetDevQaData();
@@ -124,6 +119,7 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
         ) : (
           <div className="w-100">
             <TeamDevelopers
+            projectID={projectID}
             getAndSetDevQaData={getAndSetDevQaData}
             setIsLoading={setIsLoading}
               teamDevelopers={teamDevelopers}
@@ -131,28 +127,32 @@ const Team: React.FC<Props> = ({ projectID, isManager }) => {
               removeDeveloperFromTeam={removeDeveloperFromTeam}
             />
             <TeamQAs
+            projectID={projectID}
             getAndSetDevQaData={getAndSetDevQaData}
             setIsLoading={setIsLoading}
               teamQAs={teamQAs}
               canEdit={canEdit}
               removeQAFromTeam={removeQAFromTeam}
             />
+            {isManager&&
             <AvailableDevelopers
+            projectID={projectID}
             getAndSetDevQaData={getAndSetDevQaData}
             setIsLoading={setIsLoading}
-              availableDevelopers={availableDevelopers}
-              isManager={isManager}
-              canEdit={canEdit}
-              addDeveloperToTeam={addDeveloperToTeam}
+            availableDevelopers={availableDevelopers}
+            canEdit={canEdit}
             />
+          }
+            {isManager &&
             <AvailableQAs
+            projectID={projectID}
             getAndSetDevQaData={getAndSetDevQaData}
             setIsLoading={setIsLoading}
-              availableQAs={availableQAs}
-              isManager={isManager}
-              canEdit={canEdit}
-              addQAToTeam={addQAToTeam}
+            availableQAs={availableQAs}
+            canEdit={canEdit}
+            addQAToTeam={addQAToTeam}
             />
+          }
           </div>
         )}
       </div>

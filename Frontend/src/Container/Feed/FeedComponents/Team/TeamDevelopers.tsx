@@ -2,6 +2,7 @@ import React from "react";
 import { User } from "../../../../Constants/Constants";
 
 interface Props {
+    projectID: string;
     getAndSetDevQaData: () => void;
     setIsLoading: (isLoading: boolean) => void;
   teamDevelopers: User[];

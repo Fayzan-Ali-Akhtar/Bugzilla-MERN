@@ -2,23 +2,25 @@ import React from "react";
 import { User } from "../../../../Constants/Constants";
 import { addOnePersonToProjectOnServer } from "../../../../Services/Project/AddOnePersonToProject";
 interface Props {
-    getAndSetDevQaData: () => void;
-    setIsLoading: (isLoading: boolean) => void;
+  projectID: string;
+  getAndSetDevQaData: () => void;
+  setIsLoading: (isLoading: boolean) => void;
   availableDevelopers: User[];
-  isManager: boolean;
   canEdit: boolean;
-  addDeveloperToTeam: (developerId: string) => void;
 }
 
 const AvailableDevelopers: React.FC<Props> = ({
+  projectID,
+  getAndSetDevQaData,
+  setIsLoading,
   availableDevelopers,
-  isManager,
   canEdit,
-  addDeveloperToTeam,
 }) => {
-    
-  if (!isManager) {
-    return null;
+  async function addDeveloperToTeam(developerId: string) {
+    // Loading Started
+    setIsLoading(true);
+    await addOnePersonToProjectOnServer(projectID, developerId, "developer");
+    getAndSetDevQaData();
   }
 
   return (
