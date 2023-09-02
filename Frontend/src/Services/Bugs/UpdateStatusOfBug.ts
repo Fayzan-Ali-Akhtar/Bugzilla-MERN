@@ -19,7 +19,6 @@ export async function updateStatusOfBug(
     
     await axios.post(updateStatusOfBugURL, requestBody, config);
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

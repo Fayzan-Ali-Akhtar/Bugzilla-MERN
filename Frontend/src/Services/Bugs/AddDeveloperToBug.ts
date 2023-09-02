@@ -17,7 +17,6 @@ export async function addDeveloperToBug(
     
     await axios.post(addDeveloperToBugURL, requestBody, config);
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

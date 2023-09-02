@@ -23,7 +23,7 @@ export async function fetchAllQAsFromServer(): Promise<User[]> {
     return arrQAs;
 
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw error;
   }
 }

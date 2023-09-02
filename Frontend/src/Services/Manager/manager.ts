@@ -12,7 +12,6 @@ export async function fetchManagersFromServer(): Promise<User[]> {
     const postData = await newGetData<User[]>(new_url, config);
     return postData;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

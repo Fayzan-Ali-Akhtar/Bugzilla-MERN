@@ -17,7 +17,6 @@ export async function deleteBug(
     
     await axios.post(deleteBugURL, requestBody, config);
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

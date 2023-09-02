@@ -15,7 +15,6 @@ export async function createBug(
       headers: {},
     };
     addTokenToRequestHeader(config); // Add token to headers
-    console.log("createBug function screenshot: " + screenshot);
     const requestBody = {
         title: title,
         deadline: deadline,
@@ -27,7 +26,6 @@ export async function createBug(
     
     await axios.post(createBugURL, requestBody, config);
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

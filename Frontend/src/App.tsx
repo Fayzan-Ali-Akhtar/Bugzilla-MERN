@@ -23,33 +23,3 @@ function App() {
 }
 
 export default App;
-
-
-// Container(FOLDER) = function which has states 
-// Component(FOLDER) = function which does not have a state 
-
-// Services / API(FOLDER) = To get data 
-// --- User(FILE) = GetUser,  CreateUser , UpdateUser, DeleteUser
-// --- Post(FILE) = GetPost, CreatePost, UpdatePost, DeletePost
-
-// Utils(FOLDER) = General Functions
-// --- Validations(FILE)
-
-
-// Constants File = it should have routes
-
-
-// Contexts = useContxt --- UserContext
-
-// Update the code according to the following data types:
-
-// isLoggedIn Datatype = boolean
-// PostArray Datatype = Array of objects of UserObj
-// NeedToUpDatePostArray Datatype = boolean
-
-// export interface UserObj {
-//   userId: number;
-//   id: number;
-//   title: string;
-//   body: string;
-// }

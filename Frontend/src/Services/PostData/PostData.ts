@@ -17,7 +17,7 @@ export async function postData<T>(url: string, data: T): Promise<T> {
         {
             alert("Invalid Credentials");
         }
-            console.error("Error:", error.response.data.error);
+            // console.error("Error:", error.response.data.error);
             throw new Error(error.response.data.message);
         }
         else
@@ -25,7 +25,7 @@ export async function postData<T>(url: string, data: T): Promise<T> {
             throw new Error("Unknown error occurred while sending and processing data.")
         }
     } else {
-      console.error("An unknown error occurred while sending and processing data.");
+      // console.error("An unknown error occurred while sending and processing data.");
       throw new Error("Unknown error occurred while sending and processing data.")
     }
   }

@@ -25,9 +25,9 @@ export async function signupUserOnServer(newUser: User): Promise<User> {
     }
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.log(error.message);
+      // console.log(error.message);
     } else {
-      console.error("Unknown error occurred:", error);
+      // console.error("Unknown error occurred:", error);
     }
     throw error;
   }

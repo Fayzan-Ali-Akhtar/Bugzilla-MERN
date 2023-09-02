@@ -23,7 +23,6 @@ export async function fetchAllDevelopersFromServer(): Promise<User[]> {
     return arrDevelopers;
 
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

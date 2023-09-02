@@ -17,7 +17,6 @@ export async function removeDeveloperFromBug(
     
     await axios.post(removeDeveloperFromBugURL, requestBody, config);
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

@@ -3,15 +3,12 @@
     --secondary-color: #181823;
     --third-color: #E9F8F9;
     --fourth-color: #C0EEF2;
-    // Define more CSS variables for other colors
   }
 
 .primary-color-text
 {
     color:#1976d2;
 }
-// #1976d2 
-// #bddaf2
 .secondary-color-text
 {
     color:#d1e5f3;
@@ -54,7 +51,6 @@
 }
 
 .primary-color-border{
-    // border: solid red 1.5em;
     border: solid var(--primary-color) 0.1em;
 }
 .fourth-color-border{

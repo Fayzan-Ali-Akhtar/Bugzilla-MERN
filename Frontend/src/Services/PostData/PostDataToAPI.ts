@@ -7,9 +7,9 @@ export async function postDataToAPI<T>(url: string, data: T): Promise<T> {
     return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error("Error sending data:", error.message);
+      // console.error("Error sending data:", error.message);
     } else {
-      console.error("An unknown error occurred while sending data.");
+      // console.error("An unknown error occurred while sending data.");
     }
     return {} as T; // Return an empty object as fallback
   }

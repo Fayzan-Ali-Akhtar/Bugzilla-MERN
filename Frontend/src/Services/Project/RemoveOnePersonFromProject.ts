@@ -21,7 +21,7 @@ export async function removeOnePersonFromProjectOnServer(
     
     await axios.post(removeOnePersonFromProjectURL, requestBody, config);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw error;
   }
 }

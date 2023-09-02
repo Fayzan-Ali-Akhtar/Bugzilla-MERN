@@ -3,7 +3,6 @@ import { newGetData } from '../GetData/NewGetData';
 import { addTokenToRequestHeader } from '../../Utils/outGoing';
 
 export async function fetchManageName(managerID: string): Promise<string> {
-  // console.log('managerID:', managerID);
   try {
     const config = {
       headers: {},
@@ -18,7 +17,6 @@ export async function fetchManageName(managerID: string): Promise<string> {
     const nameOfManager = managerData.manager.firstName + " " + managerData.manager.lastName;
     return nameOfManager;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

@@ -5,6 +5,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import * as yup from "yup";
 import Axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
+import {imageUploadURL} from '../../../../Constants/Constants'
 
 interface Props {
   projectID: string;
@@ -24,7 +25,6 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
   const [isUploading, setIsUploading] = useState(false); // Add state for tracking upload status
   const [creatingBug, setCreatingBug] = useState(false); // Add state for tracking upload status
 
-  // const [imageURL, setImageURL] = useState(); // Add state for tracking upload status
 
   const schema = yup.object().shape({
     title: yup.string().required("Title is required"),
@@ -44,7 +44,7 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
 
       try {
         const response = await Axios.post(
-          "https://api.cloudinary.com/v1_1/dfcusg0w8/image/upload",
+          imageUploadURL,
           formData
         );
         setScreenshot(response.data.secure_url);

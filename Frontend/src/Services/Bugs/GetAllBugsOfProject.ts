@@ -31,7 +31,6 @@ export async function fetchAllBugsFromServer(projectID:string): Promise<Bug[]> {
     return arrProjects;
 
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

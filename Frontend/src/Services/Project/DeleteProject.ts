@@ -17,7 +17,6 @@ export async function deleteProjectFromServer(
     
     await axios.post(delteProjectURL, requestBody, config);
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

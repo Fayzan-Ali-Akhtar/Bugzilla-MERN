@@ -4,7 +4,6 @@ import { addTokenToRequestHeader } from '../../Utils/outGoing'; // Import the to
 
 export async function fetchOneProjectFromServer(projectID: string): Promise<Project> {
   try {
-    console.log('projectID:', projectID);
     const config = {
         headers: {},
         params: {
@@ -17,7 +16,7 @@ export async function fetchOneProjectFromServer(projectID: string): Promise<Proj
     return project;
 
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw error;
   }
 }

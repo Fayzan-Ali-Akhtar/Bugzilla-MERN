@@ -17,7 +17,6 @@ export async function createProjectOnServer(
     
     await axios.post(createProjectURL, requestBody, config);
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

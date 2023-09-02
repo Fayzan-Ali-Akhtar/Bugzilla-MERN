@@ -7,9 +7,9 @@ export async function fetchData<T>(url: string): Promise<T> {
     return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error("Error fetching data:", error.message);
+      // console.error("Error fetching data:", error.message);
     } else {
-      console.error("An unknown error occurred while fetching data.");
+      // console.error("An unknown error occurred while fetching data.");
     }
     return {} as T; // Return an empty object as fallback
   }
@@ -22,9 +22,9 @@ export async function fetchFromAPI<T>(url: string): Promise<T> {
     return rawData;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error("Error:", error.message);
+      // console.error("Error:", error.message);
     } else {
-      console.error("An unknown error occurred while fetching and processing data.");
+      // console.error("An unknown error occurred while fetching and processing data.");
     }
     return {} as T; // Return an empty object as fallback
   }

@@ -23,7 +23,6 @@ export async function fetchAllProjectsFromServer(): Promise<Project[]> {
     return arrProjects;
 
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

@@ -20,6 +20,9 @@ export const getOneManagerURL = `${base_URL}/manager/`;
 export const getOneProjectURL = `${base_URL}/project/info`;
 // export const getOneProjectURL = `http://localhost:5000/api/project/info`;
 
+// URL where bug images are stored 
+export const imageUploadURL = "https://api.cloudinary.com/v1_1/dfcusg0w8/image/upload";
+
 // Colors Used in the project !
 export const PrimaryColor: string = "#537FE7";
 export const SecondaryColor: string = "#181823";

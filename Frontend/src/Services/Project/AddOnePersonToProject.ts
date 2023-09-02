@@ -21,7 +21,6 @@ export async function addOnePersonToProjectOnServer(
     
     await axios.post(addOnePersonToProjectURL, requestBody, config);
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }
