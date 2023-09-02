@@ -1,5 +1,6 @@
 // URL Links to the backend server
-export const base_URL = "http://localhost:5000/api";
+export const vercel_URL = "https://bugzilla-mern.vercel.app/";
+export const base_URL = `${vercel_URL}/api`;
 export const manager_URL = `${base_URL}/manager`;
 export const allProjectURL = `${base_URL}/project/allinfo`;
 export const getAllDevelopersURL = `${base_URL}/developer/all`;
