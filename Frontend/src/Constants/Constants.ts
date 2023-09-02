@@ -14,9 +14,10 @@ export const removeDeveloperFromBugURL = `${base_URL}/bug/remove`;
 export const updateStatusOfBugURL = `${base_URL}/bug/update/status`;
 export const createBugURL = `${base_URL}/bug/create`;
 export const deleteBugURL = `${base_URL}/bug/delete`;
-// export const getOneManagerURL = `${base_URL}/manager`;
-export const getOneManagerURL = `http://localhost:5000/api/manager/`;
-export const getOneProjectURL = `http://localhost:5000/api/project/info`;
+export const getOneManagerURL = `${base_URL}/manager/`;
+// export const getOneManagerURL = `http://localhost:5000/api/manager/`;
+export const getOneProjectURL = `${base_URL}/project/info`;
+// export const getOneProjectURL = `http://localhost:5000/api/project/info`;
 
 // Colors Used in the project !
 export const PrimaryColor: string = "#537FE7";
@@ -85,7 +86,7 @@ export interface Project {
   bugs: string[];
 }
 
-export const imageTime = 5000;
+// export const imageTime = 5000;
 
 export const CompanyName: string = "Bugzilla";
 

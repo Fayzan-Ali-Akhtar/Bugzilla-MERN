@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
+import React from "react";
 import {
-  imageTime,
   ThirdColor
 } from "../../../Constants/Constants";
 import { IoIosBuild } from "react-icons/io";
@@ -30,7 +28,6 @@ const LogHero: React.FC<Props> = ({ type, DarkMode = true }) => {
           className="text-center"
           style={{ color: `${DarkMode ? ThirdColor : "black"}` }}
         >
-          {/* Resolve Bugs with <ConnectTextLogo logo_size={1.8} /> */}
           Code. Collaborate. Triumph.
         </h2>
       ) : (
