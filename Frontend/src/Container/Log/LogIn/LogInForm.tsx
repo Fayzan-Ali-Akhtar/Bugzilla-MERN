@@ -32,7 +32,7 @@ const LogInForm: React.FC = () => {
   const initialValues: FormValues = {
     email: "",
     password: "",
-    userType: UserType.Manager,
+    userType: UserType.Developer,
   };
 
   const navigate = useNavigate(); // Get the navigate function

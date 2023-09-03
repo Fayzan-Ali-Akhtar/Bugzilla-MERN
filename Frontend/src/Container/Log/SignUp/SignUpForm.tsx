@@ -37,7 +37,7 @@ const SignUpForm: React.FC = () => {
     lastName: "",
     email: "",
     password: "",
-    userType: UserType.Manager,
+    userType: UserType.Developer,
     terms: false,
   };
 

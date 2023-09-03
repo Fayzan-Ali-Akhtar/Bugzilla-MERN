@@ -1,12 +1,9 @@
 import React from "react";
-import {
-  ThirdColor
-} from "../../../Constants/Constants";
+import { ThirdColor } from "../../../Constants/Constants";
 import { IoIosBuild } from "react-icons/io";
 import { BsFillGearFill } from "react-icons/bs";
 import { BsDatabaseFillGear } from "react-icons/bs";
 import "./LogHero.scss";
-
 
 interface SvgObject {
   src: string;
@@ -18,8 +15,6 @@ interface Props {
 }
 
 const LogHero: React.FC<Props> = ({ type, DarkMode = true }) => {
-
-  
   return (
     <div className="LogHero">
       {/* For LOG Pages  */}
@@ -40,12 +35,13 @@ const LogHero: React.FC<Props> = ({ type, DarkMode = true }) => {
         </h2>
       )}
       <div className="d-flex flex-column justify-content-center align-items-center">
-        <IoIosBuild
-        className="icon key-icon"
-      />
-      <BsFillGearFill
-      className="icon gear-icon text-primary"/>
-      <BsDatabaseFillGear className="icon db-icon text-success"/>
+        <IoIosBuild className="icon key-icon" />
+        <BsFillGearFill className="icon gear-icon text-primary" />
+        <BsDatabaseFillGear className="icon db-icon text-success" />
+        {/* Demo Accounts  */}
+        <h4 className="white-text mt-4">Demo Account for Developer</h4>
+        <h5 className="white-text mt-1">Email: demo@gmail.com</h5>
+        <h5 className="white-text mt-1">Password: devdemo</h5>
       </div>
     </div>
   );
@@ -57,4 +53,3 @@ LogHero.defaultProps = {
 };
 
 export default LogHero;
-
