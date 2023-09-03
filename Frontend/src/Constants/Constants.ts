@@ -24,7 +24,8 @@ export const getOneProjectURL = `${base_URL}/project/info`;
 export const imageUploadURL = "https://api.cloudinary.com/v1_1/dfcusg0w8/image/upload";
 
 // Colors Used in the project !
-export const PrimaryColor: string = "#537FE7";
+// export const PrimaryColor: string = "#537FE7";
+export const PrimaryColor: string = "#0d6efd";
 export const SecondaryColor: string = "#181823";
 export const ThirdColor: string = "#E9F8F9";
 export const FourthColor: string = "#C0EEF2";
