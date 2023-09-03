@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Formik, Field, ErrorMessage } from "formik";
 import { Form, Col, Row } from "react-bootstrap";
 import * as yup from "yup";
@@ -9,7 +9,7 @@ import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
 import { TypeLog, UserType, User } from "../../../Constants/Constants";
 import { useNavigate } from "react-router-dom";
 import { loginUserOnServer } from "../../../Services/Login/loginOnServer";
-
+import Spinner from "react-bootstrap/Spinner";
 interface FormValues {
   email: string;
   password: string;
@@ -17,6 +17,7 @@ interface FormValues {
 }
 
 const LogInForm: React.FC = () => {
+  const [loggingIn,setLogginIn] = useState(false);
   const schema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Email is required"),
     password: yup
@@ -38,6 +39,7 @@ const LogInForm: React.FC = () => {
   const navigate = useNavigate(); // Get the navigate function
 
   const handleSubmit = (values: FormValues) => {
+    setLogginIn(true);
     const newUser: User = {
       id: "",
       firstName: "",
@@ -55,6 +57,9 @@ const LogInForm: React.FC = () => {
         navigate("/feed");
       } catch (error) {
         console.error("Error while logging in:", error);
+      }
+      finally{
+        setLogginIn(false);
       }
     })();
   };
@@ -142,6 +147,9 @@ const LogInForm: React.FC = () => {
             </Form.Group>
             {/* End of the password form group */}
             <div className="d-flex justify-content-evenly mb-2 mt-3">
+              { loggingIn?(
+              <Spinner animation="grow" variant="primary" />):(
+                <>
               <Button variant="primary" type="submit">
                 {/* <ConnectTextLogo logo_size={1.5} custom_color="white" /> */}
                 Log In
@@ -153,6 +161,8 @@ const LogInForm: React.FC = () => {
               >
                 Don't have an account?
               </Button>
+              </>)}
+
             </div>
           </Form>
         )}

@@ -50,7 +50,7 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
         setScreenshot(response.data.secure_url);
         return response.data.secure_url;
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       } finally {
         setIsUploading(false); // Set isUploading to false after upload (success or failure)
       }
@@ -65,9 +65,7 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
   const handleSubmit = async (values: FormValues) => {
     try {
       setCreatingBug(true);
-      // // Uploading Image
-      // const imageURL: string = await upLoadImage();
-      // Make date string in the "yyyy-MM-dd" format
+
       const year = deadline.getFullYear();
       const month = (deadline.getMonth() + 1).toString().padStart(2, "0");
       const day = deadline.getDate().toString().padStart(2, "0");
@@ -75,7 +73,6 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
       const dateString: string = `${year}-${month}-${day}`;
 
       // Call createBug function here with the values
-      console.log("Form values:", values);
       await createBug(
         values.title,
         dateString,
@@ -93,7 +90,7 @@ const CreateBug: React.FC<Props> = ({ projectID, fetchBugs }) => {
       setCreatingBug(false);
       await fetchBugs();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

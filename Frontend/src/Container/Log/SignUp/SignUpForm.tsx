@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Formik, Field, ErrorMessage } from "formik";
 import { Form, Col, Row } from "react-bootstrap";
 import * as yup from "yup";
@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import ConnectTextLogo from "../../../Component/Logo/CompanyTextLogo";
 import AccountInfo from "../../../Component/AccountInfo/AccountInfo";
+import Spinner from "react-bootstrap/Spinner";
 // Importing an ENUM
 import {
   TypeLog,
@@ -17,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { signupUserOnServer } from "../../../Services/Signup/signupOnServer";
 
 const SignUpForm: React.FC = () => {
+  const [signningUp,setSignningUp] = useState(false);
   const schema = yup.object().shape({
     firstName: yup.string().required("First name is required"),
     lastName: yup.string().required("Last name is required"),
@@ -44,6 +46,7 @@ const SignUpForm: React.FC = () => {
   const navigate = useNavigate(); // Get the navigate function
 
   const handleSubmit = async (values: FormValues) => {
+    setSignningUp(true);
     const newUser: User = {
       id: "",
       firstName: values.firstName,
@@ -59,10 +62,13 @@ const SignUpForm: React.FC = () => {
       navigate("/feed");
     } catch (error: unknown) {
       if (error instanceof Error) {
-        console.error("Unknown error occurred:", error);
+        // console.error("Unknown error occurred:", error);
       } else {
-        console.error("Unknown error occurred:", error);
+        // console.error("Unknown error occurred:", error);
       }
+    }
+    finally{
+      setSignningUp(false);
     }
   };
 
@@ -189,12 +195,16 @@ const SignUpForm: React.FC = () => {
             </Form.Group>
             {/* Buttons  */}
             <div className="d-flex justify-content-evenly mb-2">
+            { signningUp?(
+              <Spinner animation="grow" variant="primary" />):(
+                <>
               <Button variant="primary" type="submit">
                 Sign Up
               </Button>
               <Button variant="outline-light" type="submit" onClick={goToLogIn}>
                 Already have an account?
               </Button>
+              </>)}
             </div>
           </Form>
         )}
